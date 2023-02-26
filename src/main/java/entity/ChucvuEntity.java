@@ -1,66 +1,86 @@
 package entity;
 
 import java.math.BigDecimal;
-import java.util.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-
-import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name = "CHUCVU")
-public class ChucvuEntity {
+public class ChucVuEntity {
 	
 	@Id
-	private String MACV;
-	private String TEN;
-	private int QUYENHAN;
-	private String LOAINHANVIEN;
-	private BigDecimal LUONGCOBAN;
+	@Column(name="MACV")
+	private String maCv;
+	@Column(name="TEN")
+	private String ten;
+	@Column(name="QUYENHAN")
+	private int quyenHan;
+	@Column(name="LOAINHANVIEN")
+	private String loaiNhanVien;
+	@Column(name="LUONGCOBAN")
+	private BigDecimal luongCoBan ;
 	
 	
-	public ChucvuEntity() {}
-	public ChucvuEntity(String mACV, String tEN, int qUYENHAN, String lOAINHANVIEN, BigDecimal lUONG) {
-		super();
-		MACV = mACV;
-		TEN = tEN;
-		QUYENHAN = qUYENHAN;
-		LOAINHANVIEN = lOAINHANVIEN;
-		LUONGCOBAN = lUONG;
+	public ChucVuEntity() {}
+
+
+	public ChucVuEntity(String maCv, String ten, int quyenHan, String loaiNhanVien, BigDecimal luongCoBan) {
+		this.maCv = maCv;
+		this.ten = ten;
+		this.quyenHan = quyenHan;
+		this.loaiNhanVien = loaiNhanVien;
+		this.luongCoBan = luongCoBan;
 	}
-	public String getMACV() {
-		return MACV;
+
+
+	public String getMaCv() {
+		return maCv;
 	}
-	public void setMACV(String mACV) {
-		MACV = mACV;
+
+
+	public void setMaCv(String maCv) {
+		this.maCv = maCv;
 	}
-	public String getTEN() {
-		return TEN;
+
+
+	public String getTen() {
+		return ten;
 	}
-	public void setTEN(String tEN) {
-		TEN = tEN;
+
+
+	public void setTen(String ten) {
+		this.ten = ten;
 	}
-	public int getQUYENHAN() {
-		return QUYENHAN;
+
+
+	public int getQuyenHan() {
+		return quyenHan;
 	}
-	public void setQUYENHAN(int qUYENHAN) {
-		QUYENHAN = qUYENHAN;
+
+
+	public void setQuyenHan(int quyenHan) {
+		this.quyenHan = quyenHan;
 	}
-	public String getLOAINHANVIEN() {
-		return LOAINHANVIEN;
+
+
+	public String getLoaiNhanVien() {
+		return loaiNhanVien;
 	}
-	public void setLOAINHANVIEN(String lOAINHANVIEN) {
-		LOAINHANVIEN = lOAINHANVIEN;
+
+
+	public void setLoaiNhanVien(String loaiNhanVien) {
+		this.loaiNhanVien = loaiNhanVien;
 	}
-	public BigDecimal getLUONG() {
-		return LUONGCOBAN;
+
+
+	public BigDecimal getLuongCoBan() {
+		return luongCoBan;
 	}
-	public void setLUONG(BigDecimal lUONG) {
-		LUONGCOBAN = lUONG;
+
+
+	public void setLuongCoBan(BigDecimal luongCoBan) {
+		this.luongCoBan = luongCoBan;
 	}
 }

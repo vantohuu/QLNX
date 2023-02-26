@@ -1,27 +1,16 @@
 package ptithcm.controller;
 
 import java.math.BigDecimal;
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
-import javax.transaction.Transactional;
-
-import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import ptithcm.bean.Major;
 import ptithcm.bean.Student;
-import entity.ChucvuEntity;
+import entity.ChucVuEntity;
 
 
 @Controller
@@ -44,7 +33,7 @@ public class ChucvuController {
 		Session session = factory.openSession();
 		Transaction tx = session.beginTransaction();
 		try {
-			 ChucvuEntity cv = new ChucvuEntity("TRUC4", "TRUC", 0, "FULLTIME", new BigDecimal(Double.toString(12333)));
+			 ChucVuEntity cv = new ChucVuEntity("TRUC4", "TRUC", 0, "FULLTIME", new BigDecimal(Double.toString(12333)));
 		     session.save(cv);
 			 tx.commit();
 		 }

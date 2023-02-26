@@ -1,8 +1,6 @@
 package entity;
 
-import java.math.BigDecimal;
 import java.util.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -14,95 +12,115 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name = "NHANVIEN")
-public class NhanvienEntity {
+public class NhanVienEntity {
 	
 	@Id
-	private String MANV;
-	private String HO;
-	private String TEN;
-	private String GIOITINH;
+	@Column(name = "MANV")
+	private String maNv;
+	@Column(name = "HO")
+	private String ho;
+	@Column(name = "TEN")
+	private String ten;
+	@Column(name = "GIOITINH")
+	private String gioiTinh;
+	@Column(name = "NGAYSINH")
 	@Temporal(TemporalType.DATE)
-	@DateTimeFormat(pattern = "MM/dd/yyyy")
-	private Date NGAYSINH;
-	private String DIACHI;
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
+	private Date ngaySinh;
+	@Column(name = "DIACHI")
+	private String diaChi;
 	@Column(name = "[CMND/CCCD]")
-	private String CMND_CCCD;
-	private String SDT;
-	private String EMAIL;
-	private BigDecimal LUONG;
+	private String cmndCccd;
+	@Column(name = "SDT")
+	private String sdt;
+	@Column(name = "EMAIL")
+	private String email;
 	
-	public NhanvienEntity() {}
-	public NhanvienEntity(String mANV, String hO, String tEN, String gIOITINH, Date nGAYSINH, String dIACHI, String cMND_CCCD,
-			String sDT, String eMAIL, BigDecimal lUONG) {
-		MANV = mANV;
-		HO = hO;
-		TEN = tEN;
-		GIOITINH = gIOITINH;
-		NGAYSINH = nGAYSINH;
-		DIACHI = dIACHI;
-		CMND_CCCD = cMND_CCCD;
-		SDT = sDT;
-		EMAIL = eMAIL;
-		LUONG = lUONG;
+	public NhanVienEntity() {}
+
+	public NhanVienEntity(String maNv, String ho, String ten, String gioiTinh, Date ngaySinh, String diaChi,
+			String cmndCccd, String sdt, String email) {
+		super();
+		this.maNv = maNv;
+		this.ho = ho;
+		this.ten = ten;
+		this.gioiTinh = gioiTinh;
+		this.ngaySinh = ngaySinh;
+		this.diaChi = diaChi;
+		this.cmndCccd = cmndCccd;
+		this.sdt = sdt;
+		this.email = email;
 	}
-	public String getMANV() {
-		return MANV;
+
+	public String getMaNv() {
+		return maNv;
 	}
-	public void setMANV(String mANV) {
-		MANV = mANV;
+
+	public void setMaNv(String maNv) {
+		this.maNv = maNv;
 	}
-	public String getHO() {
-		return HO;
+
+	public String getHo() {
+		return ho;
 	}
-	public void setHO(String hO) {
-		HO = hO;
+
+	public void setHo(String ho) {
+		this.ho = ho;
 	}
-	public String getTEN() {
-		return TEN;
+
+	public String getTen() {
+		return ten;
 	}
-	public void setTEN(String tEN) {
-		TEN = tEN;
+
+	public void setTen(String ten) {
+		this.ten = ten;
 	}
-	public String getGIOITINH() {
-		return GIOITINH;
+
+	public String getGioiTinh() {
+		return gioiTinh;
 	}
-	public void setGIOITINH(String gIOITINH) {
-		GIOITINH = gIOITINH;
+
+	public void setGioiTinh(String gioiTinh) {
+		this.gioiTinh = gioiTinh;
 	}
-	public String getSDT() {
-		return SDT;
+
+	public Date getNgaySinh() {
+		return ngaySinh;
 	}
-	public void setSDT(String sDT) {
-		SDT = sDT;
+
+	public void setNgaySinh(Date ngaySinh) {
+		this.ngaySinh = ngaySinh;
 	}
-	public String getEMAIL() {
-		return EMAIL;
+
+	public String getDiaChi() {
+		return diaChi;
 	}
-	public void setEMAIL(String eMAIL) {
-		EMAIL = eMAIL;
+
+	public void setDiaChi(String diaChi) {
+		this.diaChi = diaChi;
 	}
-	public BigDecimal getLUONG() {
-		return LUONG;
+
+	public String getCmndCccd() {
+		return cmndCccd;
 	}
-	public void setLUONG(BigDecimal lUONG) {
-		LUONG = lUONG;
+
+	public void setCmndCccd(String cmndCccd) {
+		this.cmndCccd = cmndCccd;
 	}
-	public Date getNGAYSINH() {
-		return NGAYSINH;
+
+	public String getSdt() {
+		return sdt;
 	}
-	public void setNGAYSINH(Date nGAYSINH) {
-		NGAYSINH = nGAYSINH;
+
+	public void setSdt(String sdt) {
+		this.sdt = sdt;
 	}
-	public String getDIACHI() {
-		return DIACHI;
+
+	public String getEmail() {
+		return email;
 	}
-	public void setDIACHI(String dIACHI) {
-		DIACHI = dIACHI;
-	}
-	public String getCMND_CCCD() {
-		return CMND_CCCD;
-	}
-	public void setCMND_CCCD(String cMND_CCCD) {
-		CMND_CCCD = cMND_CCCD;
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 }
