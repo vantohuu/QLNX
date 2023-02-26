@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import ptithcm.bean.Major;
 import ptithcm.bean.Student;
-import ptithcm.entity.ChucvuEntity;
+import entity.ChucvuEntity;
 
 
 @Controller
@@ -44,7 +44,7 @@ public class ChucvuController {
 		Session session = factory.openSession();
 		Transaction tx = session.beginTransaction();
 		try {
-			 ChucvuEntity cv = new ChucvuEntity("TRUC2", "TRUC", 0, "FULLTIME", new BigDecimal(Double.toString(12333)));
+			 ChucvuEntity cv = new ChucvuEntity("TRUC4", "TRUC", 0, "FULLTIME", new BigDecimal(Double.toString(12333)));
 		     session.save(cv);
 			 tx.commit();
 		 }
