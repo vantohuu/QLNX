@@ -1,7 +1,8 @@
 package entity;
 
-import java.sql.Date;
 
+
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,7 +18,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name="CT_THE_LUOT")
-public class CtTheLuot {
+public class CTTheLuot {
 	@Id
 	@GeneratedValue
 	@Column(name="ID_CT_THE_LUOT")
@@ -43,10 +44,10 @@ public class CtTheLuot {
 	@Column(name="MANV2")
 	private String maNV2;
 
-	public CtTheLuot() {
+	public CTTheLuot() {
 	}
 
-	public CtTheLuot(int idCTTheLuot, TheLuot maThe, KhachHang bienSoXe, Date thoiGianVao, Date thoiGianRa,
+	public CTTheLuot(int idCTTheLuot, TheLuot maThe, KhachHang bienSoXe, Date thoiGianVao, Date thoiGianRa,
 			String maNV1, String maNV2) {
 		this.idCTTheLuot = idCTTheLuot;
 		this.maThe = maThe;

@@ -1,7 +1,7 @@
 package entity;
 
-import java.sql.Date;
 import java.util.Collection;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -27,8 +27,8 @@ public class TheLuot {
 	@Column(name="MANV")
 	private String maNV;
 	
-	@OneToMany(mappedBy="theLuot", fetch = FetchType.EAGER)
-	private Collection<CtTheLuot> ctTheLuots; 
+	@OneToMany(mappedBy="idCTTheLuot", fetch = FetchType.EAGER)
+	private Collection<CTTheLuot> ctTheLuots; 
 	
 	public TheLuot() {
 	}

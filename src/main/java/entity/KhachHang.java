@@ -23,8 +23,8 @@ public class KhachHang {
 	private String loaiXe;
 	@Column(name="MACANHAN")
 	private String maCaNhan;
-	@OneToMany(mappedBy="bienSoXe", fetch = FetchType.EAGER)
-	private Collection<CtTheLuot> ctTheLuots; 
+	@OneToMany(mappedBy="idCTTheLuot", fetch = FetchType.EAGER)
+	private Collection<CTTheLuot> ctTheLuots; 
 	
 	public KhachHang() {
 	}

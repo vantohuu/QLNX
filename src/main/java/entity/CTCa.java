@@ -1,6 +1,8 @@
 package entity;
 
-import java.sql.Date;
+
+
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,7 +16,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name="CT_CA")
-public class CtCa {
+public class CTCa {
 	@Id
 	@GeneratedValue
 	@Column(name="ID_CT_CA")
@@ -28,10 +30,10 @@ public class CtCa {
 	@Column(name="NGAY")
 	private Date ngay;
 	
-	public CtCa() {
+	public CTCa() {
 	}
 
-	public CtCa(int idCTCa, String username, String maCa, Date ngay) {
+	public CTCa(int idCTCa, String username, String maCa, Date ngay) {
 		this.idCTCa = idCTCa;
 		this.username = username;
 		this.maCa = maCa;

@@ -17,7 +17,7 @@ public class Ca {
 	private String tenCa;
 	@Column(name="TGBD")
 	private Time tGBD;
-	@Column(name="TGBD")
+	@Column(name="TGKT")
 	private Time tGKT;
 	
 	public Ca() {
