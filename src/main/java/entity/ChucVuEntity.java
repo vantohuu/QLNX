@@ -12,7 +12,7 @@ public class ChucVuEntity {
 	
 	@Id
 	@Column(name="MACV")
-	private String maCv;
+	private String maCV;
 	@Column(name="TEN")
 	private String ten;
 	@Column(name="QUYENHAN")
@@ -27,7 +27,7 @@ public class ChucVuEntity {
 
 
 	public ChucVuEntity(String maCv, String ten, int quyenHan, String loaiNhanVien, BigDecimal luongCoBan) {
-		this.maCv = maCv;
+		this.maCV = maCv;
 		this.ten = ten;
 		this.quyenHan = quyenHan;
 		this.loaiNhanVien = loaiNhanVien;
@@ -36,12 +36,12 @@ public class ChucVuEntity {
 
 
 	public String getMaCv() {
-		return maCv;
+		return maCV;
 	}
 
 
 	public void setMaCv(String maCv) {
-		this.maCv = maCv;
+		this.maCV = maCv;
 	}
 
 

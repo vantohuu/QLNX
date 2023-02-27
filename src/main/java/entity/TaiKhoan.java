@@ -1,8 +1,14 @@
 package entity;
 
+import java.util.Collection;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -18,21 +24,48 @@ public class TaiKhoan {
 	private int trangThai;
 	@Column(name="TONGGIOLAM")
 	private int tongGioLam;
-	@Column(name="MACV")
-	private String maCv ;
-	
+	@ManyToOne
+	@JoinColumn(name="MACV")
+	private ChucVuEntity maCV ;
+	@OneToMany(mappedBy="username", fetch = FetchType.EAGER)
+	private Collection<CTCa> ctCas; 
 	
 	public TaiKhoan() {}
 
 
-	public TaiKhoan(String username, String password, int trangThai, int tongGioLam, String maCv) {
+	
+	public TaiKhoan(String username, String password, int trangThai, int tongGioLam, ChucVuEntity maCV) {
 		super();
 		this.username = username;
 		this.password = password;
 		this.trangThai = trangThai;
 		this.tongGioLam = tongGioLam;
-		this.maCv = maCv;
+		this.maCV = maCV;
 	}
+
+	
+	public Collection<CTCa> getCtCas() {
+		return ctCas;
+	}
+
+
+
+	public void setCtCas(Collection<CTCa> ctCas) {
+		this.ctCas = ctCas;
+	}
+
+
+
+	public ChucVuEntity getMaCV() {
+		return maCV;
+	}
+
+
+
+	public void setMaCV(ChucVuEntity maCV) {
+		this.maCV = maCV;
+	}
+
 
 
 	public String getUsername() {
@@ -75,14 +108,19 @@ public class TaiKhoan {
 	}
 
 
-	public String getMaCv() {
-		return maCv;
+
+
+
+	public TaiKhoan(String username, String password, int trangThai, int tongGioLam, ChucVuEntity maCV,
+			Collection<CTCa> ctCas) {
+		super();
+		this.username = username;
+		this.password = password;
+		this.trangThai = trangThai;
+		this.tongGioLam = tongGioLam;
+		this.maCV = maCV;
+		this.ctCas = ctCas;
 	}
 
 
-	public void setMaCv(String maCv) {
-		this.maCv = maCv;
-	}
-
-	
 }

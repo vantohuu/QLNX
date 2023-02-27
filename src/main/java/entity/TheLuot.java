@@ -7,6 +7,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -24,19 +26,28 @@ public class TheLuot {
 	@DateTimeFormat(pattern="MM/dd/yyyy")
 	@Column(name="THOIGIANTAO")
 	private Date thoiGianTao;
-	@Column(name="MANV")
-	private String maNV;
+	@ManyToOne
+	@JoinColumn(name="MANV")
+	private NhanVienEntity maNV;
 	
-	@OneToMany(mappedBy="idCTTheLuot", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy="maThe", fetch = FetchType.EAGER)
 	private Collection<CTTheLuot> ctTheLuots; 
 	
 	public TheLuot() {
 	}
 	
-	public TheLuot(String maThe, Date thoiGianTao, String maNV) {
+	public TheLuot(String maThe, Date thoiGianTao, NhanVienEntity maNV) {
 		this.maThe = maThe;
 		this.thoiGianTao = thoiGianTao;
 		this.maNV = maNV;
+	}
+
+	public Collection<CTTheLuot> getCtTheLuots() {
+		return ctTheLuots;
+	}
+
+	public void setCtTheLuots(Collection<CTTheLuot> ctTheLuots) {
+		this.ctTheLuots = ctTheLuots;
 	}
 
 	public String getMaThe() {
@@ -55,11 +66,11 @@ public class TheLuot {
 		this.thoiGianTao = thoiGianTao;
 	}
 
-	public String getMaNV() {
+	public NhanVienEntity getMaNV() {
 		return maNV;
 	}
 
-	public void setMaNV(String maNV) {
+	public void setMaNV(NhanVienEntity maNV) {
 		this.maNV = maNV;
 	}
 	

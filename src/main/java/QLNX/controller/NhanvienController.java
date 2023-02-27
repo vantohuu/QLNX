@@ -1,3 +1,4 @@
+package QLNX.controller;
 //package ptithcm.controller;
 //
 //import java.math.BigDecimal;

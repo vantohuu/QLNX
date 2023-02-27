@@ -7,10 +7,13 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.springframework.beans.factory.xml.NamespaceHandler;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
@@ -27,17 +30,19 @@ public class TheThang {
 	@DateTimeFormat(pattern="MM/dd/yyyy")
 	@Column(name="NGAYHETHAN")
 	private Date ngayHetHan;
-	@Column(name="MANV")
-	private String maNV;
-	@Column(name="BXS")
-	private String bienSoXe;
+	@ManyToOne
+	@JoinColumn(name="MANV")
+	private NhanVienEntity maNV;
+	@ManyToOne
+	@JoinColumn(name="BSX")
+	private KhachHang bienSoXe;
 	@Column(name="MAPHI")
 	private String maPhi;
 	
 	public TheThang() {
 	}
 
-	public TheThang(String id, Date ngayTao, Date ngayHetHan, String maNV, String bienSoXe, String maPhi) {
+	public TheThang(String id, Date ngayTao, Date ngayHetHan, NhanVienEntity maNV, KhachHang bienSoXe, String maPhi) {
 		this.id = id;
 		this.ngayTao = ngayTao;
 		this.ngayHetHan = ngayHetHan;
@@ -70,19 +75,19 @@ public class TheThang {
 		this.ngayHetHan = ngayHetHan;
 	}
 
-	public String getMaNV() {
+	public NhanVienEntity getMaNV() {
 		return maNV;
 	}
 
-	public void setMaNV(String maNV) {
+	public void setMaNV(NhanVienEntity maNV) {
 		this.maNV = maNV;
 	}
 
-	public String getBienSoXe() {
+	public KhachHang getBienSoXe() {
 		return bienSoXe;
 	}
 
-	public void setBienSoXe(String bienSoXe) {
+	public void setBienSoXe(KhachHang bienSoXe) {
 		this.bienSoXe = bienSoXe;
 	}
 

@@ -1,10 +1,13 @@
 package entity;
 
 import java.sql.Time;
+import java.util.Collection;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -19,6 +22,8 @@ public class Ca {
 	private Time tGBD;
 	@Column(name="TGKT")
 	private Time tGKT;
+	@OneToMany(mappedBy="maCa", fetch = FetchType.EAGER)
+	private Collection<CTCa> ctCas; 
 	
 	public Ca() {
 	}
@@ -30,6 +35,16 @@ public class Ca {
 		this.tenCa = tenCa;
 		this.tGBD = tGBD;
 		this.tGKT = tGKT;
+	}
+
+
+	public Collection<CTCa> getCtCas() {
+		return ctCas;
+	}
+
+
+	public void setCtCas(Collection<CTCa> ctCas) {
+		this.ctCas = ctCas;
 	}
 
 

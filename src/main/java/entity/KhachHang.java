@@ -23,7 +23,7 @@ public class KhachHang {
 	private String loaiXe;
 	@Column(name="MACANHAN")
 	private String maCaNhan;
-	@OneToMany(mappedBy="idCTTheLuot", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy="bienSoXe", fetch = FetchType.EAGER)
 	private Collection<CTTheLuot> ctTheLuots; 
 	
 	public KhachHang() {
@@ -35,6 +35,14 @@ public class KhachHang {
 		this.ten = ten;
 		this.loaiXe = loaiXe;
 		this.maCaNhan = maCaNhan;
+	}
+
+	public Collection<CTTheLuot> getCtTheLuots() {
+		return ctTheLuots;
+	}
+
+	public void setCtTheLuots(Collection<CTTheLuot> ctTheLuots) {
+		this.ctTheLuots = ctTheLuots;
 	}
 
 	public String getBienSoXe() {

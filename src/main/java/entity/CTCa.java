@@ -8,6 +8,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -21,10 +23,12 @@ public class CTCa {
 	@GeneratedValue
 	@Column(name="ID_CT_CA")
 	private int idCTCa;
-	@Column(name="USERNAME")
-	private String username;
-	@Column(name="MACA")
-	private String maCa;
+	@ManyToOne
+	@JoinColumn(name="USERNAME")
+	private TaiKhoan username;
+	@ManyToOne
+	@JoinColumn(name="MACA")
+	private Ca maCa;
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern="MM/dd/yyyy")
 	@Column(name="NGAY")
@@ -33,12 +37,14 @@ public class CTCa {
 	public CTCa() {
 	}
 
-	public CTCa(int idCTCa, String username, String maCa, Date ngay) {
+	public CTCa(int idCTCa, TaiKhoan username, Ca maCa, Date ngay) {
 		this.idCTCa = idCTCa;
 		this.username = username;
 		this.maCa = maCa;
 		this.ngay = ngay;
 	}
+
+
 
 	public int getIdCTCa() {
 		return idCTCa;
@@ -48,21 +54,31 @@ public class CTCa {
 		this.idCTCa = idCTCa;
 	}
 
-	public String getUsername() {
+	
+
+	public TaiKhoan getUsername() {
 		return username;
 	}
 
-	public void setUsername(String username) {
+
+
+	public void setUsername(TaiKhoan username) {
 		this.username = username;
 	}
 
-	public String getMaCa() {
+
+
+	public Ca getMaCa() {
 		return maCa;
 	}
 
-	public void setMaCa(String maCa) {
+
+
+	public void setMaCa(Ca maCa) {
 		this.maCa = maCa;
 	}
+
+
 
 	public Date getNgay() {
 		return ngay;
