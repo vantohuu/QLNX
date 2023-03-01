@@ -113,8 +113,8 @@
 			<div
 				class="col py-3 d-flex justify-content-center align-items-center">
 				<div class = "w-100 h-100" >
-					<h3 class="m-5">Nhập thẻ vào:</h3>
-					<form action="/QLNX/thevao.htm" method="post" class="p-5">
+					<h3 class="m-5">Nhập thẻ ra:</h3>
+					<form action="/QLNX/thera.htm" method="post" class="p-5">
 						<div class="form-group row  ">
 							<label for="inputEmail3" class="col-sm-5 col-form-label">
 							Nhập mã thẻ</label>
@@ -131,23 +131,6 @@
 									placeholder="Biển số xe">
 							</div>
 						</div>
-						<fieldset class="form-group">
-							<div class="row">
-								<legend class="col-form-label col-sm-5 pt-0">Loại xe</legend>
-								<div class="col-sm-10">
-									<div class="form-check">
-										<input class="form-check-input" type="radio" name="xe"
-											id="gridRadios1" value="option1" checked> <label
-											class="form-check-label" for="gridRadios"> Xe Ga </label>
-									</div>
-									<div class="form-check">
-										<input class="form-check-input" type="radio" name="xe"
-											id="gridRadios2" value="option2"> <label
-											class="form-check-label" for="gridRadios"> Xe Số </label>
-									</div>
-								</div>
-							</div>
-						</fieldset>
 						<div class="form-group row ">
 							<div class="col-sm-10">
 								<button type="submit" class="btn btn-primary">Xác nhận</button>
