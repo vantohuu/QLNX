@@ -5,6 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resource/css/home.css">
     <title>Bootstrap demo</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" 
      integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
@@ -13,14 +14,14 @@
 <body>
     <div class="container-fluid">
     <div class="row flex-nowrap">
-        <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark">
-            <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
-                <a href="/" class="d-flex align-items-center pb-5 pt-5 mb-md-0 me-md-auto text-white text-decoration-none">
+        <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0t bg-dark">
+            <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100 ">
+                <a href="#" class="d-flex align-items-center pb-5 pt-5 mb-md-0 me-md-auto text-white text-decoration-none">
                     <span class="fs-5 d-none d-sm-inline">QUẢN LÍ NHÀ XE PTITHCM</span>
                 </a>
-                <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
+                <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start " id="menu">
                     <li class="nav-item">
-                        <a href="#" class="nav-link align-middle px-0">
+                        <a href="index.jsp" class="nav-link align-middle px-0">
                            <i class="fa-solid fa-house"></i>
                             <span class="ms-1 d-none d-sm-inline">Home</span>
                         </a>
@@ -32,18 +33,18 @@
                         </a>
                         <ul class="collapse show nav flex-column ms-1" id="submenu1" data-bs-parent="#menu">
                             <li class="w-100">
-                                <a href="thevao" class="nav-link px-0"> <span class="d-none d-sm-inline">Nhập thẻ vào</span></a>
+                                <a href="thevao.htm" class="nav-link px-0"> <span class="d-none d-sm-inline">Nhập thẻ vào</span></a>
                             </li>
                             <li>
-                                <a href="thera" class="nav-link px-0"> <span class="d-none d-sm-inline">Nhập thẻ ra</span></a>
+                                <a href="thera.htm" class="nav-link px-0"> <span class="d-none d-sm-inline">Nhập thẻ ra</span></a>
                             </li>
                             <li>
-                                <a href="lichsugui" class="nav-link px-0"> <span class="d-none d-sm-inline">Lịch sử gửi </span></a>
+                                <a href="lichsugui.htm" class="nav-link px-0"> <span class="d-none d-sm-inline">Lịch sử gửi </span></a>
                             </li>
                         </ul>
                     </li>
                     <li>
-                        <a href="#" class="nav-link px-0 align-middle">
+                        <a href="lich.htm" class="nav-link px-0 align-middle">
                            <i class="fa-solid fa-calendar-days"></i>
                            <span class="ms-1 d-none d-sm-inline">Lịch làm việc</span></a>
                     </li>
@@ -53,25 +54,31 @@
                             <span class="ms-1 d-none d-sm-inline">Quản lí</span></a>
                         <ul class="collapse nav flex-column ms-1" id="submenu2" data-bs-parent="#menu">
                             <li class="w-100">
-                                <a href="doanhthu" class="nav-link px-0"> <span class="d-none d-sm-inline">Doanh thu</span></a>
+                                <a href="quanlitheluot.htm" class="nav-link px-0"> <span class="d-none d-sm-inline">Thẻ lượt</span></a>
+                            </li>
+                            <li class="w-100">
+                                <a href="quanlithethang.htm" class="nav-link px-0"> <span class="d-none d-sm-inline">Thẻ tháng</span></a>
+                            </li>
+                            <li class="w-100">
+                                <a href="quanlidoanhthu.htm" class="nav-link px-0"> <span class="d-none d-sm-inline">Doanh thu</span></a>
                             </li>
                             <li>
-                                <a href="nhanvie" class="nav-link px-0"> <span class="d-none d-sm-inline">Nhân viên</span></a>
+                                <a href="quanlinhanvien.htm" class="nav-link px-0"> <span class="d-none d-sm-inline">Nhân viên</span></a>
                             </li>
                             <li>
-                                <a href="luong" class="nav-link px-0"> <span class="d-none d-sm-inline">Lịch</span></a>
+                                <a href="quanlilich.htm" class="nav-link px-0"> <span class="d-none d-sm-inline">Lịch</span></a>
                             </li>
                              <li>
-                                <a href="luong" class="nav-link px-0"> <span class="d-none d-sm-inline">Lương</span></a>
+                                <a href="quanliluong.htm" class="nav-link px-0"> <span class="d-none d-sm-inline">Lương</span></a>
                             </li>
                              <li>
-                                <a href="taikhoan" class="nav-link px-0"> <span class="d-none d-sm-inline">Tài khoản</span></a>
+                                <a href="quanlitaikhoan.htm" class="nav-link px-0"> <span class="d-none d-sm-inline">Tài khoản</span></a>
                             </li>
                              <li>
-                                <a href="bienban" class="nav-link px-0"> <span class="d-none d-sm-inline">Biên bản</span></a>
+                                <a href="quanlibienban.htm" class="nav-link px-0"> <span class="d-none d-sm-inline">Biên bản</span></a>
                             </li>
                              <li>
-                                <a href="suco" class="nav-link px-0"> <span class="d-none d-sm-inline">Sự cố</span></a>
+                                <a href="quanlisuco.htm" class="nav-link px-0"> <span class="d-none d-sm-inline">Sự cố</span></a>
                             </li>
                         </ul>
                     </li>
@@ -85,12 +92,12 @@
                     </a>
                     <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
    
-                        <li><a class="dropdown-item" href="#">Chỉnh sửa tài khoản</a></li>
-                        <li><a class="dropdown-item" href="#">Đổi mật khẩu</a></li>
+                        <li><a class="dropdown-item" href="chinhsuathongtin">Chỉnh sửa thông tin cá nhân</a></li>
+                        <li><a class="dropdown-item" href="doimatkhau">Đổi mật khẩu</a></li>
                         <li>
                             <hr class="dropdown-divider">
                         </li>
-                        <li><a class="dropdown-item" href="#">Đăng xuất</a></li>
+                        <li><a class="dropdown-item" href="dangxuat">Đăng xuất</a></li>
                     </ul>
                 </div>
             </div>
