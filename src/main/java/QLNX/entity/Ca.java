@@ -1,4 +1,4 @@
-package entity;
+package QLNX.entity;
 
 import java.sql.Time;
 import java.util.Collection;
@@ -16,14 +16,18 @@ public class Ca {
 	@Id
 	@Column(name="MACA")
 	private String maCa;
+	
 	@Column(name="TENCA")
 	private String tenCa;
+	
 	@Column(name="TGBD")
 	private Time tGBD;
+	
 	@Column(name="TGKT")
 	private Time tGKT;
-	@OneToMany(mappedBy="maCa", fetch = FetchType.EAGER)
-	private Collection<CTCa> ctCas; 
+	
+	@OneToMany(mappedBy="ca", fetch = FetchType.LAZY)
+	private Collection<CTCa> ctCa; 
 	
 	public Ca() {
 	}
@@ -39,12 +43,12 @@ public class Ca {
 
 
 	public Collection<CTCa> getCtCas() {
-		return ctCas;
+		return ctCa;
 	}
 
 
 	public void setCtCas(Collection<CTCa> ctCas) {
-		this.ctCas = ctCas;
+		this.ctCa = ctCas;
 	}
 
 

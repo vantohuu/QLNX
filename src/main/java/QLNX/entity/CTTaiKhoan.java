@@ -1,4 +1,4 @@
-package entity;
+package QLNX.entity;
 
 
 import java.sql.Timestamp;
@@ -7,6 +7,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 
@@ -18,56 +20,70 @@ public class CTTaiKhoan {
 	@GeneratedValue
 	@Column(name="ID_CT_TAI_KHOAN")
 	private String idCTTaiKhoan;
-	@Column(name="USERNAME")
-	private String username;
+	//kết nối bảng tài khoản
+	@ManyToOne
+	@JoinColumn(name="USERNAME")
+	private TaiKhoan taiKhoan;
+	
 	@Column(name="THOIGIANCHINHSUA")
 	private Timestamp thoiGianCHinhSua;
-	@Column(name="MANV")
-	private String maNv;
+	// kết nối bảng nhân viên - ghi nhận nhân viên chỉnh sửa tài khoản
+	@ManyToOne
+	@JoinColumn(name="MANV")
+	private NhanVien nhanVien;
+	
 	@Column(name="LYDO")
 	private String lyDo;
 	
-	public CTTaiKhoan() {};
-	
-	public CTTaiKhoan(String idCTTaiKhoan, String username, Timestamp thoiGianCHinhSua, String maNv, String lyDo) {
-		super();
+	public CTTaiKhoan() {}
+
+	public CTTaiKhoan(String idCTTaiKhoan, TaiKhoan taiKhoan, Timestamp thoiGianCHinhSua, NhanVien nhanVien,
+			String lyDo) {
 		this.idCTTaiKhoan = idCTTaiKhoan;
-		this.username = username;
+		this.taiKhoan = taiKhoan;
 		this.thoiGianCHinhSua = thoiGianCHinhSua;
-		this.maNv = maNv;
+		this.nhanVien = nhanVien;
 		this.lyDo = lyDo;
 	}
+
 	public String getIdCTTaiKhoan() {
 		return idCTTaiKhoan;
 	}
+
 	public void setIdCTTaiKhoan(String idCTTaiKhoan) {
 		this.idCTTaiKhoan = idCTTaiKhoan;
 	}
-	public String getUsername() {
-		return username;
+
+	public TaiKhoan getTaiKhoan() {
+		return taiKhoan;
 	}
-	public void setUsername(String username) {
-		this.username = username;
+
+	public void setTaiKhoan(TaiKhoan taiKhoan) {
+		this.taiKhoan = taiKhoan;
 	}
+
 	public Timestamp getThoiGianCHinhSua() {
 		return thoiGianCHinhSua;
 	}
+
 	public void setThoiGianCHinhSua(Timestamp thoiGianCHinhSua) {
 		this.thoiGianCHinhSua = thoiGianCHinhSua;
 	}
-	public String getMaNv() {
-		return maNv;
+
+	public NhanVien getNhanVien() {
+		return nhanVien;
 	}
-	public void setMaNv(String maNv) {
-		this.maNv = maNv;
+
+	public void setNhanVien(NhanVien nhanVien) {
+		this.nhanVien = nhanVien;
 	}
+
 	public String getLyDo() {
 		return lyDo;
 	}
+
 	public void setLyDo(String lyDo) {
 		this.lyDo = lyDo;
-	}
+	};
 	
-	
-		
 }

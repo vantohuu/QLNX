@@ -1,4 +1,4 @@
-package entity;
+package QLNX.entity;
 
 
 
@@ -23,12 +23,15 @@ public class CTCa {
 	@GeneratedValue
 	@Column(name="ID_CT_CA")
 	private int idCTCa;
+	//kết nối bàng tài khoản
 	@ManyToOne
 	@JoinColumn(name="USERNAME")
-	private TaiKhoan username;
+	private TaiKhoan taiKhoan;
+	// kết nối bàng ca
 	@ManyToOne
 	@JoinColumn(name="MACA")
-	private Ca maCa;
+	private Ca ca;
+	
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern="MM/dd/yyyy")
 	@Column(name="NGAY")
@@ -37,14 +40,12 @@ public class CTCa {
 	public CTCa() {
 	}
 
-	public CTCa(int idCTCa, TaiKhoan username, Ca maCa, Date ngay) {
+	public CTCa(int idCTCa, TaiKhoan taiKhoan, Ca ca, Date ngay) {
 		this.idCTCa = idCTCa;
-		this.username = username;
-		this.maCa = maCa;
+		this.taiKhoan = taiKhoan;
+		this.ca = ca;
 		this.ngay = ngay;
 	}
-
-
 
 	public int getIdCTCa() {
 		return idCTCa;
@@ -54,31 +55,21 @@ public class CTCa {
 		this.idCTCa = idCTCa;
 	}
 
-	
-
-	public TaiKhoan getUsername() {
-		return username;
+	public TaiKhoan getTaiKhoan() {
+		return taiKhoan;
 	}
 
-
-
-	public void setUsername(TaiKhoan username) {
-		this.username = username;
+	public void setTaiKhoan(TaiKhoan taiKhoan) {
+		this.taiKhoan = taiKhoan;
 	}
 
-
-
-	public Ca getMaCa() {
-		return maCa;
+	public Ca getCa() {
+		return ca;
 	}
 
-
-
-	public void setMaCa(Ca maCa) {
-		this.maCa = maCa;
+	public void setCa(Ca ca) {
+		this.ca = ca;
 	}
-
-
 
 	public Date getNgay() {
 		return ngay;
@@ -87,6 +78,5 @@ public class CTCa {
 	public void setNgay(Date ngay) {
 		this.ngay = ngay;
 	}
-	
-	
+
 }

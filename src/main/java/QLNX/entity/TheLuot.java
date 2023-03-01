@@ -1,4 +1,4 @@
-package entity;
+package QLNX.entity;
 
 import java.util.Collection;
 import java.util.Date;
@@ -22,32 +22,27 @@ public class TheLuot {
 	@Id
 	@Column(name="MATHE")
 	private String maThe;
+	
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern="MM/dd/yyyy")
 	@Column(name="THOIGIANTAO")
 	private Date thoiGianTao;
+	
 	@ManyToOne
 	@JoinColumn(name="MANV")
-	private NhanVienEntity maNV;
+	private NhanVien nhanVien;
 	
-	@OneToMany(mappedBy="maThe", fetch = FetchType.EAGER)
-	private Collection<CTTheLuot> ctTheLuots; 
+	@OneToMany(mappedBy="theLuot", fetch = FetchType.LAZY)
+	private Collection<CTTheLuot> ctTheLuot; 
 	
 	public TheLuot() {
 	}
-	
-	public TheLuot(String maThe, Date thoiGianTao, NhanVienEntity maNV) {
+
+	public TheLuot(String maThe, Date thoiGianTao, NhanVien nhanVien, Collection<CTTheLuot> ctTheLuot) {
 		this.maThe = maThe;
 		this.thoiGianTao = thoiGianTao;
-		this.maNV = maNV;
-	}
-
-	public Collection<CTTheLuot> getCtTheLuots() {
-		return ctTheLuots;
-	}
-
-	public void setCtTheLuots(Collection<CTTheLuot> ctTheLuots) {
-		this.ctTheLuots = ctTheLuots;
+		this.nhanVien = nhanVien;
+		this.ctTheLuot = ctTheLuot;
 	}
 
 	public String getMaThe() {
@@ -66,12 +61,21 @@ public class TheLuot {
 		this.thoiGianTao = thoiGianTao;
 	}
 
-	public NhanVienEntity getMaNV() {
-		return maNV;
+	public NhanVien getNhanVien() {
+		return nhanVien;
 	}
 
-	public void setMaNV(NhanVienEntity maNV) {
-		this.maNV = maNV;
+	public void setNhanVien(NhanVien nhanVien) {
+		this.nhanVien = nhanVien;
 	}
+
+	public Collection<CTTheLuot> getCtTheLuot() {
+		return ctTheLuot;
+	}
+
+	public void setCtTheLuot(Collection<CTTheLuot> ctTheLuot) {
+		this.ctTheLuot = ctTheLuot;
+	}
+	
 	
 }

@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=uft-8"
     pageEncoding="utf-8"%>
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="utf-8">
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resource/css/login.css">
@@ -10,7 +10,7 @@
 <body>
 	<div class="login-box">
         <p>Login</p>
-        <form action="login.htm">
+        <form action="login.htm" method="POST">
             <div class="user-box">
                 <input required="" name="username" type="text">
                 <label>Tài khoản</label>
@@ -19,6 +19,9 @@
                 <input required="" name="password" type="password">
                 <label>Mật khẩu</label>
             </div>
+            <div >
+            ${error }
+			</div>
             <button type="submit" class="cta">
                 <span class="hover-underline-animation"> Đăng Nhập </span>
                 <svg viewBox="0 0 46 16" height="10" width="30" xmlns="http://www.w3.org/2000/svg"

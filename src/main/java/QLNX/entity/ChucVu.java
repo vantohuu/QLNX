@@ -1,14 +1,18 @@
-package entity;
+package QLNX.entity;
 
 import java.math.BigDecimal;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "CHUCVU")
-public class ChucVuEntity {
+public class ChucVu {
 	
 	@Id
 	@Column(name="MACV")
@@ -23,10 +27,12 @@ public class ChucVuEntity {
 	private BigDecimal luongCoBan ;
 	
 	
-	public ChucVuEntity() {}
+	@OneToMany(mappedBy = "cV", fetch = FetchType.LAZY)
+	private List<TaiKhoan> taiKhoan;
+	public ChucVu() {}
 
 
-	public ChucVuEntity(String maCv, String ten, int quyenHan, String loaiNhanVien, BigDecimal luongCoBan) {
+	public ChucVu(String maCv, String ten, int quyenHan, String loaiNhanVien, BigDecimal luongCoBan) {
 		this.maCV = maCv;
 		this.ten = ten;
 		this.quyenHan = quyenHan;

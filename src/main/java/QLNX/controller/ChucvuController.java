@@ -9,8 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import QLNX.entity.ChucVu;
 import ptithcm.bean.Student;
-import entity.ChucVuEntity;
 
 
 @Controller
@@ -33,7 +34,7 @@ public class ChucvuController {
 		Session session = factory.openSession();
 		Transaction tx = session.beginTransaction();
 		try {
-			 ChucVuEntity cv = new ChucVuEntity("TRUC4", "TRUC", 0, "FULLTIME", new BigDecimal(Double.toString(12333)));
+			 ChucVu cv = new ChucVu("TRUC4", "TRUC", 0, "FULLTIME", new BigDecimal(Double.toString(12333)));
 		     session.save(cv);
 			 tx.commit();
 		 }

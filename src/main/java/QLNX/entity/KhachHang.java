@@ -1,6 +1,6 @@
-package entity;
+package QLNX.entity;
 
-import java.util.Collection;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,16 +15,27 @@ public class KhachHang {
 	@Id
 	@Column(name="BXS")
 	private String bienSoXe;
+	
 	@Column(name="HO")
 	private String ho;
+	
 	@Column(name="TEN")
 	private String ten;
+	
 	@Column(name="LOAIXE")
 	private String loaiXe;
+	
 	@Column(name="MACANHAN")
 	private String maCaNhan;
-	@OneToMany(mappedBy="bienSoXe", fetch = FetchType.EAGER)
-	private Collection<CTTheLuot> ctTheLuots; 
+	
+	@OneToMany(mappedBy="khachHang", fetch = FetchType.LAZY)
+	private List<CTTheLuot> ctTheLuot;
+	
+	@OneToMany(mappedBy="khachHang", fetch = FetchType.LAZY)
+	private List<CTSuCo> ctSuCo; 
+	
+	@OneToMany(mappedBy="khachHang", fetch = FetchType.LAZY)
+	private List<TheThang> theThang; 
 	
 	public KhachHang() {
 	}
@@ -35,14 +46,6 @@ public class KhachHang {
 		this.ten = ten;
 		this.loaiXe = loaiXe;
 		this.maCaNhan = maCaNhan;
-	}
-
-	public Collection<CTTheLuot> getCtTheLuots() {
-		return ctTheLuots;
-	}
-
-	public void setCtTheLuots(Collection<CTTheLuot> ctTheLuots) {
-		this.ctTheLuots = ctTheLuots;
 	}
 
 	public String getBienSoXe() {
@@ -83,6 +86,30 @@ public class KhachHang {
 
 	public void setMaCaNhan(String maCaNhan) {
 		this.maCaNhan = maCaNhan;
+	}
+
+	public List<CTTheLuot> getCtTheLuot() {
+		return ctTheLuot;
+	}
+
+	public void setCtTheLuots(List<CTTheLuot> ctTheLuot) {
+		this.ctTheLuot = ctTheLuot;
+	}
+
+	public List<CTSuCo> getCtSuCo() {
+		return ctSuCo;
+	}
+
+	public void setCtSuCo(List<CTSuCo> ctSuCo) {
+		this.ctSuCo = ctSuCo;
+	}
+
+	public List<TheThang> getTheThang() {
+		return theThang;
+	}
+
+	public void setTheThang(List<TheThang> theThang) {
+		this.theThang = theThang;
 	}
 	
 	

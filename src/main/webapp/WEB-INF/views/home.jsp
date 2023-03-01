@@ -1,13 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %> 
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Bootstrap demo</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" 
      integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <script src="https://kit.fontawesome.com/ee36f81461.js" crossorigin="anonymous"></script>
@@ -98,29 +96,10 @@
             </div>
         </div>
         <div class="col py-3">
-            <h1>Table</h1>
-		<table class="table table-striped">
-			<thead>
-				<tr>
-					<th>Tên tài khoản</th>
-					<th>Chức vụ</th>
-					<th>Họ và tên</th>
-				</tr>
-			</thead>
-			<tbody>
-				<c:forEach var="account" items="${accounts}">
-					<tr>
-						<td>${account.username}</td>
-						<td>${account.cV.ten}</td>
-						<td>${account.nhanVien.ho} ${account.nhanVien.ten}</td>
-					</tr>
-				</c:forEach>
-			</tbody>
-		</table>
+            Content area...
         </div>
     </div>
 </div>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
 </body>
 </html>
