@@ -102,7 +102,7 @@
                 </div>
             </div>
         </div>
-        <div class="col py-3">
+        <div class=""col py-3 d-flex justify-content-center align-items-center"">
             Content area...
         </div>
     </div>
