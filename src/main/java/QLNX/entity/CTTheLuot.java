@@ -9,6 +9,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -23,7 +24,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Table(name="CT_THE_LUOT")
 public class CTTheLuot {
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="ID_CT_THE_LUOT")
 	private int idCTTheLuot;
 	
@@ -36,7 +37,7 @@ public class CTTheLuot {
 	@JoinColumn(name="BSX")
 	private KhachHang khachHang;
 	
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
 	@DateTimeFormat(pattern="MM/dd/yyyy HH:mm:ss")
 	@Column(name="THOIGIANVAO")
 	private Date thoiGianVao;
@@ -60,9 +61,8 @@ public class CTTheLuot {
 	public CTTheLuot() {
 	}
 
-	public CTTheLuot(int idCTTheLuot, TheLuot theLuot, KhachHang khachHang, Date thoiGianVao, Date thoiGianRa,
+	public CTTheLuot(TheLuot theLuot, KhachHang khachHang, Date thoiGianVao, Date thoiGianRa,
 			NhanVien nhanVien1, NhanVien nhanVien2) {
-		this.idCTTheLuot = idCTTheLuot;
 		this.theLuot = theLuot;
 		this.khachHang = khachHang;
 		this.thoiGianVao = thoiGianVao;

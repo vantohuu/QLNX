@@ -68,7 +68,7 @@ public class UserController {
 		List<TaiKhoan> accounts = this.getTaiKhoan();
 		model.addAttribute("accounts",accounts);
 		
-		return "thongketk";
+		return "thongke";
 	}
 	public List<TaiKhoan> getTaiKhoan() {
 		Session session = factory.getCurrentSession();

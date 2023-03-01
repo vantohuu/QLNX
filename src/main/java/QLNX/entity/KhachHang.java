@@ -13,7 +13,7 @@ import javax.persistence.Table;
 @Table(name="KHACHHANG")
 public class KhachHang {
 	@Id
-	@Column(name="BXS")
+	@Column(name="BSX")
 	private String bienSoXe;
 	
 	@Column(name="HO")
@@ -46,6 +46,11 @@ public class KhachHang {
 		this.ten = ten;
 		this.loaiXe = loaiXe;
 		this.maCaNhan = maCaNhan;
+	}
+
+	public KhachHang(String bienSoXe, String loaiXe) {
+		this.bienSoXe = bienSoXe;
+		this.loaiXe = loaiXe;
 	}
 
 	public String getBienSoXe() {
