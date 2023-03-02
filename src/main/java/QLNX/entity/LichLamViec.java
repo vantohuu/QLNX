@@ -17,16 +17,16 @@ import javax.persistence.TemporalType;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
-@Table(name="CT_CA")
-public class CTCa {
+@Table(name="LICHLAMVIEC")
+public class LichLamViec {
 	@Id
 	@GeneratedValue
-	@Column(name="ID_CT_CA")
-	private int idCTCa;
-	//kết nối bàng tài khoản
+	@Column(name="ID_LICHLAMVIEC")
+	private int idLichLamViec;
+	//kết nối bảng nhân viên
 	@ManyToOne
-	@JoinColumn(name="USERNAME")
-	private TaiKhoan taiKhoan;
+	@JoinColumn(name="MANV")
+	private NhanVien nhanVien;
 	// kết nối bàng ca
 	@ManyToOne
 	@JoinColumn(name="MACA")
@@ -37,30 +37,30 @@ public class CTCa {
 	@Column(name="NGAY")
 	private Date ngay;
 	
-	public CTCa() {
+	public LichLamViec() {
 	}
 
-	public CTCa(int idCTCa, TaiKhoan taiKhoan, Ca ca, Date ngay) {
-		this.idCTCa = idCTCa;
-		this.taiKhoan = taiKhoan;
+	public LichLamViec(int idLichLamViec, NhanVien nhanVien, Ca ca, Date ngay) {
+		this.idLichLamViec = idLichLamViec;
+		this.nhanVien = nhanVien;
 		this.ca = ca;
 		this.ngay = ngay;
 	}
 
-	public int getIdCTCa() {
-		return idCTCa;
+	public int getIdLichLamViec() {
+		return idLichLamViec;
 	}
 
-	public void setIdCTCa(int idCTCa) {
-		this.idCTCa = idCTCa;
+	public void setIdLichLamViec(int idLichLamViec) {
+		this.idLichLamViec = idLichLamViec;
 	}
 
-	public TaiKhoan getTaiKhoan() {
-		return taiKhoan;
+	public NhanVien getNhanVien() {
+		return nhanVien;
 	}
 
-	public void setTaiKhoan(TaiKhoan taiKhoan) {
-		this.taiKhoan = taiKhoan;
+	public void setNhanVien(NhanVien nhanVien) {
+		this.nhanVien = nhanVien;
 	}
 
 	public Ca getCa() {
@@ -79,4 +79,5 @@ public class CTCa {
 		this.ngay = ngay;
 	}
 
+	
 }

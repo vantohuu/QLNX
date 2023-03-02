@@ -1,6 +1,5 @@
 package QLNX.entity;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -19,74 +18,39 @@ public class ChucVu {
 	private String maCV;
 	@Column(name="TEN")
 	private String ten;
-	@Column(name="QUYENHAN")
-	private int quyenHan;
-	@Column(name="LOAINHANVIEN")
-	private String loaiNhanVien;
-	@Column(name="LUONGCOBAN")
-	private BigDecimal luongCoBan ;
+
 	
 	
-	@OneToMany(mappedBy = "cV", fetch = FetchType.LAZY)
-	private List<TaiKhoan> taiKhoan;
+	@OneToMany(mappedBy = "chucVu", fetch = FetchType.LAZY)
+	private List<NhanVien> nhanVien;
+	
+	@OneToMany(mappedBy = "chucVu", fetch = FetchType.LAZY)
+	private List<Luong> luong;
+	
 	public ChucVu() {}
-
-
-	public ChucVu(String maCv, String ten, int quyenHan, String loaiNhanVien, BigDecimal luongCoBan) {
-		this.maCV = maCv;
+	public ChucVu(String maCV, String ten, List<NhanVien> nhanVien) {
+		this.maCV = maCV;
 		this.ten = ten;
-		this.quyenHan = quyenHan;
-		this.loaiNhanVien = loaiNhanVien;
-		this.luongCoBan = luongCoBan;
+		this.nhanVien = nhanVien;
 	}
-
-
-	public String getMaCv() {
+	public String getMaCV() {
 		return maCV;
 	}
-
-
-	public void setMaCv(String maCv) {
-		this.maCV = maCv;
+	public void setMaCV(String maCV) {
+		this.maCV = maCV;
 	}
-
-
 	public String getTen() {
 		return ten;
 	}
-
-
 	public void setTen(String ten) {
 		this.ten = ten;
 	}
-
-
-	public int getQuyenHan() {
-		return quyenHan;
+	public List<NhanVien> getNhanVien() {
+		return nhanVien;
+	}
+	public void setNhanVien(List<NhanVien> nhanVien) {
+		this.nhanVien = nhanVien;
 	}
 
 
-	public void setQuyenHan(int quyenHan) {
-		this.quyenHan = quyenHan;
-	}
-
-
-	public String getLoaiNhanVien() {
-		return loaiNhanVien;
-	}
-
-
-	public void setLoaiNhanVien(String loaiNhanVien) {
-		this.loaiNhanVien = loaiNhanVien;
-	}
-
-
-	public BigDecimal getLuongCoBan() {
-		return luongCoBan;
-	}
-
-
-	public void setLuongCoBan(BigDecimal luongCoBan) {
-		this.luongCoBan = luongCoBan;
-	}
 }

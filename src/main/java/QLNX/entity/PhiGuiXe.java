@@ -7,12 +7,14 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "LOAIPHI")
-public class LoaiPhi {
+public class PhiGuiXe {
 	@Id
 	@Column(name = "MAPHI")
 	private String maPhi;
@@ -25,26 +27,28 @@ public class LoaiPhi {
 	
 	@Column(name = "MUCPHI")
 	private BigDecimal mucPhi;
-	//kết nối bảng loại phí 
-	@OneToMany(mappedBy="phi", fetch = FetchType.LAZY)
-	private List<CTLoaiPhi> ctLoaiPhi;
 	//kết nối bảng chỉnh sửa phí
 	@OneToMany(mappedBy="phi", fetch = FetchType.LAZY)
 	private List<ChinhSuaPhi> chinhSuaPhi;
-	//kết nối bảng thẻ tháng
-		@OneToMany(mappedBy="phi", fetch = FetchType.LAZY)
-		private List<TheThang> theThang;
+	//kết nối bảng xe
+	@ManyToOne
+	@JoinColumn(name="LOAIXE")
+	private Xe xe;
 	
-	public LoaiPhi() {}
+	public PhiGuiXe() {}
 	
 	
-	public LoaiPhi(String maPhi, String tenPhi, String loaiXe, BigDecimal mucPhi) {
-		super();
+	public PhiGuiXe(String maPhi, String tenPhi, String loaiXe, BigDecimal mucPhi, List<ChinhSuaPhi> chinhSuaPhi,
+			Xe xe) {
 		this.maPhi = maPhi;
 		this.tenPhi = tenPhi;
 		this.loaiXe = loaiXe;
 		this.mucPhi = mucPhi;
+		this.chinhSuaPhi = chinhSuaPhi;
+		this.xe = xe;
 	}
+
+
 	public String getMaPhi() {
 		return maPhi;
 	}
@@ -70,15 +74,6 @@ public class LoaiPhi {
 		this.mucPhi = mucPhi;
 	}
 
-	public List<CTLoaiPhi> getCtLoaiPhi() {
-		return ctLoaiPhi;
-	}
-
-
-	public void setCtLoaiPhi(List<CTLoaiPhi> ctLoaiPhi) {
-		this.ctLoaiPhi = ctLoaiPhi;
-	}
-
 
 	public List<ChinhSuaPhi> getChinhSuaPhi() {
 		return chinhSuaPhi;
@@ -90,13 +85,13 @@ public class LoaiPhi {
 	}
 
 
-	public List<TheThang> getTheThang() {
-		return theThang;
+	public Xe getXe() {
+		return xe;
 	}
 
 
-	public void setTheThang(List<TheThang> theThang) {
-		this.theThang = theThang;
+	public void setXe(Xe xe) {
+		this.xe = xe;
 	}
-	
+
 }

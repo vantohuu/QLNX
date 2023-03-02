@@ -6,12 +6,14 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="KHACHHANG")
-public class KhachHang {
+@Table(name="XE")
+public class Xe {
 	@Id
 	@Column(name="BSX")
 	private String bienSoXe;
@@ -28,19 +30,21 @@ public class KhachHang {
 	@Column(name="MACANHAN")
 	private String maCaNhan;
 	
-	@OneToMany(mappedBy="khachHang", fetch = FetchType.LAZY)
-	private List<CTTheLuot> ctTheLuot;
+
+	@OneToMany(mappedBy="xe", fetch = FetchType.LAZY)
+	private List<PhiGuiXe> phi;
 	
-	@OneToMany(mappedBy="khachHang", fetch = FetchType.LAZY)
-	private List<CTSuCo> ctSuCo; 
+	@OneToMany(mappedBy="xe", fetch = FetchType.LAZY)
+	private List<TheLuot> theLuot;
 	
-	@OneToMany(mappedBy="khachHang", fetch = FetchType.LAZY)
+	
+	@OneToMany(mappedBy="xe", fetch = FetchType.LAZY)
 	private List<TheThang> theThang; 
 	
-	public KhachHang() {
+	public Xe() {
 	}
 
-	public KhachHang(String bienSoXe, String ho, String ten, String loaiXe, String maCaNhan) {
+	public Xe(String bienSoXe, String ho, String ten, String loaiXe, String maCaNhan) {
 		this.bienSoXe = bienSoXe;
 		this.ho = ho;
 		this.ten = ten;
@@ -48,7 +52,7 @@ public class KhachHang {
 		this.maCaNhan = maCaNhan;
 	}
 
-	public KhachHang(String bienSoXe, String loaiXe) {
+	public Xe(String bienSoXe, String loaiXe) {
 		this.bienSoXe = bienSoXe;
 		this.loaiXe = loaiXe;
 	}
@@ -93,20 +97,12 @@ public class KhachHang {
 		this.maCaNhan = maCaNhan;
 	}
 
-	public List<CTTheLuot> getCtTheLuot() {
-		return ctTheLuot;
+	public List<TheLuot> getTheLuot() {
+		return theLuot;
 	}
 
-	public void setCtTheLuots(List<CTTheLuot> ctTheLuot) {
-		this.ctTheLuot = ctTheLuot;
-	}
-
-	public List<CTSuCo> getCtSuCo() {
-		return ctSuCo;
-	}
-
-	public void setCtSuCo(List<CTSuCo> ctSuCo) {
-		this.ctSuCo = ctSuCo;
+	public void setTheLuot(List<TheLuot> theLuot) {
+		this.theLuot = theLuot;
 	}
 
 	public List<TheThang> getTheThang() {
@@ -117,5 +113,12 @@ public class KhachHang {
 		this.theThang = theThang;
 	}
 	
+	public List<PhiGuiXe> getPhi() {
+		return phi;
+	}
+
+	public void setPhi(List<PhiGuiXe> phi) {
+		this.phi = phi;
+	}
 	
 }

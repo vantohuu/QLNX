@@ -1,7 +1,7 @@
 package QLNX.entity;
 
 import java.sql.Time;
-import java.util.Collection;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -20,37 +20,24 @@ public class Ca {
 	@Column(name="TENCA")
 	private String tenCa;
 	
-	@Column(name="TGBD")
-	private Time tGBD;
+	@Column(name="THOIGIANBATDAU")
+	private Time thoiGianBatDau;
 	
-	@Column(name="TGKT")
-	private Time tGKT;
+	@Column(name="THOIGIANKETTHUC")
+	private Time thoiGianKetThuc;
 	
 	@OneToMany(mappedBy="ca", fetch = FetchType.LAZY)
-	private Collection<CTCa> ctCa; 
+	private List<LichLamViec> lich; 
 	
 	public Ca() {
 	}
-	
 
-	public Ca(String maCa, String tenCa, Time tGBD, Time tGKT) {
-		super();
+	public Ca(String maCa, String tenCa, Time thoiGianBatDau, Time thoiGianKetThuc) {
 		this.maCa = maCa;
 		this.tenCa = tenCa;
-		this.tGBD = tGBD;
-		this.tGKT = tGKT;
+		this.thoiGianBatDau = thoiGianBatDau;
+		this.thoiGianKetThuc = thoiGianKetThuc;
 	}
-
-
-	public Collection<CTCa> getCtCas() {
-		return ctCa;
-	}
-
-
-	public void setCtCas(Collection<CTCa> ctCas) {
-		this.ctCa = ctCas;
-	}
-
 
 	public String getMaCa() {
 		return maCa;
@@ -68,22 +55,28 @@ public class Ca {
 		this.tenCa = tenCa;
 	}
 
-	public Time gettGBD() {
-		return tGBD;
+	public Time getThoiGianBatDau() {
+		return thoiGianBatDau;
 	}
 
-	public void settGBD(Time tGBD) {
-		this.tGBD = tGBD;
+	public void setThoiGianBatDau(Time thoiGianBatDau) {
+		this.thoiGianBatDau = thoiGianBatDau;
 	}
 
-	public Time gettGKT() {
-		return tGKT;
+	public Time getThoiGianKetThuc() {
+		return thoiGianKetThuc;
 	}
 
-	public void settGKT(Time tGKT) {
-		this.tGKT = tGKT;
+	public void setThoiGianKetThuc(Time thoiGianKetThuc) {
+		this.thoiGianKetThuc = thoiGianKetThuc;
 	}
-	
-	
+
+	public List<LichLamViec> getLich() {
+		return lich;
+	}
+
+	public void setLich(List<LichLamViec> lich) {
+		this.lich = lich;
+	}
 	
 }

@@ -1,11 +1,15 @@
 package QLNX.entity;
 
-import java.util.Collection;
+
+
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -17,65 +21,93 @@ import javax.persistence.TemporalType;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
-@Table(name="THELUOT")
+@Table(name="CT_THE_LUOT")
 public class TheLuot {
 	@Id
-	@Column(name="MATHE")
-	private String maThe;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="ID_CT_THE_LUOT")
+	private int idCTTheLuot;
+	
+	//kết nối bảng khách hàng
+	@ManyToOne
+	@JoinColumn(name="BSX")
+	private Xe xe;
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	@DateTimeFormat(pattern="MM/dd/yyyy HH:mm:ss")
+	@Column(name="THOIGIANVAO")
+	private Date thoiGianVao;
 	
 	@Temporal(TemporalType.DATE)
-	@DateTimeFormat(pattern="MM/dd/yyyy")
-	@Column(name="THOIGIANTAO")
-	private Date thoiGianTao;
-	
+	@DateTimeFormat(pattern="MM/dd/yyyy HH:mm:ss")
+	@Column(name="THOIGIANRA")
+	private Date thoiGianRa;
+	//kết nối nhân viên thu giữ và cấp thẻ xe
 	@ManyToOne
-	@JoinColumn(name="MANV")
-	private NhanVien nhanVien;
-	
-	@OneToMany(mappedBy="theLuot", fetch = FetchType.LAZY)
-	private Collection<CTTheLuot> ctTheLuot; 
+	@JoinColumn(name="MANV1")
+	private NhanVien nhanVien1;
+	//kết nối nhân viên thu tiền giữ xe
+	@ManyToOne
+	@JoinColumn(name="MANV2")
+	private NhanVien nhanVien2;
 	
 	public TheLuot() {
 	}
 
-	public TheLuot(String maThe, Date thoiGianTao, NhanVien nhanVien, Collection<CTTheLuot> ctTheLuot) {
-		this.maThe = maThe;
-		this.thoiGianTao = thoiGianTao;
-		this.nhanVien = nhanVien;
-		this.ctTheLuot = ctTheLuot;
+	public TheLuot(int idCTTheLuot, Xe xe, Date thoiGianVao, Date thoiGianRa, NhanVien nhanVien1, NhanVien nhanVien2) {
+		this.idCTTheLuot = idCTTheLuot;
+		this.xe = xe;
+		this.thoiGianVao = thoiGianVao;
+		this.thoiGianRa = thoiGianRa;
+		this.nhanVien1 = nhanVien1;
+		this.nhanVien2 = nhanVien2;
 	}
 
-	public String getMaThe() {
-		return maThe;
+	public int getIdCTTheLuot() {
+		return idCTTheLuot;
 	}
 
-	public void setMaThe(String maThe) {
-		this.maThe = maThe;
+	public void setIdCTTheLuot(int idCTTheLuot) {
+		this.idCTTheLuot = idCTTheLuot;
 	}
 
-	public Date getThoiGianTao() {
-		return thoiGianTao;
+	public Xe getXe() {
+		return xe;
 	}
 
-	public void setThoiGianTao(Date thoiGianTao) {
-		this.thoiGianTao = thoiGianTao;
+	public void setXe(Xe xe) {
+		this.xe = xe;
 	}
 
-	public NhanVien getNhanVien() {
-		return nhanVien;
+	public Date getThoiGianVao() {
+		return thoiGianVao;
 	}
 
-	public void setNhanVien(NhanVien nhanVien) {
-		this.nhanVien = nhanVien;
+	public void setThoiGianVao(Date thoiGianVao) {
+		this.thoiGianVao = thoiGianVao;
 	}
 
-	public Collection<CTTheLuot> getCtTheLuot() {
-		return ctTheLuot;
+	public Date getThoiGianRa() {
+		return thoiGianRa;
 	}
 
-	public void setCtTheLuot(Collection<CTTheLuot> ctTheLuot) {
-		this.ctTheLuot = ctTheLuot;
+	public void setThoiGianRa(Date thoiGianRa) {
+		this.thoiGianRa = thoiGianRa;
 	}
-	
-	
+
+	public NhanVien getNhanVien1() {
+		return nhanVien1;
+	}
+
+	public void setNhanVien1(NhanVien nhanVien1) {
+		this.nhanVien1 = nhanVien1;
+	}
+
+	public NhanVien getNhanVien2() {
+		return nhanVien2;
+	}
+
+	public void setNhanVien2(NhanVien nhanVien2) {
+		this.nhanVien2 = nhanVien2;
+	}
 }

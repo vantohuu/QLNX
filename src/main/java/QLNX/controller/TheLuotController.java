@@ -19,8 +19,8 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import QLNX.entity.CTTheLuot;
-import QLNX.entity.KhachHang;
+import QLNX.entity.TheLuot;
+import QLNX.entity.Xe;
 import QLNX.entity.NhanVien;
 import QLNX.entity.TaiKhoan;
 import QLNX.entity.TheLuot;
@@ -55,17 +55,17 @@ public class TheLuotController {
 				System.out.println(request);
 				List<NhanVien> listNhanVien = getNhanVien(username);
 				List<TheLuot> listTheLuot = getTheLuot(mathe);
-				List<KhachHang> listKhachHang = getKhachHang(bsx);
+				List<Xe> listKhachHang = getKhachHang(bsx);
 				if (listKhachHang.size() == 0)
 				{
-					KhachHang kh = new KhachHang(bsx, xe == "option1" ? "XETAYGA" : "XEMAYSO");
+					Xe kh = new Xe(bsx, xe == "option1" ? "XETAYGA" : "XEMAYSO");
 					listKhachHang.add(kh);
 					session.save(kh);
 				}
 				System.out.println(listNhanVien.get(0).getMaNv());
 				System.out.println(listTheLuot.get(0).getMaThe());
 				System.out.println(listKhachHang.get(0).getBienSoXe());
-				CTTheLuot cttl = new CTTheLuot(listTheLuot.get(0), listKhachHang.get(0), new Date(System.currentTimeMillis()),null, listNhanVien.get(0), null);
+				TheLuot cttl = new TheLuot(listTheLuot.get(0), listKhachHang.get(0), new Date(System.currentTimeMillis()),null, listNhanVien.get(0), null);
 			    session.save(cttl);
 				tx.commit();
 			 }
@@ -105,12 +105,12 @@ public class TheLuotController {
 		List<TheLuot> list = query.list();
 		return list;
 	}
-	public List<KhachHang> getKhachHang(String bsx) {
+	public List<Xe> getKhachHang(String bsx) {
 		Session session = factory.getCurrentSession();
 		String hql1 ="FROM KhachHang where bienSoXe = :bsx";
 		Query query = session.createQuery(hql1);
 		query.setParameter("bsx", bsx);
-		List<KhachHang> list = query.list();
+		List<Xe> list = query.list();
 		return list;
 	}
 }

@@ -53,10 +53,10 @@ public class NhanVien {
     private TaiKhoan taiKhoan;
 	
 	@OneToMany(mappedBy = "nhanVien1", fetch = FetchType.LAZY)
-	private List<CTTheLuot> ctTheLuot1;
+	private List<TheLuot> theLuot1;
 	
 	@OneToMany(mappedBy = "nhanVien2", fetch = FetchType.LAZY)
-	private List<CTTheLuot> ctTheLuot2;
+	private List<TheLuot> theLuot2;
 	
 	@OneToMany(mappedBy = "nhanVien", fetch = FetchType.LAZY)
 	private List<TheThang> theThang;
@@ -65,16 +65,11 @@ public class NhanVien {
 	private List<ChinhSuaPhi> chinhSuaPhi;
 	
 	@OneToMany(mappedBy = "nhanVien", fetch = FetchType.LAZY)
-	private List<TheLuot> theLuot;
+	private List<LichLamViec> lich;
 	
 	@OneToMany(mappedBy = "nhanVien", fetch = FetchType.LAZY)
-	private List<CTSuCo> ctSuCo;
+	private List<ChucVu> chucVu;
 	
-	@OneToMany(mappedBy = "nhanVien", fetch = FetchType.LAZY)
-	private List<BienBan> bienBan;
-	
-	@OneToMany(mappedBy = "nhanVien", fetch = FetchType.LAZY)
-	private List<CTTaiKhoan> ctTaiKhoan;
 	
 	public NhanVien() {}
 
@@ -172,20 +167,20 @@ public class NhanVien {
 		this.email = email;
 	}
 
-	public List<CTTheLuot> getCtTheLuot1() {
-		return ctTheLuot1;
+	public List<TheLuot> getTheLuot1() {
+		return theLuot1;
 	}
 
-	public void setCtTheLuot1(List<CTTheLuot> ctTheLuot1) {
-		this.ctTheLuot1 = ctTheLuot1;
+	public void setTheLuot1(List<TheLuot> theLuot1) {
+		this.theLuot1 = theLuot1;
 	}
 
-	public List<CTTheLuot> getCtTheLuot2() {
-		return ctTheLuot2;
+	public List<TheLuot> getTheLuot2() {
+		return theLuot2;
 	}
 
-	public void setCtTheLuot2(List<CTTheLuot> ctTheLuot2) {
-		this.ctTheLuot2 = ctTheLuot2;
+	public void setTheLuot2(List<TheLuot> theLuot2) {
+		this.theLuot2 = theLuot2;
 	}
 
 	public List<TheThang> getTheThang() {
@@ -204,27 +199,21 @@ public class NhanVien {
 		this.chinhSuaPhi = chinhSuaPhi;
 	}
 
-	public List<TheLuot> getTheLuot() {
-		return theLuot;
+	public List<LichLamViec> getLich() {
+		return lich;
 	}
 
-	public void setTheLuot(List<TheLuot> theLuot) {
-		this.theLuot = theLuot;
+	public void setLich(List<LichLamViec> lich) {
+		this.lich = lich;
 	}
 
-	public List<CTSuCo> getCtSuCo() {
-		return ctSuCo;
+	public List<ChucVu> getChucVu() {
+		return chucVu;
 	}
 
-	public void setCtSuCo(List<CTSuCo> ctSuCo) {
-		this.ctSuCo = ctSuCo;
+	public void setChucVu(List<ChucVu> chucVu) {
+		this.chucVu = chucVu;
 	}
 
-	public List<BienBan> getBienBan() {
-		return bienBan;
-	}
-
-	public void setBienBan(List<BienBan> bienBan) {
-		this.bienBan = bienBan;
-	}
+	
 }

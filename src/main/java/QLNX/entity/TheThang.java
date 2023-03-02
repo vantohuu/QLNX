@@ -38,23 +38,17 @@ public class TheThang {
 	//kết nối bảng Khách hàng
 	@ManyToOne
 	@JoinColumn(name="BSX")
-	private KhachHang khachHang;
-	//kết nối bảng loại phí
-	@ManyToOne
-	@JoinColumn(name="MAPHI")
-	private LoaiPhi phi;
-	
+	private Xe khachHang;
 	public TheThang() {
 	}
 
-	public TheThang(String id, Date ngayTao, Date ngayHetHan, NhanVien nhanVien, KhachHang khachHang,
-			LoaiPhi phi) {
+	public TheThang(String id, Date ngayTao, Date ngayHetHan, NhanVien nhanVien, Xe khachHang,
+			PhiGuiXe phi) {
 		this.id = id;
 		this.ngayTao = ngayTao;
 		this.ngayHetHan = ngayHetHan;
 		this.nhanVien = nhanVien;
 		this.khachHang = khachHang;
-		this.phi = phi;
 	}
 
 	public String getId() {
@@ -89,21 +83,12 @@ public class TheThang {
 		this.nhanVien = nhanVien;
 	}
 
-	public KhachHang getKhachHang() {
+	public Xe getKhachHang() {
 		return khachHang;
 	}
 
-	public void setKhachHang(KhachHang khachHang) {
+	public void setKhachHang(Xe khachHang) {
 		this.khachHang = khachHang;
 	}
 
-	public LoaiPhi getPhi() {
-		return phi;
-	}
-
-	public void setPhi(LoaiPhi phi) {
-		this.phi = phi;
-	}
-
-	
 }

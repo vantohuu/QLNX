@@ -32,7 +32,7 @@ public class ChinhSuaPhi {
 	//kết nối bảng LOAI_PHI
 	@ManyToOne
 	@JoinColumn(name = "MAPHI")
-	private LoaiPhi phi;
+	private PhiGuiXe phi;
 	//Kết nối bảng NHAN_VIEN - ghi nhận nhân viên chỉnh sửa phí
 	@ManyToOne
 	@JoinColumn(name = "MANV")
@@ -41,7 +41,7 @@ public class ChinhSuaPhi {
 	public ChinhSuaPhi() {
 	}
 
-	public ChinhSuaPhi(int idChinhSuaPhi, Date thoiGianThayDoi, LoaiPhi phi, NhanVien nhanVien) {
+	public ChinhSuaPhi(int idChinhSuaPhi, Date thoiGianThayDoi, PhiGuiXe phi, NhanVien nhanVien) {
 		this.idChinhSuaPhi = idChinhSuaPhi;
 		this.thoiGianThayDoi = thoiGianThayDoi;
 		this.phi = phi;
@@ -64,11 +64,11 @@ public class ChinhSuaPhi {
 		this.thoiGianThayDoi = thoiGianThayDoi;
 	}
 
-	public LoaiPhi getPhi() {
+	public PhiGuiXe getPhi() {
 		return phi;
 	}
 
-	public void setPhi(LoaiPhi phi) {
+	public void setPhi(PhiGuiXe phi) {
 		this.phi = phi;
 	}
 
