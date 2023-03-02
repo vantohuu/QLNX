@@ -7,6 +7,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -67,8 +69,9 @@ public class NhanVien {
 	@OneToMany(mappedBy = "nhanVien", fetch = FetchType.LAZY)
 	private List<LichLamViec> lich;
 	
-	@OneToMany(mappedBy = "nhanVien", fetch = FetchType.LAZY)
-	private List<ChucVu> chucVu;
+	@ManyToOne
+	@JoinColumn(name="MACV")
+	private ChucVu chucVu;
 	
 	
 	public NhanVien() {}
@@ -207,13 +210,12 @@ public class NhanVien {
 		this.lich = lich;
 	}
 
-	public List<ChucVu> getChucVu() {
+	public ChucVu getChucVu() {
 		return chucVu;
 	}
 
-	public void setChucVu(List<ChucVu> chucVu) {
+	public void setChucVu(ChucVu chucVu) {
 		this.chucVu = chucVu;
 	}
 
-	
 }

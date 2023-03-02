@@ -38,18 +38,19 @@ public class TheThang {
 	//kết nối bảng Khách hàng
 	@ManyToOne
 	@JoinColumn(name="BSX")
-	private Xe khachHang;
+	private Xe xe;
 	public TheThang() {
 	}
 
-	public TheThang(String id, Date ngayTao, Date ngayHetHan, NhanVien nhanVien, Xe khachHang,
-			PhiGuiXe phi) {
+	public TheThang(String id, Date ngayTao, Date ngayHetHan, NhanVien nhanVien, Xe xe) {
 		this.id = id;
 		this.ngayTao = ngayTao;
 		this.ngayHetHan = ngayHetHan;
 		this.nhanVien = nhanVien;
-		this.khachHang = khachHang;
+		this.xe = xe;
 	}
+
+
 
 	public String getId() {
 		return id;
@@ -83,12 +84,13 @@ public class TheThang {
 		this.nhanVien = nhanVien;
 	}
 
-	public Xe getKhachHang() {
-		return khachHang;
+	public Xe getXe() {
+		return xe;
 	}
 
-	public void setKhachHang(Xe khachHang) {
-		this.khachHang = khachHang;
+	public void setXe(Xe xe) {
+		this.xe = xe;
 	}
 
+	
 }

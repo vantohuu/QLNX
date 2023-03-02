@@ -22,9 +22,6 @@ public class PhiGuiXe {
 	@Column(name = "TENPHI")
 	private String tenPhi;
 	
-	@Column(name = "LOAIXE")
-	private String loaiXe;
-	
 	@Column(name = "MUCPHI")
 	private BigDecimal mucPhi;
 	//kết nối bảng chỉnh sửa phí
@@ -38,11 +35,10 @@ public class PhiGuiXe {
 	public PhiGuiXe() {}
 	
 	
-	public PhiGuiXe(String maPhi, String tenPhi, String loaiXe, BigDecimal mucPhi, List<ChinhSuaPhi> chinhSuaPhi,
+	public PhiGuiXe(String maPhi, String tenPhi, BigDecimal mucPhi, List<ChinhSuaPhi> chinhSuaPhi,
 			Xe xe) {
 		this.maPhi = maPhi;
 		this.tenPhi = tenPhi;
-		this.loaiXe = loaiXe;
 		this.mucPhi = mucPhi;
 		this.chinhSuaPhi = chinhSuaPhi;
 		this.xe = xe;
@@ -61,12 +57,7 @@ public class PhiGuiXe {
 	public void setTenPhi(String tenPhi) {
 		this.tenPhi = tenPhi;
 	}
-	public String getLoaiXe() {
-		return loaiXe;
-	}
-	public void setLoaiXe(String loaiXe) {
-		this.loaiXe = loaiXe;
-	}
+	
 	public BigDecimal getMucPhi() {
 		return mucPhi;
 	}
