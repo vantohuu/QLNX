@@ -34,12 +34,11 @@ public class TaiKhoan {
 	public TaiKhoan() {}
 	
 
-	public TaiKhoan(String username, String password, int trangThai, NhanVien nhanVien) {
+	public TaiKhoan(String username, String password, int trangThai) {
 
 		this.username = username;
 		this.password = password;
 		this.trangThai = trangThai;
-		this.nhanVien = nhanVien;
 	}
 
 
