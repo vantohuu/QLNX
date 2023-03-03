@@ -14,11 +14,11 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="LUONG")
+@Table(name="CT_CHUCVU")
 public class CTChucVu {
 	@Id
 	@GeneratedValue
-	@Column(name="ID_LUONG")
+	@Column(name="ID_CT_CHUCVU")
 	private int idLuong;
 	
 	@ManyToOne
@@ -26,17 +26,17 @@ public class CTChucVu {
 	private ChucVu chucVu;
 	
 	@Column(name="LOAINHANVIEN")
-	private int loaiNhanVien;
+	private String loaiNhanVien;
 	
 	@Column(name="LUONG")
 	private BigDecimal luong;
 	
-	@OneToMany(mappedBy = "chucVu", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "CTChucVu", fetch = FetchType.LAZY)
 	private List<NhanVien> nhanVien;
 	
 	public CTChucVu() {}
 
-	public CTChucVu(int idLuong, ChucVu chucVu, int loaiNhanVien, BigDecimal luong) {
+	public CTChucVu(int idLuong, ChucVu chucVu, String loaiNhanVien, BigDecimal luong) {
 		this.idLuong = idLuong;
 		this.chucVu = chucVu;
 		this.loaiNhanVien = loaiNhanVien;
@@ -59,11 +59,11 @@ public class CTChucVu {
 		this.chucVu = chucVu;
 	}
 
-	public int getLoaiNhanVien() {
+	public String getLoaiNhanVien() {
 		return loaiNhanVien;
 	}
 
-	public void setLoaiNhanVien(int loaiNhanVien) {
+	public void setLoaiNhanVien(String loaiNhanVien) {
 		this.loaiNhanVien = loaiNhanVien;
 	}
 
