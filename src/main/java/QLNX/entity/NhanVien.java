@@ -42,8 +42,8 @@ public class NhanVien {
 	@Column(name = "DIACHI")
 	private String diaChi;
 	
-	@Column(name = "[CMND/CCCD]")
-	private String cmndCccd;
+	@Column(name = "CCCD")
+	private String cccd;
 	
 	@Column(name = "SDT")
 	private String sdt;
@@ -76,19 +76,25 @@ public class NhanVien {
 	
 	public NhanVien() {}
 
-	public NhanVien(String maNv, String ho, String ten, String gioiTinh, Date ngaySinh, String diaChi,
-			String cmndCccd, String sdt, String email) {
+	
+	
+
+	public NhanVien(String maNv, String ho, String ten, String gioiTinh, Date ngaySinh, String diaChi, String cccd,
+			String sdt, String email) {
+		super();
 		this.maNv = maNv;
 		this.ho = ho;
 		this.ten = ten;
 		this.gioiTinh = gioiTinh;
 		this.ngaySinh = ngaySinh;
 		this.diaChi = diaChi;
-		this.cmndCccd = cmndCccd;
+		this.cccd = cccd;
 		this.sdt = sdt;
 		this.email = email;
 	}
-	
+
+
+
 
 	public TaiKhoan getTaiKhoan() {
 		return taiKhoan;
@@ -146,12 +152,13 @@ public class NhanVien {
 		this.diaChi = diaChi;
 	}
 
-	public String getCmndCccd() {
-		return cmndCccd;
+
+	public String getCccd() {
+		return cccd;
 	}
 
-	public void setCmndCccd(String cmndCccd) {
-		this.cmndCccd = cmndCccd;
+	public void setCccd(String cccd) {
+		this.cccd = cccd;
 	}
 
 	public String getSdt() {
