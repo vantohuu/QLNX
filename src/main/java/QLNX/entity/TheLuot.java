@@ -2,6 +2,7 @@ package QLNX.entity;
 
 
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -51,17 +52,26 @@ public class TheLuot {
 	@JoinColumn(name="MANV2")
 	private NhanVien nhanVien2;
 	
+	@Column(name="TONGTIEN")
+	private BigDecimal tongTien;
+	
 	public TheLuot() {
 	}
 
-	public TheLuot(int idCTTheLuot, Xe xe, Date thoiGianVao, Date thoiGianRa, NhanVien nhanVien1, NhanVien nhanVien2) {
+	
+
+	public TheLuot(int idCTTheLuot, Xe xe, Date thoiGianVao, Date thoiGianRa, NhanVien nhanVien1, NhanVien nhanVien2,
+			BigDecimal tongTien) {
 		this.idCTTheLuot = idCTTheLuot;
 		this.xe = xe;
 		this.thoiGianVao = thoiGianVao;
 		this.thoiGianRa = thoiGianRa;
 		this.nhanVien1 = nhanVien1;
 		this.nhanVien2 = nhanVien2;
+		this.tongTien = tongTien;
 	}
+
+
 
 	public int getIdCTTheLuot() {
 		return idCTTheLuot;
@@ -109,5 +119,17 @@ public class TheLuot {
 
 	public void setNhanVien2(NhanVien nhanVien2) {
 		this.nhanVien2 = nhanVien2;
+	}
+
+
+
+	public BigDecimal getTongTien() {
+		return tongTien;
+	}
+
+
+
+	public void setTongTien(BigDecimal tongTien) {
+		this.tongTien = tongTien;
 	}
 }

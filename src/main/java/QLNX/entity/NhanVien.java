@@ -64,14 +64,14 @@ public class NhanVien {
 	private List<TheThang> theThang;
 	
 	@OneToMany(mappedBy = "nhanVien", fetch = FetchType.LAZY)
-	private List<ChinhSuaPhi> chinhSuaPhi;
+	private List<PhiGuiXe> chinhSuaPhi;
 	
 	@OneToMany(mappedBy = "nhanVien", fetch = FetchType.LAZY)
 	private List<LichLamViec> lich;
 	
 	@ManyToOne
-	@JoinColumn(name="MACV")
-	private ChucVu chucVu;
+	@JoinColumn(name="ID_CT_CHUCVU")
+	private CTChucVu CTChucVu;
 	
 	
 	public NhanVien() {}
@@ -81,7 +81,6 @@ public class NhanVien {
 
 	public NhanVien(String maNv, String ho, String ten, String gioiTinh, Date ngaySinh, String diaChi, String cccd,
 			String sdt, String email) {
-		super();
 		this.maNv = maNv;
 		this.ho = ho;
 		this.ten = ten;
@@ -201,13 +200,16 @@ public class NhanVien {
 		this.theThang = theThang;
 	}
 
-	public List<ChinhSuaPhi> getChinhSuaPhi() {
+
+	public List<PhiGuiXe> getChinhSuaPhi() {
 		return chinhSuaPhi;
 	}
 
-	public void setChinhSuaPhi(List<ChinhSuaPhi> chinhSuaPhi) {
+
+	public void setChinhSuaPhi(List<PhiGuiXe> chinhSuaPhi) {
 		this.chinhSuaPhi = chinhSuaPhi;
 	}
+
 
 	public List<LichLamViec> getLich() {
 		return lich;
@@ -217,12 +219,13 @@ public class NhanVien {
 		this.lich = lich;
 	}
 
-	public ChucVu getChucVu() {
-		return chucVu;
+
+	public CTChucVu getCTChucVu() {
+		return CTChucVu;
 	}
 
-	public void setChucVu(ChucVu chucVu) {
-		this.chucVu = chucVu;
+	public void setCTChucVu(CTChucVu cTChucVu) {
+		CTChucVu = cTChucVu;
 	}
 
 }
