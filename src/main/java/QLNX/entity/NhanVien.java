@@ -3,6 +3,7 @@ package QLNX.entity;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -51,25 +52,25 @@ public class NhanVien {
 	@Column(name = "EMAIL")
 	private String email;
 	
-	@OneToOne(mappedBy = "nhanVien", fetch = FetchType.LAZY)
+	@OneToOne(mappedBy = "nhanVien", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private TaiKhoan taiKhoan;
 	
-	@OneToMany(mappedBy = "nhanVien1", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "nhanVien1", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<TheLuot> theLuot1;
 	
-	@OneToMany(mappedBy = "nhanVien2", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "nhanVien2", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<TheLuot> theLuot2;
 	
-	@OneToMany(mappedBy = "nhanVien", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "nhanVien", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<TheThang> theThang;
 	
-	@OneToMany(mappedBy = "nhanVien", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "nhanVien", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<PhiGuiXe> chinhSuaPhi;
 	
-	@OneToMany(mappedBy = "nhanVien", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "nhanVien", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<LichLamViec> lich;
 	
-	@ManyToOne
+	@ManyToOne( cascade = CascadeType.ALL)
 	@JoinColumn(name="ID_CT_CHUCVU")
 	private CTChucVu CTChucVu;
 	
