@@ -11,6 +11,10 @@ body {
     margin: 0;
 }
 
+/* body {
+    background-color: black;
+} */
+
 .login-box {
     position: absolute;
     top: 50%;
@@ -19,7 +23,7 @@ body {
     padding: 40px;
     margin: 20px auto;
     transform: translate(-50%, -55%);
-    background: rgb(255, 127, 0);
+    background: #fff;
     box-sizing: border-box;
     box-shadow: 0 15px 25px rgba(0, 0, 9, 6);
     border-radius: 10px;
@@ -100,7 +104,7 @@ body {
 
 .hover-underline-animation {
     position: relative;
-    color: black;
+    color: #000000;
     padding-bottom: 20px;
 }
 
@@ -120,4 +124,9 @@ body {
 .cta:hover .hover-underline-animation:after {
     transform: scaleX(1);
     transform-origin: bottom left;
+
+}
+
+#arrow-horizontal {
+    color: #000000;
 }
