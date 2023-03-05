@@ -115,14 +115,7 @@
 				<div class = "w-100 h-100" >
 					<h3 class="m-5">Nhập thẻ vào:</h3>
 					<form action="/QLNX/thevao.htm" method="post" class="p-5">
-						<div class="form-group row  ">
-							<label for="inputEmail3" class="col-sm-5 col-form-label">
-							Nhập mã thẻ</label>
-							<div class="col-sm-10">
-								<input type="text" class="form-control" id="mathe" name="mathe"
-									placeholder="Mã thẻ">
-							</div>
-						</div>
+	
 						<div class="form-group row">
 							<label for="inputPassword3" class="col-sm-5 col-form-label">
 							Nhập biển số xe</label>
@@ -148,11 +141,13 @@
 								</div>
 							</div>
 						</fieldset>
-						<div class="form-group row ">
+						<div class="form-group row mt-3 ">
 							<div class="col-sm-10">
 								<button type="submit" class="btn btn-primary">Xác nhận</button>
 							</div>
 						</div>
+						<p class = "text-success" >${successxevao} </p>
+						<p class = "text-danger" >${errxevao} </p>
 					</form>
 				</div>
 

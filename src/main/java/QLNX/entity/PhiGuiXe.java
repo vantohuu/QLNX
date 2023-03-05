@@ -16,7 +16,7 @@ import javax.persistence.TemporalType;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
-@Table(name = "LOAIPHI")
+@Table(name = "PHIGUIXE")
 public class PhiGuiXe {
 	@Id
 	@GeneratedValue
@@ -31,7 +31,7 @@ public class PhiGuiXe {
 	@Column(name="NGAY")
 	private Date thoiGianThayDoi;
 	
-	@ManyToOne
+	@ManyToOne()
 	@JoinColumn(name="LOAIXE")
 	private Xe xe;
 	@Column(name = "MUCPHI")
