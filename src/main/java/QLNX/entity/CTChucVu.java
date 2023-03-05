@@ -3,6 +3,7 @@ package QLNX.entity;
 import java.math.BigDecimal;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -19,7 +20,7 @@ public class CTChucVu {
 	@Id
 	@GeneratedValue
 	@Column(name="ID_CT_CHUCVU")
-	private int idLuong;
+	private int idCTChucVu;
 	
 	@ManyToOne
 	@JoinColumn(name="MACV")
@@ -31,25 +32,45 @@ public class CTChucVu {
 	@Column(name="LUONG")
 	private BigDecimal luong;
 	
-	@OneToMany(mappedBy = "CTChucVu", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "CTChucVu", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<NhanVien> nhanVien;
 	
 	public CTChucVu() {}
 
-	public CTChucVu(int idLuong, ChucVu chucVu, String loaiNhanVien, BigDecimal luong) {
-		this.idLuong = idLuong;
+	
+
+	public CTChucVu(int idCTChucVu, ChucVu chucVu, String loaiNhanVien, BigDecimal luong) {
+		this.idCTChucVu = idCTChucVu;
 		this.chucVu = chucVu;
 		this.loaiNhanVien = loaiNhanVien;
 		this.luong = luong;
 	}
 
-	public int getIdLuong() {
-		return idLuong;
+
+
+	public int getIdCTChucVu() {
+		return idCTChucVu;
 	}
 
-	public void setIdLuong(int idLuong) {
-		this.idLuong = idLuong;
+
+
+	public void setIdCTChucVu(int idCTChucVu) {
+		this.idCTChucVu = idCTChucVu;
 	}
+
+
+
+	public List<NhanVien> getNhanVien() {
+		return nhanVien;
+	}
+
+
+
+	public void setNhanVien(List<NhanVien> nhanVien) {
+		this.nhanVien = nhanVien;
+	}
+
+
 
 	public ChucVu getChucVu() {
 		return chucVu;

@@ -2,13 +2,16 @@ package QLNX.entity;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -31,9 +34,8 @@ public class PhiGuiXe {
 	@Column(name="NGAY")
 	private Date thoiGianThayDoi;
 	
-	@ManyToOne()
-	@JoinColumn(name="LOAIXE")
-	private Xe xe;
+	@OneToMany(mappedBy="phi", fetch = FetchType.LAZY)
+	private List<LichSuPhi> lichSuPhi;
 	@Column(name = "MUCPHI")
 	private BigDecimal mucPhi;
 	//Kết nối bảng NHAN_VIEN - ghi nhận nhân viên chỉnh sửa phí
@@ -45,11 +47,10 @@ public class PhiGuiXe {
 	public PhiGuiXe() {}
 
 
-	public PhiGuiXe(int idPhi, String hinhThuc, Date thoiGianThayDoi, Xe xe, BigDecimal mucPhi, NhanVien nhanVien) {
+	public PhiGuiXe(int idPhi, String hinhThuc, Date thoiGianThayDoi, BigDecimal mucPhi, NhanVien nhanVien) {
 		this.idPhi = idPhi;
 		this.hinhThuc = hinhThuc;
 		this.thoiGianThayDoi = thoiGianThayDoi;
-		this.xe = xe;
 		this.mucPhi = mucPhi;
 		this.nhanVien = nhanVien;
 	}
@@ -85,13 +86,14 @@ public class PhiGuiXe {
 	}
 
 
-	public Xe getXe() {
-		return xe;
+
+	public List<LichSuPhi> getLichSuPhi() {
+		return lichSuPhi;
 	}
 
 
-	public void setXe(Xe xe) {
-		this.xe = xe;
+	public void setLichSuPhi(List<LichSuPhi> lichSuPhi) {
+		this.lichSuPhi = lichSuPhi;
 	}
 
 

@@ -32,7 +32,7 @@ public class Xe {
 	
 
 	@OneToMany(mappedBy="xe", fetch = FetchType.LAZY)
-	private List<PhiGuiXe> phi;
+	private List<LichSuPhi> lichSuPhi;
 	
 	@OneToMany(mappedBy="xe", fetch = FetchType.LAZY)
 	private List<TheLuot> theLuot;
@@ -112,13 +112,14 @@ public class Xe {
 	public void setTheThang(List<TheThang> theThang) {
 		this.theThang = theThang;
 	}
-	
-	public List<PhiGuiXe> getPhi() {
-		return phi;
+
+	public List<LichSuPhi> getLichSuPhi() {
+		return lichSuPhi;
 	}
 
-	public void setPhi(List<PhiGuiXe> phi) {
-		this.phi = phi;
+	public void setLichSuPhi(List<LichSuPhi> lichSuPhi) {
+		this.lichSuPhi = lichSuPhi;
 	}
+	
 	
 }

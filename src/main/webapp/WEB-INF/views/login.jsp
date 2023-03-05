@@ -9,7 +9,7 @@
 </head>
 <body>
 	<div class="login-box">
-        <p>Login</p>
+        <p>Nhà Xe PTIT</p>
         <form action="login.htm" method="POST">
             <div class="user-box">
                 <input required="" name="username" type="text">
