@@ -8,6 +8,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -22,13 +23,17 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Table(name = "PHIGUIXE")
 public class PhiGuiXe {
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="ID_PHI")
 	private int idPhi;
 	
 	@Column(name="HINHTHUC")
 	private String hinhThuc;
 	
+	@Column(name="LOAIXE")
+	private String loaiXe;
+	
+
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern="MM/dd/yyyy")
 	@Column(name="NGAY")
@@ -47,12 +52,12 @@ public class PhiGuiXe {
 	public PhiGuiXe() {}
 
 
-	public PhiGuiXe(int idPhi, String hinhThuc, Date thoiGianThayDoi, BigDecimal mucPhi, NhanVien nhanVien) {
-		this.idPhi = idPhi;
+	public PhiGuiXe(String hinhThuc, Date thoiGianThayDoi, String loaiXe,BigDecimal mucPhi, NhanVien nhanVien) {
 		this.hinhThuc = hinhThuc;
 		this.thoiGianThayDoi = thoiGianThayDoi;
 		this.mucPhi = mucPhi;
 		this.nhanVien = nhanVien;
+		this.loaiXe = loaiXe;
 	}
 
 
@@ -116,4 +121,14 @@ public class PhiGuiXe {
 		this.nhanVien = nhanVien;
 	}
 	
+
+	public String getLoaiXe() {
+		return loaiXe;
+	}
+
+
+	public void setLoaiXe(String loaiXe) {
+		this.loaiXe = loaiXe;
+	}
+
 }

@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneId;
+import java.util.Calendar;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -24,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import QLNX.entity.TheLuot;
 import QLNX.entity.Xe;
+import QLNX.entity.LichSuPhi;
 import QLNX.entity.NhanVien;
 import QLNX.entity.PhiGuiXe;
 import QLNX.entity.TaiKhoan;
@@ -51,6 +54,7 @@ public class TheLuotController {
 			try {
 				String bsx = request.getParameter("bsx");
 				String xe =	request.getParameter("xe");
+				System.out.println(xe.equals("option2"));
 				System.out.println(xe);
 				System.out.println(bsx);
 				System.out.println(request);
@@ -64,7 +68,7 @@ public class TheLuotController {
 				
 				if (listKhachHang.size() == 0)
 				{
-					Xe kh = new Xe(bsx, xe == "option1" ? "XETAYGA" : "XEMAYSO");
+					Xe kh = new Xe(bsx,xe.equals("option2") ? "XETAYGA" : "XEMAYSO");
 					listKhachHang.add(kh);
 					session.save(kh);
 				}
@@ -172,22 +176,51 @@ public class TheLuotController {
 					query.setParameter("thoiGianRa",  new Date(System.currentTimeMillis()));
 					query.setParameter("nhanVien2", listNhanVien.get(0));
 					TheLuot tl = listTheLuot.get(0);
+//					Calendar calvao = Calendar.getInstance();
+//					calvao.setTime(tl.getThoiGianVao());
+//					Calendar calra = Calendar.getInstance();
+//					calvao.setTime(tl.getThoiGianRa());
+//					Calendar calcmp = Calendar.getInstance();
+//					calcmp.setTime(tl.getThoiGianVao());
+//					System.out.println(tl.getThoiGianVao().getYear());
+//					System.out.println(tl.getThoiGianVao().getMonth());
+//					System.out.println(tl.getThoiGianVao().getDay());
+					
+					
 					LocalDateTime timevao = LocalDateTime.ofInstant(tl.getThoiGianVao().toInstant(), ZoneId.systemDefault());
 					LocalDateTime timera = LocalDateTime.now();
-					LocalDateTime timeCompare = LocalDateTime.of(tl.getThoiGianVao().getYear(), tl.getThoiGianVao().getMonth(), tl.getThoiGianVao().getDay(), 6, 0);
+					LocalDateTime timecmp = timera;
+//					LocalDateTime timeCompare = LocalDateTime.of(timevao.getYear(), timevao.getMonth(), timevao.getDayOfMonth(), 6, 0);
 					
+//					LocalDateTime startOfDay = timevao.atStartOfDay();
 					List <PhiGuiXe> listPhiNgay =  getPhiNgay(listKhachHang.get(0));
-//					List <PhiGuiXe> listPhiDem =  getPhiDem(listKhachHang.get(0));
+					List <PhiGuiXe> listPhiDem =  getPhiDem(listKhachHang.get(0));
 					System.out.println(listPhiNgay.size());
-//					System.out.println(listPhiDem.size());
-//					System.out.println(listKhachHang.get(0));
-//					BigDecimal phingay = (BigDecimal) listPhiNgay.get(0).getMucPhi();
-//					BigDecimal phidem = (BigDecimal) listPhiDem.get(0).getMucPhi();
-//					BigDecimal tongphi = new BigDecimal(0);
+					System.out.println(listPhiDem.size());
+					System.out.println(listKhachHang.get(0).getLoaiXe());
+					BigDecimal phingay = (BigDecimal) listPhiNgay.get(0).getMucPhi();
+					BigDecimal phidem = (BigDecimal) listPhiDem.get(0).getMucPhi();
+					BigDecimal tongphi = new BigDecimal(0);
+					System.out.println(phingay);
+					System.out.println(phidem);
+					System.out.println(listPhiNgay.get(0).getHinhThuc());
+					System.out.println(listPhiDem.get(0).getHinhThuc());
 //					while (timeCompare.compareTo(timevao) < 0)
 //					{
-//						timeCompare.plusHours(12);
+//						timeCompare = timeCompare.plusHours(12);
+//						System.out.println(1);
+//
 //					}
+//					if  (timeCompare.compareTo(timera) > 0)
+//					{
+//						if (timera.getHour() < 18 && timera.getHour() >= 6 ) {
+//							tongphi = tongphi.add(phingay);
+//						} else {
+//							tongphi = tongphi.add(phidem);
+//						}
+//					}
+					
+					
 //					while (timeCompare.compareTo(timera) <= 0 && timeCompare.compareTo(timevao) >= 0  )
 //					{
 //						if (timeCompare.getHour() < 18 && timeCompare.getHour() >= 6 ) {
@@ -195,11 +228,27 @@ public class TheLuotController {
 //						} else {
 //							tongphi = tongphi.add(phidem);
 //						}
-//						timeCompare.plusHours(12);
+//
+//						timeCompare = timeCompare.plusHours(12);
 //					}
-//					query.setParameter("tongTien", tongphi);
-//					int result = query.executeUpdate();
-//					System.out.println(result);
+					
+					while (timecmp.compareTo(timevao) > 0)
+					{
+						if (timecmp.getHour() < 18 && timecmp.getHour() >= 6 ) {
+							tongphi = tongphi.add(phingay);
+							LichSuPhi ctphingay = new LichSuPhi(listKhachHang.get(0), listPhiNgay.get(0));
+							session.save(ctphingay);
+						} else {
+							tongphi = tongphi.add(phidem);
+							LichSuPhi ctphidem = new LichSuPhi(listKhachHang.get(0), listPhiDem.get(0));
+							session.save(ctphidem);
+						}
+
+						timecmp = timecmp.plusHours(-12);
+					}
+					query.setParameter("tongTien", tongphi);
+					int result = query.executeUpdate();
+					System.out.println(result);
 					tx.commit();
 					model.addAttribute("successxera", "Cập nhật thành công!");
 				}
@@ -219,6 +268,19 @@ public class TheLuotController {
 		}
 		return "thera";
 	}
+	
+	
+	@RequestMapping("lichsugui")
+	public String lichSuGui(ModelMap model) {
+		System.out.println("lichsugui");
+		Session session = factory.getCurrentSession();
+		String hql ="FROM TheLuot";
+		Query query = session.createQuery(hql);
+		List<NhanVien> list = query.list();
+		model.addAttribute("listTheLuot", list);
+		return "lichsugui";
+	}
+	
 	
 	public List<NhanVien> getNhanVien(String username) {
 		Session session = factory.getCurrentSession();
@@ -258,22 +320,30 @@ public class TheLuotController {
 	
 	public List<PhiGuiXe> getPhiNgay(Xe xe) {
 		Session session = factory.getCurrentSession();
-		String hql ="FROM PhiGuiXe where  xe = :xe)";
+		String hql ="FROM PhiGuiXe where thoiGianThayDoi = (select max(thoiGianThayDoi) from PhiGuiXe where loaiXe = :loaiXe and hinhThuc = :hinhThuc) and loaiXe = :loaiXe and hinhThuc = :hinhThuc";
 		Query query = session.createQuery(hql);
-		query.setParameter("xe", xe);
-//		query.setParameter("hinhThuc","NGAY");
+		query.setParameter("loaiXe", xe.getLoaiXe());
+		query.setParameter("hinhThuc","NGAY");
 		List<PhiGuiXe> list = query.list();
 		return list;
 	}
 	
 	public List<PhiGuiXe> getPhiDem(Xe xe) {
 		Session session = factory.getCurrentSession();
-		String hql ="FROM PhiGuiXe where thoiGianThayDoi = (select max(thoiGianThayDoi) from PhiGuiXe where hinhThuc = :hinhThuc and xe = :xe)";
+		String hql ="FROM PhiGuiXe where thoiGianThayDoi = (select max(thoiGianThayDoi) from PhiGuiXe where hinhThuc = :hinhThuc and loaiXe = :loaiXe) and loaiXe = :loaiXe and hinhThuc = :hinhThuc";
 		Query query = session.createQuery(hql);
-		query.setParameter("xe", xe);
+		query.setParameter("loaiXe", xe.getLoaiXe());
 		query.setParameter("hinhThuc","DEM");
 		List<PhiGuiXe> list = query.list();
 		return list;
 	}
 	
 }
+//abstract class AgeComparator implements Comparator<TheLuot> {
+//    public int compare(TheLuot a, TheLuot b) {
+//    	if (a.getThoiGianRa() == null &&  b.getThoiGianRa() == null) return a.getThoiGianVao().compareTo(a.getThoiGianVao()) < 0;
+//    	if (a.getThoiGianRa() != null &&  b.getThoiGianRa() != null) return a.getThoiGianRa().compareTo(a.getThoiGianRa()) < 0;
+//    	if (a.getThoiGianRa() == null &&  b.getThoiGianRa() != null) return a.getThoiGianVao().compareTo(a.getThoiGianRa()) < 0;
+//    	return a.getThoiGianRa().compareTo(a.getThoiGianVao()) < 0;
+//    }
+//}

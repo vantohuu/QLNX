@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jstl/fmt_rt" prefix="f"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -30,7 +32,7 @@
 					<ul
 						class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start "
 						id="menu">
-						<li class="nav-item"><a href="home.htm"
+						<li class="nav-item"><a href="index.jsp"
 							class="nav-link align-middle px-0"> <i
 								class="fa-solid fa-house"></i> <span
 								class="ms-1 d-none d-sm-inline">Home</span>
@@ -110,47 +112,36 @@
 						</div>
 				</div>
 			</div>
-			<div
-				class="col py-3 d-flex justify-content-center align-items-center">
-				<div class = "w-100 h-100" >
-					<h3 class="m-5">Nhập thẻ vào:</h3>
-					<form action="/QLNX/thevao.htm" method="post" class="p-5">
-	
-						<div class="form-group row">
-							<label for="inputPassword3" class="col-sm-5 col-form-label">
-							Nhập biển số xe</label>
-							<div class="col-sm-10">
-								<input type="text" class="form-control" id="bsx" name="bsx"
-									placeholder="Biển số xe">
-							</div>
-						</div>
-						<fieldset class="form-group">
-							<div class="row">
-								<legend class="col-form-label col-sm-5 pt-0">Loại xe</legend>
-								<div class="col-sm-10">
-									<div class="form-check">
-										<input class="form-check-input" type="radio" name="xe"
-											id="gridRadios1" value="option1" checked> <label
-											class="form-check-label" for="gridRadios"> Xe Số </label>
-									</div>
-									<div class="form-check">
-										<input class="form-check-input" type="radio" name="xe"
-											id="gridRadios2" value="option2"> <label
-											class="form-check-label" for="gridRadios"> Xe Ga </label>
-									</div>
-								</div>
-							</div>
-						</fieldset>
-						<div class="form-group row mt-3 ">
-							<div class="col-sm-10">
-								<button type="submit" class="btn btn-primary">Xác nhận</button>
-							</div>
-						</div>
-						<p class = "text-success" >${successxevao} </p>
-						<p class = "text-danger" >${errxevao} </p>
-					</form>
-				</div>
-
+			<div class="col py-3">
+				<h2>Lịch sử xe vào/ra</h2>
+				<table class="table table-hover">
+					<tr>
+						<th>STT</th>
+						<th>BSX</th>
+						<th>Trạng thái</th>
+						<th></th>
+						<th>Thời gian vào</th>
+						<th>Thời gian ra</th>
+						<th>Tổng tiền</th>
+						<th>Xác nhận vào</th>
+						<th>Xác nhận ra</th>
+					</tr>
+					<c:forEach var="the" items="${listTheLuot}" varStatus="stt">
+						<tr>
+							<td><f:formatNumber value="${stt.index}" type="number"/> </td>
+							<td>"${the.xe.bienSoXe}"</td>
+							<c:choose>
+								<c:when test="${the.thoiGianRa == null}"><td class = "text-primary">Đang gửi<td></c:when>
+								<c:otherwise><td class = "text-success">Đã thanh toán<td></c:otherwise>
+							</c:choose>
+							<td>"${the.thoiGianVao}"</td>
+							<td>"${the.thoiGianRa}"</td>
+							<td><f:formatNumber value="${the.tongTien}" type="currency"/> </td>
+							<td>"${the.nhanVien1.maNv}"</td>
+							<td>"${the.nhanVien2.maNv}"</td>
+						</tr>
+					</c:forEach>
+				</table>
 			</div>
 		</div>
 	</div>
