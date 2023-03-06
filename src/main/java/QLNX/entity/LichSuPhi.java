@@ -3,6 +3,7 @@ package QLNX.entity;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -12,7 +13,7 @@ import javax.persistence.Table;
 @Table(name="LICHSUPHI")
 public class LichSuPhi {	
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="ID_LICHSUPHI")
 	private int idLichSuPhi;
 	
@@ -29,8 +30,7 @@ public class LichSuPhi {
 	}
 
 
-	public LichSuPhi(int idLichSuPhi, Xe xe, PhiGuiXe phi) {
-		this.idLichSuPhi = idLichSuPhi;
+	public LichSuPhi(Xe xe, PhiGuiXe phi) {
 		this.xe = xe;
 		this.phi = phi;
 	}

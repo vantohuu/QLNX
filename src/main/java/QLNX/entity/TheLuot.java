@@ -22,12 +22,12 @@ import javax.persistence.TemporalType;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
-@Table(name="CT_THE_LUOT")
+@Table(name="THE_LUOT")
 public class TheLuot {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="ID_CT_THE_LUOT")
-	private int idCTTheLuot;
+	@Column(name="ID_THE_LUOT")
+	private int idTheLuot;
 	
 	//kết nối bảng khách hàng
 	@ManyToOne
@@ -39,9 +39,10 @@ public class TheLuot {
 	@Column(name="THOIGIANVAO")
 	private Date thoiGianVao;
 	
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
 	@DateTimeFormat(pattern="MM/dd/yyyy HH:mm:ss")
 	@Column(name="THOIGIANRA")
+	
 	private Date thoiGianRa;
 	//kết nối nhân viên thu giữ và cấp thẻ xe
 	@ManyToOne
@@ -58,11 +59,8 @@ public class TheLuot {
 	public TheLuot() {
 	}
 
-	
-
-	public TheLuot(int idCTTheLuot, Xe xe, Date thoiGianVao, Date thoiGianRa, NhanVien nhanVien1, NhanVien nhanVien2,
+	public TheLuot(Xe xe, Date thoiGianVao, Date thoiGianRa, NhanVien nhanVien1, NhanVien nhanVien2,
 			BigDecimal tongTien) {
-		this.idCTTheLuot = idCTTheLuot;
 		this.xe = xe;
 		this.thoiGianVao = thoiGianVao;
 		this.thoiGianRa = thoiGianRa;
@@ -72,13 +70,12 @@ public class TheLuot {
 	}
 
 
-
-	public int getIdCTTheLuot() {
-		return idCTTheLuot;
+	public int getIdTheLuot() {
+		return idTheLuot;
 	}
 
-	public void setIdCTTheLuot(int idCTTheLuot) {
-		this.idCTTheLuot = idCTTheLuot;
+	public void setIdTheLuot(int idCTTheLuot) {
+		this.idTheLuot = idCTTheLuot;
 	}
 
 	public Xe getXe() {
