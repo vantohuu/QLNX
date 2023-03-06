@@ -1,13 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %> 
+   <%@ taglib uri="http://java.sun.com/jstl/fmt_rt" prefix="fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Bootstrap demo</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <title>Thông tin nhân viên</title>
+    
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" 
      integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <script src="https://kit.fontawesome.com/ee36f81461.js" crossorigin="anonymous"></script>
@@ -22,7 +23,7 @@
                 </a>
                 <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
                     <li class="nav-item">
-                        <a href="#" class="nav-link align-middle px-0">
+                        <a href="home.htm" class="nav-link align-middle px-0">
                            <i class="fa-solid fa-house"></i>
                             <span class="ms-1 d-none d-sm-inline">Home</span>
                         </a>
@@ -58,19 +59,19 @@
                                 <a href="doanhthu" class="nav-link px-0"> <span class="d-none d-sm-inline">Doanh thu</span></a>
                             </li>
                             <li>
-                                <a href="nhanvie" class="nav-link px-0"> <span class="d-none d-sm-inline">Nhân viên</span></a>
+                                <a href="nhanvien.htm" class="nav-link px-0"> <span class="d-none d-sm-inline">Nhân viên</span></a>
                             </li>
                             <li>
                                 <a href="luong" class="nav-link px-0"> <span class="d-none d-sm-inline">Lịch</span></a>
                             </li>
                              <li>
-                                <a href="luong" class="nav-link px-0"> <span class="d-none d-sm-inline">Lương</span></a>
+                                <a href="chucvu.htm" class="nav-link px-0"> <span class="d-none d-sm-inline">Chức vụ</span></a>
                             </li>
                              <li>
                                 <a href="taikhoan" class="nav-link px-0"> <span class="d-none d-sm-inline">Tài khoản</span></a>
                             </li>
                              <li>
-                                <a href="bienban" class="nav-link px-0"> <span class="d-none d-sm-inline">Biên bản</span></a>
+                                <a href="bangluong.htm" class="nav-link px-0"> <span class="d-none d-sm-inline">Bảng lương</span></a>
                             </li>
                              <li>
                                 <a href="suco" class="nav-link px-0"> <span class="d-none d-sm-inline">Sự cố</span></a>
@@ -87,7 +88,7 @@
                     </a>
                     <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
    
-                        <li><a class="dropdown-item" href="#">Chỉnh sửa tài khoản</a></li>
+                        <li><a class="dropdown-item" href="nhanvien-thongtin.htm">Chỉnh sửa thông tin cá nhân</a></li>
                         <li><a class="dropdown-item" href="#">Đổi mật khẩu</a></li>
                         <li>
                             <hr class="dropdown-divider">
@@ -97,30 +98,56 @@
                 </div>
             </div>
         </div>
-        <div class="col py-3">
-            <h1>Table</h1>
-		<table class="table table-striped">
+		<div class="col py-3">
+            <h1>Bảng lương nhân viên</h1>
+           <div>
+            <table class="table table-dark table-striped-columns">
 			<thead>
 				<tr>
-					<th>Tên tài khoản</th>
-					<th>Chức vụ</th>
-					<th>Họ và tên</th>
+					<th >Mã nhân viên</th>
+					<th >Họ và tên</th>
+					<th >Chức vụ</th>
+					<th >Hình thức</th>
+					<th >Tổng giờ làm</th>
+					<th >Tổng lương</th>
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach var="account" items="${accounts}">
+				<c:forEach var="nv" items="${nhanVien}">
 					<tr>
-						<td>${account.username}</td>
-						<td>${account.cV.ten}</td>
-						<td>${account.nhanVien.ho} ${account.nhanVien.ten}</td>
+						<td>${nv.getMaNV()}</td>
+						<td>${nv.getHo()} ${nv.getTen()}</td>
+						<td>${nv.getTenCV()}</td>
+						<td>${nv.getLoaiNV() }</td>
+						<td>${nv.getTongGio() }</td>
+						<td>
+						<c:if test="${nv.getLoaiNV()=='Full-time'}">
+    					<fmt:formatNumber value="${nv.getLuong()}" type="currency"></fmt:formatNumber>
+						</c:if>
+						<c:if test="${nv.getLoaiNV()=='Part-time'}">
+						 <fmt:formatNumber value="${nv.getLuong()*nv.getTongGio()}" type="currency"></fmt:formatNumber>   							
+						</c:if>
+						</td>
 					</tr>
 				</c:forEach>
 			</tbody>
 		</table>
+			<%-- <ul class="pagination" style="position: absolute; bottom: 0; right: 0;width:400px;">
+			    <li class="page-item ${currentPage == 0 ? 'disabled' : ''}">
+			        <a class="page-link" href="/QLNX/nhanvien.htm?page=${currentPage - 1}">Trước</a>
+			    </li>
+			    <c:forEach begin="0" end="${totalPages - 1}" var="i">
+			        <li class="page-item ${currentPage == i ? 'active' : ''}">
+			            <a class="page-link" href="/QLNX/nhanvien.htm?page=${i}">${i + 1}</a>
+			        </li>
+			    </c:forEach>
+			    <li class="page-item ${currentPage == totalPages - 1 ? 'disabled' : ''}">
+			        <a class="page-link" href="/QLNX/nhanvien.htm?page=${currentPage + 1}">Sau</a>
+			    </li>
+			</ul> --%>
+            </div>
         </div>
     </div>
-</div>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
 </body>
 </html>

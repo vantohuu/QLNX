@@ -2,7 +2,7 @@ package QLNX.entity;
 
 import java.util.List;
 
-import javax.persistence.CascadeType;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -24,7 +24,7 @@ public class ChucVu {
 	
 
 	
-	@OneToMany(mappedBy = "chucVu", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "chucVu", fetch = FetchType.LAZY)
 	private List<CTChucVu> luong;
 	
 	public ChucVu() {}

@@ -3,7 +3,7 @@ package QLNX.entity;
 import java.math.BigDecimal;
 import java.util.List;
 
-import javax.persistence.CascadeType;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -32,7 +32,7 @@ public class CTChucVu {
 	@Column(name="LUONG")
 	private BigDecimal luong;
 	
-	@OneToMany(mappedBy = "CTChucVu", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "CTChucVu", fetch = FetchType.LAZY)
 	private List<NhanVien> nhanVien;
 	
 	public CTChucVu() {}

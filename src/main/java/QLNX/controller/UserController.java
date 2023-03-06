@@ -1,15 +1,20 @@
 package QLNX.controller;
 
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
-import javax.websocket.server.PathParam;
+
 
 import org.hibernate.Query;
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -26,6 +31,7 @@ import QLNX.entity.CTChucVu;
 import QLNX.entity.ChucVu;
 import QLNX.entity.NhanVien;
 import QLNX.entity.TaiKhoan;
+import QLNX.entity.ThongKeLuong;
 
 @Transactional
 @Controller
@@ -89,7 +95,7 @@ public class UserController {
 		    int totalPages = (int) Math.ceil((double) totalUsers / pageSize);
 		    model.addAttribute("totalPages", totalPages);
 		    model.addAttribute("currentPage", page);
-			return "nhanvien";
+			return "nhanvien/nhanvien";
 		}
 	}
 	
@@ -97,7 +103,7 @@ public class UserController {
 	public String suaNhanVien(@ModelAttribute("nhanVien") NhanVien nhanVien,@PathVariable("maNV") String maNV,ModelMap model) {
 		model.addAttribute("nhanVien",this.searchNhanVien(maNV));
 		
-		return "nhanvien-sua";
+		return "nhanvien/nhanvien-sua";
 	}
 	@RequestMapping(value="nhanvien-sua/update",params = "update", method = RequestMethod.POST) 
 	public String editNhanVien(@ModelAttribute("nhanVien") NhanVien nhanVien,ModelMap model) {
@@ -109,26 +115,113 @@ public class UserController {
 			Session session = factory.openSession();
 			Transaction t = session.beginTransaction();
 			try {
-				session.update(nhanVien);
+				session.update(nhanVien1);
 				t.commit();
 				model.addAttribute("message", "Update thành công");
 			} catch (Exception e) {
 				t.rollback();
-				model.addAttribute("message", "Update thất bại!");
+				
 			} finally {
 				session.close();
 			}
+		} else {
+			model.addAttribute("message", "Update thất bại!");
 		}
-		return "redirect:/nhanvien.htm";
+		return "nhanvien/nhanvien-sua";
 	}
-	@RequestMapping(value="nhanvien-sua/update",params = "exit") 
-	public String exitEditNhanVien() {
-		return "redirect:/nhanvien.htm";
+	@RequestMapping(value="/chucvu")
+	public String thongTinChucVu(HttpSession session, ModelMap model) {
+		if (!session.getAttribute("quyenHan").equals("QL")) {;
+			return "home";
+		} else {
+			List<CTChucVu> thongTinChucVu = this.getCTChucVu();
+			model.addAttribute("ctChucVu",thongTinChucVu);
+			return "nhanvien/nhanvien-chucvu";
+		}
 	}
 	
 	@RequestMapping(value="/nhanvien-themmoi") 
 	public String themNhanVienMoi() {
-		return "/nhanvien-themmoi";
+		return "nhanvien/nhanvien-themmoi";
+	}
+	@RequestMapping(value="nhanvien-themchucvu")
+	public String themChucVu(@ModelAttribute("ctChucVu") CTChucVu ctChucVu,ModelMap model) {
+		return "nhanvien/nhanvien-themchucvu";
+	}
+	@RequestMapping(value="add-vitri", method = RequestMethod.POST) 
+	public String addChucVu(@ModelAttribute("ctChucVu") CTChucVu ctChucVu,ModelMap model) {
+		if(ctChucVu.getLuong()== null) {
+			model.addAttribute("message", "** Lương không thể bỏ trống");
+			return "nhanvien/nhanvien-themchucvu";
+		}
+		if(searchCTChucVu(ctChucVu.getChucVu().getMaCV(), ctChucVu.getLoaiNhanVien()) == null) {
+			Session session = factory.openSession();
+			Transaction t = session.beginTransaction();
+			try {
+				session.save(ctChucVu);
+				t.commit();
+				model.addAttribute("message", "Thêm mới thành công");
+			} catch (Exception e) {
+				t.rollback();
+				
+			} finally {
+				session.close();
+			}
+		} else {
+			model.addAttribute("message", "Vị trí đã tồn tại !");
+		}
+		return "nhanvien/nhanvien-themchucvu";
+	}
+	@RequestMapping(value="nhanvien-suachucvu/{id}.htm")
+	public String suaChucVu(@ModelAttribute("ctChucVu") CTChucVu ctChucVu,@PathVariable("id") int id,ModelMap model) {
+		Session session = factory.getCurrentSession();
+		String hql = "FROM CTChucVu WHERE idCTChucVu = :id";
+		Query query = session.createQuery(hql);
+		query.setParameter("id", id);
+		CTChucVu ctChucVu1 = (CTChucVu) query.list().get(0);
+		model.addAttribute("ctChucVu",ctChucVu1);
+		
+		return "nhanvien/nhanvien-suachucvu";
+	}
+	@RequestMapping(value="/nhanvien-suachucvu/edit-vitri", method = RequestMethod.POST) 
+	public String editChucVu(@ModelAttribute("ctChucVu") CTChucVu ctChucVu,ModelMap model) {
+		if(ctChucVu.getLuong()== null) {
+			model.addAttribute("message", "** Lương không thể bỏ trống");
+			return "nhanvien/nhanvien-themchucvu";
+		}
+		CTChucVu ctChucVu1 = searchCTChucVu(ctChucVu.getChucVu().getMaCV(), ctChucVu.getLoaiNhanVien());
+		if(ctChucVu1.getLuong().compareTo(ctChucVu.getLuong())!=0) {
+			Session session = factory.openSession();
+			Transaction t = session.beginTransaction();
+			try {
+				ctChucVu1.setLuong(ctChucVu.getLuong());
+				session.update(ctChucVu1);
+				t.commit();
+				model.addAttribute("message", "Sửa lương đổi thành công");
+			} catch (Exception e) {
+				t.rollback();
+				
+			} finally {
+				session.close();
+			}
+		} else {
+			return "redirect:../chucvu.htm";
+		}
+		return "nhanvien/nhanvien-suachucvu";
+	}
+	@RequestMapping("/nhanvien-thongtin")
+	public String xemThongTin(@ModelAttribute("nhanVien") NhanVien nhanVien,ModelMap model, HttpSession session) {		
+		NhanVien nv = searchNhanVien((String) session.getAttribute("username"));
+
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+		String dateString = formatter.format(nv.getNgaySinh());
+
+		System.out.println("Chuỗi ngày mới: " + dateString);
+
+		System.out.println(nv.getNgaySinh());
+		model.addAttribute("nhanVien",nv);
+		model.addAttribute("ngaySinh1",dateString);
+		return "nhanvien/nhanvien-thongtin";
 	}
 	@ModelAttribute("chucVu")
 	public List<ChucVu> getChucVu() {
@@ -145,6 +238,57 @@ public class UserController {
 		list.add("Part-time");
 		return list;
 	}
+	@ModelAttribute("gioiTinh")
+	public List<String> getGioiTinh() {
+		List<String> list = new ArrayList<String>();
+		list.add("Nam");
+		list.add("Nữ");
+		return list;
+	}
+	@RequestMapping(value="/capnhatthongtincanhan", method = RequestMethod.POST)
+	public String capNhatThongTinCaNhan(@ModelAttribute("nhanVien") NhanVien nhanVien, ModelMap model, HttpServletRequest request) throws ParseException {
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+		NhanVien nv = searchNhanVien(nhanVien.getMaNv());
+		if(!nv.getCccd().equals(nhanVien.getCccd())) {
+			if(checkTrungCCCD(nhanVien.getCccd())==1) {
+				model.addAttribute("nhanVien",nv);
+				String dateString = formatter.format(nv.getNgaySinh());
+				model.addAttribute("ngaySinh1",dateString);
+				model.addAttribute("message","** CCCD vừa thay đổi bị trùng rồi !");
+				return "nhanvien/nhanvien-thongtin";
+			}
+		}
+		String tmp = request.getParameter("ngaySinh1");
+		Date c1 = formatter.parse(tmp);
+		System.out.println(c1);
+		System.out.println(tmp);
+		Session session = factory.openSession();
+		Transaction t = session.beginTransaction();
+		try {
+			nv.setHo(nhanVien.getHo());
+			nv.setTen(nhanVien.getTen());
+			nv.setGioiTinh(nhanVien.getGioiTinh());
+			nv.setCccd(nhanVien.getCccd());
+			nv.setSdt(nhanVien.getSdt());
+			nv.setEmail(nhanVien.getEmail());
+			nv.setNgaySinh(c1);
+			nv.setDiaChi(nhanVien.getDiaChi());
+			session.update(nv);
+			model.addAttribute("message", "Sửa đổi thông tin cá nhân thành công");
+			t.commit();
+			
+		} catch (Exception e) {
+			t.rollback();
+			
+		} finally {
+			session.close();
+		}
+		String dateString = formatter.format(nv.getNgaySinh());
+		model.addAttribute("ngaySinh1",dateString);
+		model.addAttribute("nhanVien",nv);
+		return "nhanvien/nhanvien-thongtin";
+	}
+	
 	@RequestMapping(value="/nhanvien-themmoi",method = RequestMethod.POST) 
 	public String themMoi(HttpServletRequest request,ModelMap model) {
 		Session session = factory.openSession();
@@ -163,11 +307,17 @@ public class UserController {
 		if(ctCV == null) {
 			model.addAttribute("messagectChucVu", "!Không tồn tại chức vụ " +searchTenChucVu(maCV) +
 					" với hình thức "+ loaiNhanVien);
-			return "/nhanvien-themmoi";
+			return "nhanvien/nhanvien-themmoi";
 		} else {
 			model.addAttribute("messagectChucVu", "");
 		}
 		nhanVien.setCTChucVu(ctCV);
+		System.out.print(nhanVien.getMaNv());
+		System.out.print(nhanVien.getHo());
+		System.out.print(nhanVien.getTen());
+		System.out.print(nhanVien.getGioiTinh());
+		System.out.print(nhanVien.getCccd());
+		System.out.print(nhanVien.getEmail());
 		try {
 			String mkDefault = "123456";
 			TaiKhoan tk = new TaiKhoan(nhanVien.getMaNv(), mkDefault, 1);
@@ -181,10 +331,36 @@ public class UserController {
 		} finally {
 			session.close();
 		}
-		return "/nhanvien-themmoi";
+		return "nhanvien/nhanvien-themmoi";
+	}
+	@RequestMapping("/bangluong")
+	public String bangLuong(ModelMap model, HttpSession session1) {
+		if (!session1.getAttribute("quyenHan").equals("QL")) {;
+		return "home";
+		}
+		Session session = factory.getCurrentSession();
+		Query query = ((SQLQuery) session.createSQLQuery("EXEC THONG_KE_LUONG :month, :year")
+		    .setParameter("month", 1)
+		    .setParameter("year", 2023))
+		    .addEntity(ThongKeLuong.class);
+
+		List<ThongKeLuong> results = query.list();
+//		for (int i=0; i<results.size();i++) {
+//			
+//			System.out.print("Manv:" +results.get(i).getMaNV() +" tongGio: "+results.get(i).getTongGio()+ " loaiNhanVien: " 
+//			+results.get(i).getLoaiNV() +" tenchucvu: "+ results.get(i).getTenCV());
+//		}
+		model.addAttribute("nhanVien",results);
+		return "nhanvien/nhanvien-bangluong";
 	}
 	
-	
+	public List<CTChucVu> getCTChucVu() {
+		Session session = factory.getCurrentSession();
+		String hql = "FROM CTChucVu";
+		Query query = session.createQuery(hql);
+		List<CTChucVu> list = query.list();
+		return list;
+	}
 	
 	public NhanVien searchNhanVien(String maNV) {
 		Session session = factory.getCurrentSession();
@@ -267,6 +443,15 @@ public class UserController {
 		} else {
 			return 2;
 		}
+	}
+	private int checkTrungCCCD( String CCCD) {
+		Session session = factory.getCurrentSession();
+		String hql = "FROM NhanVien where cccd = :CCCD";
+		Query query = session.createQuery(hql);
+		query.setParameter("CCCD", CCCD);
+		List<NhanVien> list = query.list();
+		if(list.size() == 0) return 0;
+		return 1;
 	}
 	private String checkQuyenHan(String username) {
 		TaiKhoan check = this.searchTK(username);
