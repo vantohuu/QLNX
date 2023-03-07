@@ -90,7 +90,7 @@ public class DoanhThuController {
 			 model.addAttribute("s_so_dem", s_so_dem);
 			 model.addAttribute("s_ga_dem", s_ga_dem);
 			 model.addAttribute("s_so_thang", s_so_thang);
-			 model.addAttribute("s_ga_thang", c_ga_thang);			 
+			 model.addAttribute("s_ga_thang", s_ga_thang);			 
 		}
 		return "doanhthu";
 	}

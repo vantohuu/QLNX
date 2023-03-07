@@ -17,6 +17,10 @@
 	crossorigin="anonymous">
 <script src="https://kit.fontawesome.com/ee36f81461.js"
 	crossorigin="anonymous"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+<script src="<%=request.getContextPath()%>resource/js.jquery.min.js">></script>
+<script src="<%=request.getContextPath()%>resource/js.table2excel.js">></script>
 </head>
 <body>
 	<div class="container-fluid">
@@ -131,14 +135,14 @@
 						</div>
 					</form>
 				</div>
-				<table class="table table-bordered table-striped mt-5">
+				<table class="table table-bordered table-striped mt-5" id = "tbldemo">
 					<thead>
 						<tr>
 							<th scope="col">Hình thức</th>
-							<th scope="col" colspan = "2">Gửi ngày</th>
-							<th scope="col"  colspan = "2">Gửi đêm</th>
-							<th scope="col"  colspan = "2">Gửi tháng</th>
-							<th scope="col"  colspan = "2">Tổng</th>
+							<th scope="col" colspan="2">Gửi ngày</th>
+							<th scope="col" colspan="2">Gửi đêm</th>
+							<th scope="col" colspan="2">Gửi tháng</th>
+							<th scope="col" colspan="2">Tổng</th>
 							<th scope="col">Tổng</th>
 						</tr>
 						<tr>
@@ -151,7 +155,7 @@
 							<th scope="col">Xe tay ga</th>
 							<th scope="col">Xe máy số</th>
 							<th scope="col">Xe tay ga</th>
-			
+
 						</tr>
 					</thead>
 					<tbody>
@@ -165,7 +169,7 @@
 							<td>${c_ga_thang}</td>
 							<td>${c_so_ngay + c_so_dem + c_so_thang}</td>
 							<td>${c_ga_ngay + c_ga_dem + c_ga_thang}</td>
-							<td>${c_so_ngay + c_so_dem + c_so_thang + c_ga_ngay + c_ga_dem + c_ga_thang}</td>	
+							<td>${c_so_ngay + c_so_dem + c_so_thang + c_ga_ngay + c_ga_dem + c_ga_thang}</td>
 						</tr>
 						<tr>
 							<th scope="row">Thành tiền</th>
@@ -181,6 +185,14 @@
 						</tr>
 					</tbody>
 				</table>
+				<button id="btnexport" class = "btn btn-info">Export to excel</button>
+				<script>
+        $(function () {
+            $("#btnexport").click(function () {
+                $("#tbldemo").table2excel();
+            });
+        });
+    </script>
 			</div>
 		</div>
 		<script
