@@ -23,7 +23,7 @@
                 </a>
                 <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
                     <li class="nav-item">
-                        <a href="#" class="nav-link align-middle px-0">
+                        <a href="home.htm" class="nav-link align-middle px-0">
                            <i class="fa-solid fa-house"></i>
                             <span class="ms-1 d-none d-sm-inline">Home</span>
                         </a>
@@ -68,13 +68,13 @@
                                 <a href="chucvu.htm" class="nav-link px-0"> <span class="d-none d-sm-inline">Chức vụ</span></a>
                             </li>
                              <li>
-                                <a href="taikhoan" class="nav-link px-0"> <span class="d-none d-sm-inline">Tài khoản</span></a>
+                                <a href="quanlitaikhoan.htm" class="nav-link px-0"> <span class="d-none d-sm-inline">Tài khoản</span></a>
                             </li>
                              <li>
                                 <a href="bangluong.htm" class="nav-link px-0"> <span class="d-none d-sm-inline">Bảng lương</span></a>
                             </li>
                              <li>
-                                <a href="suco" class="nav-link px-0"> <span class="d-none d-sm-inline">Sự cố</span></a>
+                                <a href="nhanvien-phi.htm" class="nav-link px-0"> <span class="d-none d-sm-inline">Phí gửi xe</span></a>
                             </li>
                         </ul>
                     </li>
@@ -88,12 +88,12 @@
                     </a>
                     <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
    
-                        <li><a class="dropdown-item" href="nhanvien-thongtin">Chỉnh sửa thông tin cá nhân</a></li>
-                        <li><a class="dropdown-item" href="#">Đổi mật khẩu</a></li>
+                        <li><a class="dropdown-item" href="nhanvien-thongtin.htm">Chỉnh sửa thông tin cá nhân</a></li>
+                        <li><a class="dropdown-item" href="doimatkhau.htm">Đổi mật khẩu</a></li>
                         <li>
                             <hr class="dropdown-divider">
                         </li>
-                        <li><a class="dropdown-item" href="#">Đăng xuất</a></li>
+                        <li><a class="dropdown-item" href="logout.htm">Đăng xuất</a></li>
                     </ul>
                 </div>
             </div>
@@ -105,9 +105,10 @@
                <div class="col-sm-4">
                   <label for="maNv">Mã nhân viên</label>
                   <input type="text" class="form-control"
-                     name="maNv" placeholder="Mã nhân viên">
+                     name="maNv" placeholder="Mã nhân viên" value="${maNv}">
                </div>
                </div>
+               <span style="color: red;">${messageMaNV}</span>
                <div class="form-group row">
 	               <div class="col-sm-4">
 	                  <label for="ho">Họ:</label>
@@ -143,6 +144,7 @@
 	                  <input type="text" class="form-control" name="sdt"/>
 	               </div>
                </div>
+               <span style="color: red;">${messageMaNV}</span>
                <div class="form-group row">
                <div class="form-group col-sm-5">
 	               <label for="email">Email:</label>

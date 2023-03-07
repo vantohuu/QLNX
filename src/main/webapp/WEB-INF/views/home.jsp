@@ -78,7 +78,7 @@
                                 <a href="bangluong.htm" class="nav-link px-0"> <span class="d-none d-sm-inline">Bảng lương</span></a>
                             </li>
                              <li>
-                                <a href="quanlisuco.htm" class="nav-link px-0"> <span class="d-none d-sm-inline">Sự cố</span></a>
+                                <a href="nhanvien-phi.htm" class="nav-link px-0"> <span class="d-none d-sm-inline">Phí gửi xe</span></a>
                             </li>
                         </ul>
                     </li>
@@ -93,7 +93,7 @@
                     <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
    
                         <li><a class="dropdown-item" href="nhanvien-thongtin.htm">Chỉnh sửa thông tin cá nhân</a></li>
-                        <li><a class="dropdown-item" href="doimatkhau">Đổi mật khẩu</a></li>
+                        <li><a class="dropdown-item" href="doimatkhau.htm">Đổi mật khẩu</a></li>
                         <li>
                             <hr class="dropdown-divider">
                         </li>
@@ -103,7 +103,7 @@
             </div>
         </div>
         <div class=""col py-3 d-flex justify-content-center align-items-center"">
-            Content area...
+
         </div>
     </div>
 </div>

@@ -6,6 +6,7 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -19,8 +20,9 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Table(name="THETHANG")
 public class TheThang {
 	@Id
+	@GeneratedValue
 	@Column(name="ID")
-	private String id;
+	private int id;
 	
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern="MM/dd/yyyy")
@@ -42,7 +44,7 @@ public class TheThang {
 	public TheThang() {
 	}
 
-	public TheThang(String id, Date ngayTao, Date ngayHetHan, NhanVien nhanVien, Xe xe) {
+	public TheThang(int id, Date ngayTao, Date ngayHetHan, NhanVien nhanVien, Xe xe) {
 		this.id = id;
 		this.ngayTao = ngayTao;
 		this.ngayHetHan = ngayHetHan;
@@ -52,11 +54,11 @@ public class TheThang {
 
 
 
-	public String getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 

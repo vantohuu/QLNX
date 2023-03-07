@@ -7,7 +7,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Thông tin nhân viên</title>
+    <title>Bảng lương nhân viên</title>
     
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" 
      integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
@@ -68,13 +68,13 @@
                                 <a href="chucvu.htm" class="nav-link px-0"> <span class="d-none d-sm-inline">Chức vụ</span></a>
                             </li>
                              <li>
-                                <a href="taikhoan" class="nav-link px-0"> <span class="d-none d-sm-inline">Tài khoản</span></a>
+                                <a href="quanlitaikhoan.htm" class="nav-link px-0"> <span class="d-none d-sm-inline">Tài khoản</span></a>
                             </li>
                              <li>
                                 <a href="bangluong.htm" class="nav-link px-0"> <span class="d-none d-sm-inline">Bảng lương</span></a>
                             </li>
                              <li>
-                                <a href="suco" class="nav-link px-0"> <span class="d-none d-sm-inline">Sự cố</span></a>
+                                <a href="nhanvien-phi.htm" class="nav-link px-0"> <span class="d-none d-sm-inline">Phí gửi xe</span></a>
                             </li>
                         </ul>
                     </li>
@@ -89,17 +89,40 @@
                     <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
    
                         <li><a class="dropdown-item" href="nhanvien-thongtin.htm">Chỉnh sửa thông tin cá nhân</a></li>
-                        <li><a class="dropdown-item" href="#">Đổi mật khẩu</a></li>
+                        <li><a class="dropdown-item" href="doimatkhau.htm">Đổi mật khẩu</a></li>
                         <li>
                             <hr class="dropdown-divider">
                         </li>
-                        <li><a class="dropdown-item" href="#">Đăng xuất</a></li>
+                        <li><a class="dropdown-item" href="logout.htm">Đăng xuất</a></li>
                     </ul>
                 </div>
             </div>
         </div>
 		<div class="col py-3">
             <h1>Bảng lương nhân viên</h1>
+            <p style=" top: 0; right: 0;width:600px;">
+            <span>**- Full-time: Tổng lương = lương cơ bản </span>
+            <br>
+            <span>**- Part-time: Tổng lương = (lương cơ bản) * (tổng giờ làm)</span>
+            </p>
+             <form action="bangluong-thang.htm" method="post" style="margin-bottom: 20px">
+         	<div class="form-group row">
+               <div class="col-sm-2">
+                  <label for="maNv">Tháng:</label>
+                  <input type="number" class="form-control"
+                     name="thang" placeholder="Tháng">
+               </div>
+               <div class="col-sm-2">
+                  <label for="maNv">Năm:</label>
+                  <input type="number" class="form-control"
+                     name="nam" placeholder="Năm">
+               </div>
+               <div class="col-sm-1">
+                <button type="submit" class="btn btn-primary" style="margin-top: 20px;">Lọc</button>
+                </div>
+               </div>
+              </form>
+              ${message}
            <div>
             <table class="table table-dark table-striped-columns">
 			<thead>
@@ -108,6 +131,7 @@
 					<th >Họ và tên</th>
 					<th >Chức vụ</th>
 					<th >Hình thức</th>
+					<th >Lương cơ bản</th>
 					<th >Tổng giờ làm</th>
 					<th >Tổng lương</th>
 				</tr>
@@ -119,6 +143,7 @@
 						<td>${nv.getHo()} ${nv.getTen()}</td>
 						<td>${nv.getTenCV()}</td>
 						<td>${nv.getLoaiNV() }</td>
+						<td>${nv.getLuong() }</td>
 						<td>${nv.getTongGio() }</td>
 						<td>
 						<c:if test="${nv.getLoaiNV()=='Full-time'}">
