@@ -42,17 +42,6 @@ public class TheThangController {
     @Autowired
     SessionFactory factory;
     
-//	@RequestMapping("quanlithethang")
-//	public String theThang(ModelMap model) {
-//		System.out.println("quanlithethang");
-//		Session session2 = factory.getCurrentSession();
-//		String hql ="FROM TheThang";
-//		Query query = session2.createQuery(hql);
-//		List<NhanVien> list = query.list();
-//		model.addAttribute("listTheThang", list);
-//		return "thethang";
-//	}
-//	
 	@RequestMapping("quanlithethang")
 	public String theThang(ModelMap model, @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "") String timkiem) {
 		System.out.println("quanlithethang");

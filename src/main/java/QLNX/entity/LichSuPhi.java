@@ -24,11 +24,9 @@ public class LichSuPhi {
 	@ManyToOne
 	@JoinColumn(name="ID_PHI")
 	private PhiGuiXe phi;
-
 	
 	public LichSuPhi() {
 	}
-
 
 	public LichSuPhi(Xe xe, PhiGuiXe phi) {
 		this.xe = xe;

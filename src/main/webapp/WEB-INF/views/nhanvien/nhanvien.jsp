@@ -45,7 +45,7 @@
                         </ul>
                     </li>
                     <li>
-                        <a href="#" class="nav-link px-0 align-middle">
+                        <a href="lich" class="nav-link px-0 align-middle">
                            <i class="fa-solid fa-calendar-days"></i>
                            <span class="ms-1 d-none d-sm-inline">Lịch làm việc</span></a>
                     </li>
@@ -61,7 +61,13 @@
                                 <a href="nhanvien.htm" class="nav-link px-0"> <span class="d-none d-sm-inline">Nhân viên</span></a>
                             </li>
                             <li>
-                                <a href="luong" class="nav-link px-0"> <span class="d-none d-sm-inline">Lịch</span></a>
+                                <a href="quanlithethang.htm" class="nav-link px-0"> <span class="d-none d-sm-inline">Nhân viên</span></a>
+                            </li>
+                            <li>
+                                <a href="quanlilich" class="nav-link px-0"> <span class="d-none d-sm-inline">Lịch</span></a>
+                            </li>
+                             <li>
+                                <a href="luong" class="nav-link px-0"> <span class="d-none d-sm-inline">Lương</span></a>
                             </li>
                              <li>
                                 <a href="chucvu.htm" class="nav-link px-0"> <span class="d-none d-sm-inline">Chức vụ</span></a>
@@ -71,9 +77,6 @@
                             </li>
                              <li>
                                 <a href="bangluong.htm" class="nav-link px-0"> <span class="d-none d-sm-inline">Bảng lương</span></a>
-                            </li>
-                             <li>
-                                <a href="suco" class="nav-link px-0"> <span class="d-none d-sm-inline">Sự cố</span></a>
                             </li>
                         </ul>
                     </li>

@@ -2,6 +2,9 @@ package QLNX.entity;
 
 
 
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -91,5 +94,11 @@ public class TheThang {
 		this.xe = xe;
 	}
 
-	
+	public int getTrangThai() {
+		LocalDateTime now = LocalDateTime.now();  
+		Instant instant = now.toInstant(ZoneOffset.UTC);
+	    Date date = Date.from(instant);
+	    if (this.ngayHetHan.compareTo(date) > 0) return 1;
+	    return 0;
+	}
 }

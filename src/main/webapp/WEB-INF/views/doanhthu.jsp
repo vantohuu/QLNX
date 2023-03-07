@@ -100,7 +100,8 @@
 							</a>
 							<ul class="dropdown-menu dropdown-menu-dark text-small shadow">
 
-								<li><a class="dropdown-item" href="chinhsuathongtin">Chỉnh sửa thông tin cá nhân</a></li>
+								<li><a class="dropdown-item" href="chinhsuathongtin">Chỉnh
+										sửa thông tin cá nhân</a></li>
 								<li><a class="dropdown-item" href="doimatkhau">Đổi mật
 										khẩu</a></li>
 								<li>
@@ -112,122 +113,29 @@
 				</div>
 			</div>
 			<div class="col py-3">
-				<h2>Quản lí thẻ tháng</h2>
-				<!-- Button trigger modal -->
-				<button type="button" class="btn btn-primary my-2"
-					data-bs-toggle="modal" data-bs-target="#exampleModal">Thêm
-					thẻ tháng</button>
-
-				<!-- Modal -->
-				<div class="modal fade" id="exampleModal" tabindex="-1"
-					aria-labelledby="exampleModalLabel" aria-hidden="true">
-					<div class="modal-dialog">
-						<div class="modal-content">
-							<div class="modal-header">
-								<h5 class="modal-title" id="exampleModalLabel">Thêm thẻ
-									tháng</h5>
-								<button type="button" class="btn-close" data-bs-dismiss="modal"
-									aria-label="Close"></button>
-							</div>
-							<div class="modal-body">
-
-								<form action="/QLNX/quanlithethang.htm" method="post">
-									<div class="form-group row">
-										<label for="inputPassword3" class="col-sm-5 col-form-label">
-											Nhập biển số xe</label>
-										<div class="col-sm-10">
-											<input type="text" class="form-control" id="bsx" name="bsx"
-												placeholder="Biển số xe">
-										</div>
-									</div>
-									<fieldset class="form-group">
-										<div class="row">
-											<legend class="col-form-label col-sm-5 pt-0">Loại xe</legend>
-											<div class="col-sm-10">
-												<div class="form-check">
-													<input class="form-check-input" type="radio" name="xe"
-														id="gridRadios1" value="option1" checked> <label
-														class="form-check-label" for="gridRadios"> Xe Số </label>
-												</div>
-												<div class="form-check">
-													<input class="form-check-input" type="radio" name="xe"
-														id="gridRadios2" value="option2"> <label
-														class="form-check-label" for="gridRadios"> Xe Ga </label>
-												</div>
-											</div>
-										</div>
-									</fieldset>
-									<div class="form-group row mt-3 ">
-										<div class="col-sm-10">
-											<button type="submit" class="btn btn-primary">Xác
-												nhận</button>
-										</div>
-									</div>
-
-								</form>
+				<h2>Xem doanh thu</h2>
+				<div class="d-flex justify-content-center align-items-center">
+					<form action="/QLNX/quanlilich.htm"
+						class="d-flex justify-content-center align-items-center">
+						
+						<p class="text-nowrap mt-2">Từ ngày:</p>
+						<input class="form-control mx-2" name="tungay"
+							data-provide="datepicker" type="date">
+						<p class="text-nowrap mt-2">Đến ngày:</p>
+						<input class="form-control mx-2" name="denngay"
+							data-provide="datepicker" type="date">
+						<div class="form-group row  ">
+							<div class="col-sm-10">
+								<button type="submit" class="btn btn-primary">Lọc</button>
 							</div>
 						</div>
-					</div>
+					</form>
 				</div>
-
-				<p class="text-success">${successthethang}</p>
-				<p class="text-danger">${errthethang}</p>
-				
-				<form class = "d-flex my-2" action = "/QLNX/quanlithethang.htm">
-						<label class = "mx-1 mt-2">Tra cứu biển số xe:</label>
-						 <input 
-							type="text" class="form-control w-25 mx-2 " name = "timkiem" placeholder="BSX">
-					<button type="submit" class="btn btn-primary">Tra</button>
-				</form>
-				<table class="table table-hover">
-					<tr>
-						<th>STT</th>
-						<th>BSX</th>
-						<th>Loại xe</th>
-						<th>Trạng thái</th>
-						<th>Ngày tạo</th>
-						<th>Ngày hết hạn</th>
-						<th>Người tạo</th>
-						<th>Hiệu chỉnh</th>
-					</tr>
-					<c:forEach var="the" items="${listTheThang}" varStatus="stt">
-						<tr>
-							<td><f:formatNumber value="${stt.index + 1}" type="number" /></td>
-							<td>${the.xe.bienSoXe}</td>
-							<td>${the.xe.loaiXe}</td>
-							<td class = "${the.getTrangThai() == 0 ? "text-danger" : "text-success"}" >${the.getTrangThai() == 0 ? "Hết hạn" : "Còn hạn"}</td>
-							<td>${the.ngayTao}</td>
-							<td>${the.ngayHetHan}</td>
-							<td>${the.nhanVien.maNv}</td>
-							<td>
-								<a href="/QLNX/quanlithethang-update/${the.id}.htm"><button type="button" class="btn btn-primary" >Sửa</button></a>
-							</td>
-						</tr>
-					</c:forEach>
-				</table>
-				<ul class="pagination"
-					style="position: absolute; bottom: 0; right: 0; width: 400px;">
-					<li class="page-item ${currentPage == 0 ? 'disabled' : ''}"><a
-						class="page-link"
-						href="/QLNX/quanthethang.htm?page=${currentPage - 1}">Trước</a></li>
-					<c:forEach begin="0" end="${totalPages > 0 ? totalPages - 1 : 0}"
-						var="i">
-						<li class="page-item ${currentPage == i ? 'active' : ''}"><a
-							class="page-link" href="/QLNX/quanlithethang.htm?page=${i}">${i + 1}</a>
-						</li>
-					</c:forEach>
-					<li
-						class="page-item ${currentPage == totalPages - 1 ? 'disabled' : ''}">
-						<a class="page-link"
-						href="/QLNX/quanlithethang.htm?page=${currentPage + 1}">Sau</a>
-					</li>
-				</ul>
 			</div>
 		</div>
-	</div>
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
-		integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
-		crossorigin="anonymous"></script>
+		<script
+			src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+			integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+			crossorigin="anonymous"></script>
 </body>
 </html>

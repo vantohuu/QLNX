@@ -54,31 +54,28 @@
                             <span class="ms-1 d-none d-sm-inline">Quản lí</span></a>
                         <ul class="collapse nav flex-column ms-1" id="submenu2" data-bs-parent="#menu">
                             <li class="w-100">
-                                <a href="quanlitheluot.htm" class="nav-link px-0"> <span class="d-none d-sm-inline">Thẻ lượt</span></a>
-                            </li>
-                            <li class="w-100">
-                                <a href="quanlithethang.htm" class="nav-link px-0"> <span class="d-none d-sm-inline">Thẻ tháng</span></a>
-                            </li>
-                            <li class="w-100">
-                                <a href="quanlidoanhthu.htm" class="nav-link px-0"> <span class="d-none d-sm-inline">Doanh thu</span></a>
+                                <a href="doanhthu.htm" class="nav-link px-0"> <span class="d-none d-sm-inline">Doanh thu</span></a>
                             </li>
                             <li>
                                 <a href="nhanvien.htm" class="nav-link px-0"> <span class="d-none d-sm-inline">Nhân viên</span></a>
                             </li>
                             <li>
+                                <a href="quanlithethang.htm" class="nav-link px-0"> <span class="d-none d-sm-inline">Thẻ tháng</span></a>
+                            </li>
+                            <li>
                                 <a href="quanlilich.htm" class="nav-link px-0"> <span class="d-none d-sm-inline">Lịch</span></a>
+                            </li>
+                             <li>
+                                <a href="luong.htm" class="nav-link px-0"> <span class="d-none d-sm-inline">Lương</span></a>
                             </li>
                              <li>
                                 <a href="chucvu.htm" class="nav-link px-0"> <span class="d-none d-sm-inline">Chức vụ</span></a>
                             </li>
                              <li>
-                                <a href="quanlitaikhoan.htm" class="nav-link px-0"> <span class="d-none d-sm-inline">Tài khoản</span></a>
+                                <a href="taikhoan.htm" class="nav-link px-0"> <span class="d-none d-sm-inline">Tài khoản</span></a>
                             </li>
                              <li>
                                 <a href="bangluong.htm" class="nav-link px-0"> <span class="d-none d-sm-inline">Bảng lương</span></a>
-                            </li>
-                             <li>
-                                <a href="quanlisuco.htm" class="nav-link px-0"> <span class="d-none d-sm-inline">Sự cố</span></a>
                             </li>
                         </ul>
                     </li>
