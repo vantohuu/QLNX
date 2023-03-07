@@ -113,15 +113,15 @@
 			<div
 				class="col py-3 d-flex justify-content-center align-items-center">
 				<div class = "w-100 h-100" >
-					<h3 class="m-5">Nhập thẻ vào:</h3>
-					<form action="/QLNX/thevao.htm" method="post" class="p-5">
+					<h3 class="m-5">Sửa thẻ tháng</h3>
+					<form action="/QLNX/quanlithethang-update/${thethang.id}.htm" method="post" class="p-5">
 	
 						<div class="form-group row">
 							<label for="inputPassword3" class="col-sm-5 col-form-label">
 							Nhập biển số xe</label>
 							<div class="col-sm-10">
 								<input type="text" class="form-control" id="bsx" name="bsx"
-									placeholder="Biển số xe">
+									placeholder="${thethang.xe.bienSoXe}">
 							</div>
 						</div>
 						<fieldset class="form-group">
@@ -143,11 +143,11 @@
 						</fieldset>
 						<div class="form-group row mt-3 ">
 							<div class="col-sm-10">
-								<button type="submit" class="btn btn-primary">Xác nhận</button>
+								<button type="submit" class="btn btn-primary">Xác nhận sửa</button>
 							</div>
 						</div>
-						<p class = "text-success" >${successxevao} </p>
-						<p class = "text-danger" >${errxevao} </p>
+						<p class = "text-success" >${successthethang} </p>
+						<p class = "text-danger" >${errthethang} </p>
 					</form>
 				</div>
 

@@ -175,17 +175,7 @@ public class TheLuotController {
 					query.setParameter("idThe", Integer.parseInt(idthe) );
 					query.setParameter("thoiGianRa",  new Date(System.currentTimeMillis()));
 					query.setParameter("nhanVien2", listNhanVien.get(0));
-					TheLuot tl = listTheLuot.get(0);
-//					Calendar calvao = Calendar.getInstance();
-//					calvao.setTime(tl.getThoiGianVao());
-//					Calendar calra = Calendar.getInstance();
-//					calvao.setTime(tl.getThoiGianRa());
-//					Calendar calcmp = Calendar.getInstance();
-//					calcmp.setTime(tl.getThoiGianVao());
-//					System.out.println(tl.getThoiGianVao().getYear());
-//					System.out.println(tl.getThoiGianVao().getMonth());
-//					System.out.println(tl.getThoiGianVao().getDay());
-					
+					TheLuot tl = listTheLuot.get(0);			
 					
 					LocalDateTime timevao = LocalDateTime.ofInstant(tl.getThoiGianVao().toInstant(), ZoneId.systemDefault());
 					LocalDateTime timera = LocalDateTime.now();
@@ -205,32 +195,6 @@ public class TheLuotController {
 					System.out.println(phidem);
 					System.out.println(listPhiNgay.get(0).getHinhThuc());
 					System.out.println(listPhiDem.get(0).getHinhThuc());
-//					while (timeCompare.compareTo(timevao) < 0)
-//					{
-//						timeCompare = timeCompare.plusHours(12);
-//						System.out.println(1);
-//
-//					}
-//					if  (timeCompare.compareTo(timera) > 0)
-//					{
-//						if (timera.getHour() < 18 && timera.getHour() >= 6 ) {
-//							tongphi = tongphi.add(phingay);
-//						} else {
-//							tongphi = tongphi.add(phidem);
-//						}
-//					}
-					
-					
-//					while (timeCompare.compareTo(timera) <= 0 && timeCompare.compareTo(timevao) >= 0  )
-//					{
-//						if (timeCompare.getHour() < 18 && timeCompare.getHour() >= 6 ) {
-//							tongphi = tongphi.add(phingay);
-//						} else {
-//							tongphi = tongphi.add(phidem);
-//						}
-//
-//						timeCompare = timeCompare.plusHours(12);
-//					}
 					
 					while (timecmp.compareTo(timevao) > 0)
 					{
@@ -250,7 +214,7 @@ public class TheLuotController {
 					int result = query.executeUpdate();
 					System.out.println(result);
 					tx.commit();
-					model.addAttribute("successxera", "Cập nhật thành công!");
+					model.addAttribute("successxera", "Cập nhật thành công!. Giá vé: " + tongphi + " Đồng");
 				}
 			 }
 			 catch (Exception e) {

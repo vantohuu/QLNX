@@ -83,7 +83,7 @@ public class UserController {
 		return "redirect:/login.htm";
 	}
 
-	@RequestMapping(value="/nhanvien")
+	@RequestMapping(value="/quanlinhanvien")
 	public String thongTinNhanVien(HttpSession session, ModelMap model, @RequestParam(defaultValue = "0") int page) {
 		if (!session.getAttribute("quyenHan").equals("QL")) {;
 			return "home";

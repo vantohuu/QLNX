@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jstl/fmt_rt" prefix="f"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,7 +9,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" type="text/css"
 	href="<%=request.getContextPath()%>/resource/css/home.css">
-<title>Thẻ vào</title>
+<title>Bootstrap demo</title>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
 	rel="stylesheet"
@@ -30,7 +32,7 @@
 					<ul
 						class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start "
 						id="menu">
-						<li class="nav-item"><a href="home.htm"
+						<li class="nav-item"><a href="index.jsp"
 							class="nav-link align-middle px-0"> <i
 								class="fa-solid fa-house"></i> <span
 								class="ms-1 d-none d-sm-inline">Home</span>
@@ -110,47 +112,94 @@
 						</div>
 				</div>
 			</div>
-			<div
-				class="col py-3 d-flex justify-content-center align-items-center">
-				<div class = "w-100 h-100" >
-					<h3 class="m-5">Nhập thẻ vào:</h3>
-					<form action="/QLNX/thevao.htm" method="post" class="p-5">
-	
-						<div class="form-group row">
-							<label for="inputPassword3" class="col-sm-5 col-form-label">
-							Nhập biển số xe</label>
-							<div class="col-sm-10">
-								<input type="text" class="form-control" id="bsx" name="bsx"
-									placeholder="Biển số xe">
+			<div class="col py-3">
+				<h2>Quản lí lịch làm việc</h2>
+				<!-- Button trigger modal -->
+				<button type="button" class="btn btn-primary my-2"
+					data-bs-toggle="modal" data-bs-target="#exampleModal">Thêm
+					lịch</button>
+
+				<!-- Modal -->
+				<div class="modal fade" id="exampleModal" tabindex="-1"
+					aria-labelledby="exampleModalLabel" aria-hidden="true">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="exampleModalLabel">Thêm lịch</h5>
+								<button type="button" class="btn-close" data-bs-dismiss="modal"
+									aria-label="Close"></button>
+							</div>
+							<div class="modal-body">
+
+								<form action="/QLNX/quanlilich.htm" method="post">
+									<p>Chọn nhân viên</p>
+									<select class="form-select" name = "chonnhanvien" required="required">
+										<c:forEach var="nv" items="${listNhanVien}" varStatus="stt">
+											<option value= "${nv.maNv}"> ${nv.ho} ${nv.ten}  - ${nv.CTChucVu.chucVu.ten} - ${nv.CTChucVu.loaiNhanVien} </option>
+										</c:forEach>
+									</select>
+									<p>Chọn ngày</p>
+									<input class="form-control" name = "chonngay" data-provide="datepicker" type="date" required="required">
+									
+									<p>Chọn ca</p>
+									<select class="form-select" name = "chonca" aria-label="Default select example" required="required">
+										<c:forEach var="ca" items="${listCa}" varStatus="stt">
+											<option value="${ca.maCa}">${ca.tenCa}</option>
+										</c:forEach>
+									</select>
+									
+									
+									<div class="form-group row mt-3 ">
+										<div class="col-sm-10">
+											<button type="submit" class="btn btn-primary">Xác
+												nhận</button>
+										</div>
+									</div>
+								</form>
 							</div>
 						</div>
-						<fieldset class="form-group">
-							<div class="row">
-								<legend class="col-form-label col-sm-5 pt-0">Loại xe</legend>
-								<div class="col-sm-10">
-									<div class="form-check">
-										<input class="form-check-input" type="radio" name="xe"
-											id="gridRadios1" value="option1" checked> <label
-											class="form-check-label" for="gridRadios"> Xe Số </label>
-									</div>
-									<div class="form-check">
-										<input class="form-check-input" type="radio" name="xe"
-											id="gridRadios2" value="option2"> <label
-											class="form-check-label" for="gridRadios"> Xe Ga </label>
-									</div>
-								</div>
-							</div>
-						</fieldset>
-						<div class="form-group row mt-3 ">
-							<div class="col-sm-10">
-								<button type="submit" class="btn btn-primary">Xác nhận</button>
-							</div>
-						</div>
-						<p class = "text-success" >${successxevao} </p>
-						<p class = "text-danger" >${errxevao} </p>
-					</form>
+					</div>
 				</div>
 
+				<p class="text-success">${successlich}</p>
+				<p class="text-danger">${errlich}</p>
+
+				<table class="table table-hover">
+					<tr>
+						<th>Ngày</th>
+						<th>Ca</th>
+						<th>Họ</th>
+						<th>Tên</th>
+						<th>Chức vụ</th>
+						<th>Loại</th>
+						<th>Xóa</th>
+					</tr>
+					<c:forEach var="lich" items="${listLich}" varStatus="stt">
+						<tr>
+							<td>${lich.ngay}</td>
+							<td>${lich.ca.tenCa}</td>
+							<td>${lich.nhanVien.ho}</td>
+							<td>${lich.nhanVien.ten}</td>
+							<td>${lich.nhanVien.CTChucVu.chucVu.ten}</td>
+							<td>${lich.nhanVien.CTChucVu.loaiNhanVien}</td>
+							<td><a href="/QLNX/quanlilich/${lich.idLichLamViec}.htm"><button
+										type="button" class="btn btn-danger">Xóa</button></a></td>
+						</tr>
+					</c:forEach>
+				</table>
+				<ul class="pagination" style="position: absolute; bottom: 0; right: 0;width:400px;">
+			    <li class="page-item ${currentPage == 0 ? 'disabled' : ''}">
+			        <a class="page-link" href="/QLNX/quanlilich.htm?page=${currentPage - 1}">Trước</a>
+			    </li>
+			    <c:forEach begin="0" end="${totalPages - 1}" var="i">
+			        <li class="page-item ${currentPage == i ? 'active' : ''}">
+			            <a class="page-link" href="/QLNX/quanlilich.htm?page=${i}">${i + 1}</a>
+			        </li>
+			    </c:forEach>
+			    <li class="page-item ${currentPage == totalPages - 1 ? 'disabled' : ''}">
+			        <a class="page-link" href="/QLNX/quanlilich.htm?page=${currentPage + 1}">Sau</a>
+			    </li>
+			</ul>
 			</div>
 		</div>
 	</div>
