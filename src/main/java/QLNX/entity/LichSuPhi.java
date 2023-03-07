@@ -1,5 +1,7 @@
 package QLNX.entity;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,6 +10,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name="LICHSUPHI")
@@ -24,6 +30,11 @@ public class LichSuPhi {
 	@ManyToOne
 	@JoinColumn(name="ID_PHI")
 	private PhiGuiXe phi;
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	@DateTimeFormat(pattern="MM/dd/yyyy HH:mm:ss")
+	@Column(name="THOIGIANTAO")
+	private Date thoiGianTao = new Date();
 	
 	public LichSuPhi() {
 	}
@@ -61,6 +72,14 @@ public class LichSuPhi {
 
 	public void setPhi(PhiGuiXe phi) {
 		this.phi = phi;
+	}
+	
+	public Date getThoiGianTao() {
+		return thoiGianTao;
+	}
+
+	public void setThoiGianTao(Date thoiGianTao) {
+		this.thoiGianTao = thoiGianTao;
 	}
 	
 }
