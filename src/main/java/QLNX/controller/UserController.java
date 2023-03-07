@@ -4,6 +4,7 @@ package QLNX.controller;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -30,6 +31,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import QLNX.entity.CTChucVu;
 import QLNX.entity.ChucVu;
 import QLNX.entity.NhanVien;
+import QLNX.entity.PhiGuiXe;
 import QLNX.entity.TaiKhoan;
 import QLNX.entity.ThongKeLuong;
 
@@ -50,7 +52,10 @@ public class UserController {
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 		int check = isValidUser(username, password);
-		if (check == 1) {
+		if(check == 3) {
+			model.addAttribute("error", "Tài khoản không hoạt động!");
+			return "login";
+		}else if (check == 1) {
 			session.setAttribute("username", username);
 			session.setAttribute("quyenHan", this.checkQuyenHan(username));
 			return "redirect:/home.htm";
@@ -79,6 +84,7 @@ public class UserController {
 	public String logout(HttpSession session) {
 		// Xóa thông tin người dùng khỏi phiên làm việc và kết thúc phiên
 		session.removeAttribute("username");
+		session.removeAttribute("quyenHan");
 		session.invalidate();
 		return "redirect:/login.htm";
 	}
@@ -141,7 +147,8 @@ public class UserController {
 	}
 	
 	@RequestMapping(value="/nhanvien-themmoi") 
-	public String themNhanVienMoi() {
+	public String themNhanVienMoi(ModelMap model) {
+		model.addAttribute("maNv",taoMaNV());
 		return "nhanvien/nhanvien-themmoi";
 	}
 	@RequestMapping(value="nhanvien-themchucvu")
@@ -304,9 +311,24 @@ public class UserController {
 		String maCV =request.getParameter("chucVu");
 		String loaiNhanVien =  request.getParameter("loaiNhanVien");
 		CTChucVu ctCV = searchCTChucVu(maCV,loaiNhanVien);
+		if(searchNhanVien(nhanVien.getMaNv()) != null) {
+			model.addAttribute("messageMaNV", "** Mã nhân viên bị trùng !");
+			model.addAttribute("maNv",taoMaNV());
+			return "nhanvien/nhanvien-themmoi";
+		}else {
+			model.addAttribute("messageMaNV", "");
+		}
+		if(checkTrungCCCD(nhanVien.getCccd())== 1) {
+			model.addAttribute("messageCCCD", "** CCCD bị trùng rồi !");
+			model.addAttribute("maNv",taoMaNV());
+			return "nhanvien/nhanvien-themmoi";
+		}else {
+			model.addAttribute("messageCCCD", "");
+		}
 		if(ctCV == null) {
 			model.addAttribute("messagectChucVu", "!Không tồn tại chức vụ " +searchTenChucVu(maCV) +
 					" với hình thức "+ loaiNhanVien);
+			model.addAttribute("maNv",taoMaNV());
 			return "nhanvien/nhanvien-themmoi";
 		} else {
 			model.addAttribute("messagectChucVu", "");
@@ -335,7 +357,7 @@ public class UserController {
 	}
 	@RequestMapping("/bangluong")
 	public String bangLuong(ModelMap model, HttpSession session1) {
-		if (!session1.getAttribute("quyenHan").equals("QL")) {;
+		if (!session1.getAttribute("quyenHan").equals("QL")) {
 		return "home";
 		}
 		Session session = factory.getCurrentSession();
@@ -345,15 +367,153 @@ public class UserController {
 		    .addEntity(ThongKeLuong.class);
 
 		List<ThongKeLuong> results = query.list();
-//		for (int i=0; i<results.size();i++) {
-//			
-//			System.out.print("Manv:" +results.get(i).getMaNV() +" tongGio: "+results.get(i).getTongGio()+ " loaiNhanVien: " 
-//			+results.get(i).getLoaiNV() +" tenchucvu: "+ results.get(i).getTenCV());
-//		}
 		model.addAttribute("nhanVien",results);
+		model.addAttribute("thang",1);
+		model.addAttribute("nam",2023);
+		return "nhanvien/nhanvien-bangluong";
+	}
+	@RequestMapping(value="/bangluong-thang", method = RequestMethod.POST)
+	public String locBangLuong(ModelMap model, HttpServletRequest request, HttpSession session1) {
+		if (!session1.getAttribute("quyenHan").equals("QL")) {
+		return "home";
+		}
+		int thang = Integer.parseInt(request.getParameter("thang"));
+		int nam = Integer.parseInt(request.getParameter("nam"));
+		if(thang<1 || thang >12) {
+			model.addAttribute("message", "** Tháng phải lớn hơn hoặc bằng 1 và nhỏ hơn hoặc bằng 12 !");
+			return "nhanvien/nhanvien-bangluong";
+		}
+		Calendar instance = Calendar.getInstance();
+        int year = instance.get(Calendar.YEAR);
+        System.out.println(year);
+        if(nam < 2010 ||nam >year) {
+        	model.addAttribute("message", "** Chỉ có thể truy xuất dữ liệu từ 2010 đến năm hiện tại !");
+			return "nhanvien/nhanvien-bangluong";
+        }
+		Session session = factory.getCurrentSession();
+		Query query = ((SQLQuery) session.createSQLQuery("EXEC THONG_KE_LUONG :month, :year")
+		    .setParameter("month", thang)
+		    .setParameter("year", nam))
+		    .addEntity(ThongKeLuong.class);
+
+		List<ThongKeLuong> results = query.list();
+		if(results.size()==0) {
+			model.addAttribute("message", "** Không có dữ liệu của tháng: "+ thang+ " , năm: " +nam+" !");
+		} else {
+			model.addAttribute("message", "");
+		}
+		model.addAttribute("nhanVien",results);
+		model.addAttribute("thang",thang);
+		model.addAttribute("nam",nam);
 		return "nhanvien/nhanvien-bangluong";
 	}
 	
+	@RequestMapping(value="/doimatkhau")
+	public String formDoiMatKhau(HttpSession session1, ModelMap model, HttpServletRequest request) {
+		String username = (String) session1.getAttribute("username");
+		model.addAttribute("username",username);
+		return "nhanvien/nhanvien-password";
+	}
+	@RequestMapping(value="/thaydoimatkhau", method = RequestMethod.POST)
+	public String doiMatKhau(HttpSession session1, ModelMap model, HttpServletRequest request) {
+		String username = (String) session1.getAttribute("username");
+		model.addAttribute("username",username);
+		TaiKhoan check = searchTK(username);
+		String mk = request.getParameter("password");
+		if(!mk.equals(check.getPassword())) {
+			model.addAttribute("message", "** Mật khẩu cũ không chính xác !");
+			return "nhanvien/nhanvien-password";
+		}
+		String mk1 = request.getParameter("password1");
+		if(mk.equals(mk1) ) {
+			model.addAttribute("message", "** Mật khẩu mới không thể trùng với mật khẩu cũ !");
+			return "nhanvien/nhanvien-password";
+		}
+		String mk2 = request.getParameter("password2");
+		if(!mk1.equals(mk2) ) {
+			model.addAttribute("message", "** Xác nhận mật khẩu không chính xác !");
+			return "nhanvien/nhanvien-password";
+		}
+		Session session = factory.openSession();
+		Transaction t = session.beginTransaction();
+		try {
+			check.setPassword(mk1);
+			session.update(check);
+			t.commit();
+			return "redirect:/logout.htm";
+			
+		} catch (Exception e) {
+			t.rollback();
+			model.addAttribute("message", "** Đổi mật khẩu thất bại !");	
+		} finally {
+			session.close();
+		}
+		
+		return "nhanvien/nhanvien-password";
+	}
+//	@RequestMapping("nhanvien-phi")
+//	public String phi(ModelMap model) {
+//		List<PhiGuiXe> phi = getPhiGuiXe();
+//		model.addAttribute("phi", phi);
+//		System.out.println(phi.size());
+//		System.out.println(phi.get(0).getIdPhi());
+//		return "nhanvien/nhanvien-phi";
+//	}
+//	public List<Object> getPhiGuiXe() {
+//		Session session = factory.getCurrentSession();
+//		String hql = "SELECT MAX(idPhi), hinhThuc, loaiXe, mucPhi FROM PhiGuiXe GROUP BY hinhThuc, loaiXe, mucPhi";
+//		Query query = session.createQuery(hql);
+//		List<PhiGuiXe> list = query.list();
+//		return list;
+//	}
+	
+	@RequestMapping(value="/quanlitaikhoan")
+	public String quanLiTK(ModelMap model, HttpSession session1) {
+		if (!session1.getAttribute("quyenHan").equals("QL")) {
+			return "home";
+			}
+		List<TaiKhoan> check = getTaiKhoan();
+		model.addAttribute("taiKhoan", check);
+		return "nhanvien/nhanvien-taikhoan";
+	}
+	@RequestMapping(value="taikhoan-trangthai",method = RequestMethod.POST)
+	public String updateTrangThai(HttpServletRequest request, ModelMap model) {
+		String[] s = request.getParameterValues("checkDis");
+		List<TaiKhoan> account = getTaiKhoan();
+		List<TaiKhoan> tmp = new ArrayList<TaiKhoan>();
+		if (s != null) {
+			for (int i = 0; i < s.length; i++) {
+				// xóa các đối tượng không disable ra khỏi danh sách
+				tmp.add(account.get(Integer.parseInt(s[i])));
+			}
+		}
+		account.removeAll(tmp);
+		if (account != null) {
+			Session session = factory.openSession();
+			Transaction tr = session.beginTransaction();
+			for (int i = 0; i < account.size(); i++) {
+				// cập nhật trạng thái disable
+				String hql = "update TaiKhoan set trangThai = :trangThai where username = :tenDN";
+				Query query = session.createQuery(hql);
+				query.setParameter("trangThai", 0);
+				query.setParameter("tenDN", account.get(i).getUsername());
+				int x = query.executeUpdate();
+			}
+			for (int i = 0; i < tmp.size(); i++) {
+				// bỏ trạng thái disable
+				String hql = "update TaiKhoan set trangThai = :trangThai where username = :tenDN";
+				Query query = session.createQuery(hql);
+				query.setParameter("trangThai", 1);
+				query.setParameter("tenDN", tmp.get(i).getUsername());
+				int x = query.executeUpdate();
+			}
+			tr.commit();
+			session.close();
+		}
+		model.addAttribute("taiKhoan", getTaiKhoan());
+		return "nhanvien/nhanvien-taikhoan";
+		
+	}
 	public List<CTChucVu> getCTChucVu() {
 		Session session = factory.getCurrentSession();
 		String hql = "FROM CTChucVu";
@@ -401,6 +561,13 @@ public class UserController {
 
 		return list;
 	}
+	public List<NhanVien> getNhanVien1() {
+		Session session = factory.getCurrentSession();
+		String hql = "FROM NhanVien";
+		Query query = session.createQuery(hql);
+		List<NhanVien> list = query.list();
+		return list;
+	}
 	
 	public List<TaiKhoan> getTaiKhoan() {
 		Session session = factory.getCurrentSession();
@@ -438,6 +605,9 @@ public class UserController {
 		TaiKhoan check = this.searchTK(username);
 		if (check == null) {
 			return 0;
+		} 
+		else if (check.getTrangThai() == 0) {
+			return 3;
 		} else if (password.equals(check.getPassword())) {
 			return 1;
 		} else {
@@ -456,5 +626,11 @@ public class UserController {
 	private String checkQuyenHan(String username) {
 		TaiKhoan check = this.searchTK(username);
 		return check.getNhanVien().getCTChucVu().getChucVu().getMaCV();
+	}
+	public String taoMaNV() {
+		String maNV1 = "NX-NV";
+		int ma = getNhanVien1().size() +1;
+		maNV1 += String.valueOf(ma);
+		return maNV1;
 	}
 }

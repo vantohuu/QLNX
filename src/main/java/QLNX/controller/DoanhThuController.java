@@ -54,29 +54,60 @@ public class DoanhThuController {
 		System.out.println("doanhthu");
 		String username = (String) ss.getAttribute("username");
 		if (username != null) {
-			   
+			 long countGuiDem = countDoanhThu("THANG");
+			 System.out.println(countGuiDem);
+			 BigDecimal sumGuiDem = sumDoanhThu("THANG");
+			 System.out.println(sumGuiDem);
 		}
 		return "doanhthu";
 	}
 
-	public long countDoanhThu(String hinhthuc) {
-
+	public long countDoanhThuTheLuot(String hinhthuc, String loaixe, String tungay, String denngay) {
+		Session session = factory.getCurrentSession();
+		
+		LocalDate localDate1 = LocalDate.parse(tungay, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+		
+		String hql1 = "";
+		if (tungay.length() !=0 && denngay.length() !=0)
+		{
+			Date date1 = Date.from(localDate1.atStartOfDay(ZoneId.systemDefault()).toInstant());
+			LocalDate localDate2 = LocalDate.parse(denngay, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+			Date date2 = Date.from(localDate2.atStartOfDay(ZoneId.systemDefault()).toInstant());
+			hql1 = "Select count(*) FROM LichSuPhi  where phi.hinhThuc = :hinhthuc";
+		}
+		
+		Query query = session.createQuery(hql1);
+		query.setParameter("hinhthuc", hinhthuc);
+		long total = (Long) query.uniqueResult();
+		return total;
+	}
+	
+	public long countDoanhThuTheThang(String hinhthuc, String loaixe, String tungay, String dengay) {
 		Session session = factory.getCurrentSession();
 		String hql1 = "Select count(*) FROM LichSuPhi  where phi.hinhThuc = :hinhthuc";
 		Query query = session.createQuery(hql1);
 		query.setParameter("hinhthuc", hinhthuc);
-		long total = query.getMaxResults();
+		long total = (Long) query.uniqueResult();
 		return total;
 	}
 
-	public BigDecimal sumDoanhThu(String hinhthuc) {
+	public BigDecimal sumDoanhThuTheLuot(String hinhthuc, String loaixe, String tungay, String dengay) {
+		Session session = factory.getCurrentSession();
+		String hql1 = "Select sum(phi.hinhThuc.mucPhi) FROM LichSuPhi  where phi.hinhThuc = :hinhthuc";
+		Query query = session.createQuery(hql1);
+		query.setParameter("hinhthuc", hinhthuc);
+		BigDecimal total = (BigDecimal) query.uniqueResult();
+		return total;
+	}
+	
+	
+	public BigDecimal sumDoanhThuTheThang(String hinhthuc) {
 
 		Session session = factory.getCurrentSession();
 		String hql1 = "Select sum(phi.hinhThuc.mucPhi) FROM LichSuPhi  where phi.hinhThuc = :hinhthuc";
 		Query query = session.createQuery(hql1);
 		query.setParameter("hinhthuc", hinhthuc);
-		BigDecimal total = BigDecimal.valueOf(query.getMaxResults());
+		BigDecimal total = (BigDecimal) query.uniqueResult();
 		return total;
 	}
-
 }

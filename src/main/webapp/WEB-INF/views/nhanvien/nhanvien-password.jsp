@@ -7,7 +7,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Thông tin nhân viên</title>
+    <title>Thay đổi password</title>
     
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" 
      integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
@@ -23,7 +23,7 @@
                 </a>
                 <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
                     <li class="nav-item">
-                        <a href="../home.htm" class="nav-link align-middle px-0">
+                        <a href="home.htm" class="nav-link align-middle px-0">
                            <i class="fa-solid fa-house"></i>
                             <span class="ms-1 d-none d-sm-inline">Home</span>
                         </a>
@@ -59,22 +59,22 @@
                                 <a href="doanhthu" class="nav-link px-0"> <span class="d-none d-sm-inline">Doanh thu</span></a>
                             </li>
                             <li>
-                                <a href="../nhanvien.htm" class="nav-link px-0"> <span class="d-none d-sm-inline">Nhân viên</span></a>
+                                <a href="nhanvien.htm" class="nav-link px-0"> <span class="d-none d-sm-inline">Nhân viên</span></a>
                             </li>
                             <li>
                                 <a href="luong" class="nav-link px-0"> <span class="d-none d-sm-inline">Lịch</span></a>
                             </li>
                              <li>
-                                <a href="../chucvu.htm" class="nav-link px-0"> <span class="d-none d-sm-inline">Chức vụ</span></a>
+                                <a href="chucvu.htm" class="nav-link px-0"> <span class="d-none d-sm-inline">Chức vụ</span></a>
                             </li>
                              <li>
-                                <a href="../quanlitaikhoan.htm" class="nav-link px-0"> <span class="d-none d-sm-inline">Tài khoản</span></a>
+                                <a href="quantaikhoan.htm" class="nav-link px-0"> <span class="d-none d-sm-inline">Tài khoản</span></a>
                             </li>
                              <li>
-                                <a href="../bangluong.htm" class="nav-link px-0"> <span class="d-none d-sm-inline">Bảng lương</span></a>
+                                <a href="bangluong.htm" class="nav-link px-0"> <span class="d-none d-sm-inline">Bảng lương</span></a>
                             </li>
                              <li>
-                                <a href="../nhanvien-phi.htm" class="nav-link px-0"> <span class="d-none d-sm-inline">Phí gửi xe</span></a>
+                                <a href="nhanvien-phi.htm" class="nav-link px-0"> <span class="d-none d-sm-inline">Sự cố</span></a>
                             </li>
                         </ul>
                     </li>
@@ -88,43 +88,49 @@
                     </a>
                     <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
    
-                        <li><a class="dropdown-item" href="../nhanvien-thongtin.htm">Chỉnh sửa thông tin cá nhân</a></li>
-                        <li><a class="dropdown-item" href="../doimatkhau.htm">Đổi mật khẩu</a></li>
+                        <li><a class="dropdown-item" href="nhanvien-thongtin.htm">Chỉnh sửa thông tin cá nhân</a></li>
+                        <li><a class="dropdown-item" href="doimatkhau.htm">Đổi mật khẩu</a></li>
                         <li>
                             <hr class="dropdown-divider">
                         </li>
-                        <li><a class="dropdown-item" href="../logout.htm">Đăng xuất</a></li>
+                        <li><a class="dropdown-item" href="logout.htm">Đăng xuất</a></li>
                     </ul>
                 </div>
             </div>
         </div>
 		<div class="col py-3">
-		         <h4 class="mb-2">Sửa lương vị trí</h4>
-		  <form:form action="edit-vitri.htm" modelAttribute="ctChucVu">
-		     <div class="form-group row">
-		     <div class="form-group col-sm-4" style="margin-top: 20px;">
-		    	<label for="chucVu">Chức vụ:</label>
-		    	<form:input path="chucVu.ten" type="text" class="form-control" readonly="true"/>
-				</div>
-		    <div class="form-group col-sm-4" style="margin-top: 20px;">
-		    	<label for="chucVu">Hình thức:</label>
-		    	<form:input path="loaiNhanVien" type="text" class="form-control" readonly="true" />
-		    	</div>
-		    	<div class="form-group col-sm-4" style="margin-top: 20px;">
-		    	<form:input path="chucVu.maCV" type="hidden" class="form-control" readonly="true" />
-		    	</div>
-		    </div>
+		         <h4 class="mb-2">Thay đổi mật khẩu</h4>
+		  <form action="thaydoimatkhau.htm" method="post">
+		  <div class="form-group row">
 		    <div class="col-sm-4">
-		        <label for="id" class="form-label">Lương:</label>
-		        <form:input path="luong" type="text" class="form-control" />
+		        <label for="id" class="form-label">Tài khoản:</label>
+		        <input name="username" value="${username}" type="text" class="form-control" readonly="true"/>
+		   </div>
 		    </div>
-		    <div > 
-            		${message }
-				</div>
-		    <form:button type="submit" name="update" class="btn btn-primary" style="margin-top: 40px;">
-		    Lưu thông tin</form:button>
+		    <div class="form-group row">
+		    <div class="col-sm-4">
+		        <label for="name" class="form-label">Mật khẩu cũ:</label>
+		        <input name="password" type="password" class="form-control" required="required"/>
+		     </div>
+		    </div>
+		   <div class="form-group row">
+		    <div class="col-sm-4">
+		        <label for="name" class="form-label">Mật khẩu mới:</label>
+		        <input name="password1" type="password" class="form-control" required="required"/>
+		     </div>
+		    </div>
+		    <div class="form-group row">
+		    <div class="col-sm-4">
+		        <label for="name" class="form-label">Xác nhận mật khẩu:</label>
+		        <input name="password2" type="password" class="form-control" required="required"/>
+		     </div>
+		    </div> 
+		    <div>${message }</div>
+            		
+		    <button type="submit" name="capnhatthongtincanhan" class="btn btn-primary" style="margin-top: 40px;">
+		    Lưu thay đổi</button>
 		    
-		</form:form>
+		</form>
       </div>
         </div>
     </div>

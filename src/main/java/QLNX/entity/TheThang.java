@@ -47,6 +47,7 @@ public class TheThang {
 	private Xe xe;
 	public TheThang() {}
 
+
 	public TheThang(Date ngayTao, Date ngayHetHan, NhanVien nhanVien, Xe xe) {
 		this.ngayTao = ngayTao;
 		this.ngayHetHan = ngayHetHan;

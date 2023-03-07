@@ -95,6 +95,8 @@ public class TheThangController {
 				TheThang thethang = new TheThang(Date.from(timeStarted.toLocalDate().atStartOfDay(defaultZoneId).toInstant()),
 						Date.from(timeExpired.toLocalDate().atStartOfDay(defaultZoneId).toInstant()), listNhanVien.get(0), listKhachHang.get(0));
 				session.save(thethang);
+				LichSuPhi ctphidem = new LichSuPhi(listKhachHang.get(0), getPhi("THANG", listKhachHang.get(0).getLoaiXe()));
+				session.save(ctphidem);
 				tx.commit();
 				model.addAttribute("successthethang", "Thành công!");
 //				
@@ -289,5 +291,14 @@ public class TheThangController {
 		}
 		return list.size();
 	}
-	
+	public PhiGuiXe getPhi(String hinhthuc, String loaixe) {
+		Session session = factory.getCurrentSession();
+
+		String hql ="FROM PhiGuiXe where idPhi = (select max(idPhi) from PhiGuiXe where hinhThuc = :hinhThuc and loaiXe = :loaiXe)";
+		Query query = session.createQuery(hql);
+		query.setParameter("hinhThuc", hinhthuc);
+		query.setParameter("loaiXe", loaixe);
+		List<PhiGuiXe> list = query.list();
+		return list.get(0);
+	}
 }
