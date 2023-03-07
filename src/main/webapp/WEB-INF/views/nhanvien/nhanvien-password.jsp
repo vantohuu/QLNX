@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %>
-    <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %> 
+    <%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -35,18 +34,18 @@
                         </a>
                         <ul class="collapse show nav flex-column ms-1" id="submenu1" data-bs-parent="#menu">
                             <li class="w-100">
-                                <a href="thevao" class="nav-link px-0"> <span class="d-none d-sm-inline">Nhập thẻ vào</span></a>
+                                <a href="thevao.htm" class="nav-link px-0"> <span class="d-none d-sm-inline">Nhập thẻ vào</span></a>
                             </li>
                             <li>
-                                <a href="thera" class="nav-link px-0"> <span class="d-none d-sm-inline">Nhập thẻ ra</span></a>
+                                <a href="thera.htm" class="nav-link px-0"> <span class="d-none d-sm-inline">Nhập thẻ ra</span></a>
                             </li>
                             <li>
-                                <a href="lichsugui" class="nav-link px-0"> <span class="d-none d-sm-inline">Lịch sử gửi </span></a>
+                                <a href="lichsugui.htm" class="nav-link px-0"> <span class="d-none d-sm-inline">Lịch sử gửi </span></a>
                             </li>
                         </ul>
                     </li>
                     <li>
-                        <a href="#" class="nav-link px-0 align-middle">
+                        <a href="lich.htm" class="nav-link px-0 align-middle">
                            <i class="fa-solid fa-calendar-days"></i>
                            <span class="ms-1 d-none d-sm-inline">Lịch làm việc</span></a>
                     </li>
@@ -56,26 +55,32 @@
                             <span class="ms-1 d-none d-sm-inline">Quản lí</span></a>
                         <ul class="collapse nav flex-column ms-1" id="submenu2" data-bs-parent="#menu">
                             <li class="w-100">
-                                <a href="doanhthu" class="nav-link px-0"> <span class="d-none d-sm-inline">Doanh thu</span></a>
+                                <a href="doanhthu.htm" class="nav-link px-0"> <span class="d-none d-sm-inline">Doanh thu</span></a>
                             </li>
                             <li>
                                 <a href="nhanvien.htm" class="nav-link px-0"> <span class="d-none d-sm-inline">Nhân viên</span></a>
                             </li>
                             <li>
-                                <a href="luong" class="nav-link px-0"> <span class="d-none d-sm-inline">Lịch</span></a>
+                                <a href="quanlithethang.htm" class="nav-link px-0"> <span class="d-none d-sm-inline">Thẻ tháng</span></a>
                             </li>
+                            <li>
+                                <a href="quanlilich.htm" class="nav-link px-0"> <span class="d-none d-sm-inline">Lịch</span></a>
+                            </li>
+             
                              <li>
                                 <a href="chucvu.htm" class="nav-link px-0"> <span class="d-none d-sm-inline">Chức vụ</span></a>
                             </li>
                              <li>
-                                <a href="quantaikhoan.htm" class="nav-link px-0"> <span class="d-none d-sm-inline">Tài khoản</span></a>
+                                <a href="quanlitaikhoan.htm" class="nav-link px-0"> <span class="d-none d-sm-inline">Tài khoản</span></a>
                             </li>
                              <li>
                                 <a href="bangluong.htm" class="nav-link px-0"> <span class="d-none d-sm-inline">Bảng lương</span></a>
                             </li>
+
                              <li>
-                                <a href="nhanvien-phi.htm" class="nav-link px-0"> <span class="d-none d-sm-inline">Sự cố</span></a>
+                                <a href="chinhsuaphi.htm" class="nav-link px-0"> <span class="d-none d-sm-inline">Phí gửi xe</span></a>
                             </li>
+
                         </ul>
                     </li>
                     

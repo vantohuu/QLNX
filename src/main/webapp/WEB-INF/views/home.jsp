@@ -65,14 +65,14 @@
                             <li>
                                 <a href="quanlilich.htm" class="nav-link px-0"> <span class="d-none d-sm-inline">Lịch</span></a>
                             </li>
-                             <li>
+                             <!-- <li>
                                 <a href="luong.htm" class="nav-link px-0"> <span class="d-none d-sm-inline">Lương</span></a>
-                            </li>
+                            </li> -->
                              <li>
                                 <a href="chucvu.htm" class="nav-link px-0"> <span class="d-none d-sm-inline">Chức vụ</span></a>
                             </li>
                              <li>
-                                <a href="taikhoan.htm" class="nav-link px-0"> <span class="d-none d-sm-inline">Tài khoản</span></a>
+                                <a href="quanlitaikhoan.htm" class="nav-link px-0"> <span class="d-none d-sm-inline">Tài khoản</span></a>
                             </li>
                              <li>
                                 <a href="bangluong.htm" class="nav-link px-0"> <span class="d-none d-sm-inline">Bảng lương</span></a>
@@ -97,7 +97,7 @@
                         <li>
                             <hr class="dropdown-divider">
                         </li>
-                        <li><a class="dropdown-item" href="dangxuat">Đăng xuất</a></li>
+                        <li><a class="dropdown-item" href="logout.htm">Đăng xuất</a></li>
                     </ul>
                 </div>
             </div>
