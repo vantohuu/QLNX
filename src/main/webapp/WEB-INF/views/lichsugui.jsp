@@ -9,7 +9,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" type="text/css"
 	href="<%=request.getContextPath()%>/resource/css/home.css">
-<title>Bootstrap demo</title>
+<title>Lịch sử gửi</title>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
 	rel="stylesheet"
@@ -114,6 +114,12 @@
 			</div>
 			<div class="col py-3">
 				<h2>Lịch sử xe vào/ra</h2>
+				<form class = "d-flex my-2" action = "/QLNX/lichsugui.htm">
+						<label class = "mx-1 mt-2">Tra cứu biển số xe:</label>
+						 <input 
+							type="text" class="form-control w-25 mx-2 " name = "timkiem" placeholder="BSX">
+					<button type="submit" class="btn btn-primary">Tra</button>
+				</form>
 				<table class="table table-hover">
 					<tr>
 						<th>STT</th>
@@ -128,20 +134,45 @@
 					</tr>
 					<c:forEach var="the" items="${listTheLuot}" varStatus="stt">
 						<tr>
-							<td><f:formatNumber value="${stt.index}" type="number"/> </td>
-							<td>"${the.xe.bienSoXe}"</td>
+							<td><f:formatNumber value="${stt.index + 1}" type="number" />
+							</td>
+							<td>${the.xe.bienSoXe}</td>
 							<c:choose>
-								<c:when test="${the.thoiGianRa == null}"><td class = "text-primary">Đang gửi<td></c:when>
-								<c:otherwise><td class = "text-success">Đã thanh toán<td></c:otherwise>
+								<c:when test="${the.thoiGianRa == null}">
+									<td class="text-primary">Đang gửi
+									<td>
+								</c:when>
+								<c:otherwise>
+									<td class="text-success">Đã thanh toán
+									<td>
+								</c:otherwise>
 							</c:choose>
-							<td>"${the.thoiGianVao}"</td>
-							<td>"${the.thoiGianRa}"</td>
-							<td><f:formatNumber value="${the.tongTien}" type="currency"/> </td>
-							<td>"${the.nhanVien1.maNv}"</td>
-							<td>"${the.nhanVien2.maNv}"</td>
+							<td>${the.thoiGianVao}</td>
+							<td>${the.thoiGianRa}</td>
+							<td><f:formatNumber value="${the.tongTien}" type="currency" />
+							</td>
+							<td>${the.nhanVien1.maNv}</td>
+							<td>${the.nhanVien2.maNv}</td>
 						</tr>
 					</c:forEach>
 				</table>
+				<ul class="pagination"
+					style="position: absolute; bottom: 0; right: 0; width: 400px;">
+					<li class="page-item ${currentPage == 0 ? 'disabled' : ''}"><a
+						class="page-link"
+						href="/QLNX/lichsugui.htm?page=${currentPage - 1}">Trước</a></li>
+					<c:forEach begin="0" end="${totalPages > 0 ? totalPages - 1 : 0}"
+						var="i">
+						<li class="page-item ${currentPage == i ? 'active' : ''}"><a
+							class="page-link" href="/QLNX/lichsugui.htm?page=${i}">${i + 1}</a>
+						</li>
+					</c:forEach>
+					<li
+						class="page-item ${currentPage == totalPages - 1 ? 'disabled' : ''}">
+						<a class="page-link"
+						href="/QLNX/lichsugui.htm?page=${currentPage + 1}">Sau</a>
+					</li>
+				</ul>
 			</div>
 		</div>
 	</div>

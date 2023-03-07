@@ -23,9 +23,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import QLNX.entity.TheLuot;
 import QLNX.entity.Xe;
+import QLNX.entity.Ca;
+import QLNX.entity.LichLamViec;
 import QLNX.entity.LichSuPhi;
 import QLNX.entity.NhanVien;
 import QLNX.entity.PhiGuiXe;
@@ -175,17 +178,7 @@ public class TheLuotController {
 					query.setParameter("idThe", Integer.parseInt(idthe) );
 					query.setParameter("thoiGianRa",  new Date(System.currentTimeMillis()));
 					query.setParameter("nhanVien2", listNhanVien.get(0));
-					TheLuot tl = listTheLuot.get(0);
-//					Calendar calvao = Calendar.getInstance();
-//					calvao.setTime(tl.getThoiGianVao());
-//					Calendar calra = Calendar.getInstance();
-//					calvao.setTime(tl.getThoiGianRa());
-//					Calendar calcmp = Calendar.getInstance();
-//					calcmp.setTime(tl.getThoiGianVao());
-//					System.out.println(tl.getThoiGianVao().getYear());
-//					System.out.println(tl.getThoiGianVao().getMonth());
-//					System.out.println(tl.getThoiGianVao().getDay());
-					
+					TheLuot tl = listTheLuot.get(0);			
 					
 					LocalDateTime timevao = LocalDateTime.ofInstant(tl.getThoiGianVao().toInstant(), ZoneId.systemDefault());
 					LocalDateTime timera = LocalDateTime.now();
@@ -205,32 +198,6 @@ public class TheLuotController {
 					System.out.println(phidem);
 					System.out.println(listPhiNgay.get(0).getHinhThuc());
 					System.out.println(listPhiDem.get(0).getHinhThuc());
-//					while (timeCompare.compareTo(timevao) < 0)
-//					{
-//						timeCompare = timeCompare.plusHours(12);
-//						System.out.println(1);
-//
-//					}
-//					if  (timeCompare.compareTo(timera) > 0)
-//					{
-//						if (timera.getHour() < 18 && timera.getHour() >= 6 ) {
-//							tongphi = tongphi.add(phingay);
-//						} else {
-//							tongphi = tongphi.add(phidem);
-//						}
-//					}
-					
-					
-//					while (timeCompare.compareTo(timera) <= 0 && timeCompare.compareTo(timevao) >= 0  )
-//					{
-//						if (timeCompare.getHour() < 18 && timeCompare.getHour() >= 6 ) {
-//							tongphi = tongphi.add(phingay);
-//						} else {
-//							tongphi = tongphi.add(phidem);
-//						}
-//
-//						timeCompare = timeCompare.plusHours(12);
-//					}
 					
 					while (timecmp.compareTo(timevao) > 0)
 					{
@@ -250,7 +217,7 @@ public class TheLuotController {
 					int result = query.executeUpdate();
 					System.out.println(result);
 					tx.commit();
-					model.addAttribute("successxera", "Cập nhật thành công!");
+					model.addAttribute("successxera", "Cập nhật thành công!. Giá vé: " + tongphi + " Đồng");
 				}
 			 }
 			 catch (Exception e) {
@@ -271,12 +238,15 @@ public class TheLuotController {
 	
 	
 	@RequestMapping("lichsugui")
-	public String lichSuGui(ModelMap model) {
+	public String lichSuGui(ModelMap model, @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "") String timkiem) {
 		System.out.println("lichsugui");
 		Session session = factory.getCurrentSession();
-		String hql ="FROM TheLuot";
-		Query query = session.createQuery(hql);
-		List<NhanVien> list = query.list();
+		int pageSize = 18;
+		List<TheLuot> list = getTheLuot(page, pageSize, timkiem);
+		int size = getSize(timkiem);
+	    int totalPages = (int) Math.ceil((double) size / pageSize);
+	    model.addAttribute("totalPages", totalPages);
+	    model.addAttribute("currentPage", page);
 		model.addAttribute("listTheLuot", list);
 		return "lichsugui";
 	}
@@ -337,7 +307,50 @@ public class TheLuotController {
 		List<PhiGuiXe> list = query.list();
 		return list;
 	}
+	public List<TheLuot> getTheLuot(int page, int pageSize, String bsx) {
+		Session session = factory.getCurrentSession();
+		
+		String hql;
+		Query query;
+		List<TheLuot> list;
+		if (bsx.length() == 0 )
+		{
+			hql ="FROM TheLuot t ORDER BY t.idTheLuot DESC";
+			query = session.createQuery(hql);
+			int offset = page * pageSize;
+			list = query.setFirstResult(offset).setMaxResults(pageSize).list();
+		} else
+		{
+			hql ="FROM TheLuot t where t.xe.bienSoXe = :bsx ORDER BY t.idTheLuot DESC";
+			query = session.createQuery(hql);
+			int offset = page * pageSize;
+			query.setParameter("bsx", bsx);
+			list = query.setFirstResult(offset).setMaxResults(pageSize).list();
+		}
+		return list;
+	}
 	
+	
+	public int  getSize(String bsx) {
+		Session session = factory.getCurrentSession();
+		String hql;
+		Query query;
+		List<TheLuot> list;
+		if (bsx.length() == 0)
+		{
+			hql = "FROM TheLuot";
+			query = session.createQuery(hql);
+			list = query.list();
+		} else
+		{
+			hql = "FROM TheLuot t where t.xe.bienSoXe = :bsx";
+			query = session.createQuery(hql);
+			query.setParameter("bsx", bsx);
+			list = query.list();
+		}
+		
+		return list.size();
+	}
 }
 //abstract class AgeComparator implements Comparator<TheLuot> {
 //    public int compare(TheLuot a, TheLuot b) {

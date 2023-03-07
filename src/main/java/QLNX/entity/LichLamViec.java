@@ -7,6 +7,7 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -20,7 +21,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Table(name="LICHLAMVIEC")
 public class LichLamViec {
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="ID_LICHLAMVIEC")
 	private int idLichLamViec;
 	//kết nối bảng nhân viên
@@ -37,11 +38,9 @@ public class LichLamViec {
 	@Column(name="NGAY")
 	private Date ngay;
 	
-	public LichLamViec() {
-	}
+	public LichLamViec() {}
 
-	public LichLamViec(int idLichLamViec, NhanVien nhanVien, Ca ca, Date ngay) {
-		this.idLichLamViec = idLichLamViec;
+	public LichLamViec(NhanVien nhanVien, Ca ca, Date ngay) {
 		this.nhanVien = nhanVien;
 		this.ca = ca;
 		this.ngay = ngay;
