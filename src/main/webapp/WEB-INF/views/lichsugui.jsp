@@ -102,16 +102,14 @@
 								<span class="d-none d-sm-inline mx-1">Tài khoản</span>
 							</a>
 							<ul class="dropdown-menu dropdown-menu-dark text-small shadow">
-
-								<li><a class="dropdown-item" href="chinhsuathongtin">Chỉnh
-										sửa thông tin cá nhân</a></li>
-								<li><a class="dropdown-item" href="doimatkhau">Đổi mật
-										khẩu</a></li>
-								<li>
-									<hr class="dropdown-divider">
-								</li>
-								<li><a class="dropdown-item" href="dangxuat">Đăng xuất</a></li>
-							</ul>
+   
+                        <li><a class="dropdown-item" href="nhanvien-thongtin.htm">Chỉnh sửa thông tin cá nhân</a></li>
+                        <li><a class="dropdown-item" href="doimatkhau.htm">Đổi mật khẩu</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item" href="logout.htm">Đăng xuất</a></li>
+                    </ul>
 						</div>
 				</div>
 			</div>
