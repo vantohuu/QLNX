@@ -54,60 +54,150 @@ public class DoanhThuController {
 		System.out.println("doanhthu");
 		String username = (String) ss.getAttribute("username");
 		if (username != null) {
-			 long countGuiDem = countDoanhThu("THANG");
-			 System.out.println(countGuiDem);
-			 BigDecimal sumGuiDem = sumDoanhThu("THANG");
-			 System.out.println(sumGuiDem);
+			 long c_so_ngay = countDoanhThu("NGAY","XEMAYSO", tungay, denngay);
+			 System.out.println(c_so_ngay);
+			 long c_ga_ngay = countDoanhThu("NGAY","XETAYGA", tungay, denngay);
+			 System.out.println(c_ga_ngay);
+			 long c_so_dem = countDoanhThu("DEM","XEMAYSO", tungay, denngay);
+			 System.out.println(c_so_dem);
+			 long c_ga_dem = countDoanhThu("DEM","XETAYGA", tungay, denngay);
+			 System.out.println(c_ga_dem);
+			 long c_so_thang = countDoanhThu("THANG","XEMAYSO", tungay, denngay);
+			 System.out.println(c_so_thang);
+			 long c_ga_thang = countDoanhThu("THANG","XETAYGA", tungay, denngay);
+			 System.out.println(c_ga_thang);
+			 BigDecimal s_so_ngay = sumDoanhThu("NGAY","XEMAYSO", tungay, denngay);
+			 System.out.println(s_so_ngay);
+			 BigDecimal s_ga_ngay = sumDoanhThu("NGAY","XETAYGA", tungay, denngay);
+			 System.out.println(s_ga_ngay);
+			 BigDecimal s_so_dem = sumDoanhThu("DEM","XEMAYSO", tungay, denngay);
+			 System.out.println(s_so_dem);
+			 BigDecimal s_ga_dem = sumDoanhThu("DEM","XETAYGA", tungay, denngay);
+			 System.out.println(s_ga_dem);
+			 BigDecimal s_so_thang = sumDoanhThu("THANG","XEMAYSO", tungay, denngay);
+			 System.out.println(s_so_thang);
+			 BigDecimal s_ga_thang = sumDoanhThu("THANG","XETAYGA", tungay, denngay);
+			 System.out.println(s_ga_thang);
+
+			 model.addAttribute("c_so_ngay", c_so_ngay);
+			 model.addAttribute("c_ga_ngay", c_ga_ngay);
+			 model.addAttribute("c_so_dem", c_so_dem);
+			 model.addAttribute("c_ga_dem", c_ga_dem);
+			 model.addAttribute("c_so_thang", c_so_thang);
+			 model.addAttribute("c_ga_thang", c_ga_thang);
+			 model.addAttribute("s_so_ngay", s_so_ngay);
+			 model.addAttribute("s_ga_ngay", s_ga_ngay);
+			 model.addAttribute("s_so_dem", s_so_dem);
+			 model.addAttribute("s_ga_dem", s_ga_dem);
+			 model.addAttribute("s_so_thang", s_so_thang);
+			 model.addAttribute("s_ga_thang", c_ga_thang);			 
 		}
 		return "doanhthu";
 	}
 
-	public long countDoanhThuTheLuot(String hinhthuc, String loaixe, String tungay, String denngay) {
+	public long countDoanhThu(String hinhthuc, String loaixe, String tungay, String denngay) {
 		Session session = factory.getCurrentSession();
-		
-		LocalDate localDate1 = LocalDate.parse(tungay, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-		
+		Query query = null;
 		String hql1 = "";
+		
 		if (tungay.length() !=0 && denngay.length() !=0)
 		{
+			LocalDate localDate1 = LocalDate.parse(tungay, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 			Date date1 = Date.from(localDate1.atStartOfDay(ZoneId.systemDefault()).toInstant());
 			LocalDate localDate2 = LocalDate.parse(denngay, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 			Date date2 = Date.from(localDate2.atStartOfDay(ZoneId.systemDefault()).toInstant());
-			hql1 = "Select count(*) FROM LichSuPhi  where phi.hinhThuc = :hinhthuc";
+			hql1 = "Select count(*) FROM LichSuPhi  where ((phi.hinhThuc = :hinhthuc and phi.loaiXe = :loaixe) and thoiGianTao >= :date1) and thoiGianTao <= :date2";
+			query = session.createQuery(hql1);
+			query.setParameter("hinhthuc", hinhthuc);
+			query.setParameter("loaixe", loaixe);
+			query.setParameter("date1", date1);
+			query.setParameter("date2", date2);
 		}
 		
-		Query query = session.createQuery(hql1);
-		query.setParameter("hinhthuc", hinhthuc);
+		else if (tungay.length() !=0)
+		{
+			LocalDate localDate1 = LocalDate.parse(tungay, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+			Date date1 = Date.from(localDate1.atStartOfDay(ZoneId.systemDefault()).toInstant());
+			hql1 = "Select count(*) FROM LichSuPhi  where (phi.hinhThuc = :hinhthuc and phi.loaiXe = :loaixe) and thoiGianTao >= :date1";
+			query = session.createQuery(hql1);
+			query.setParameter("date1", date1);
+			query.setParameter("loaixe", loaixe);
+			query.setParameter("hinhthuc", hinhthuc);
+		}
+		
+		else if (denngay.length() !=0)
+		{
+			LocalDate localDate2 = LocalDate.parse(denngay, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+			Date date2 = Date.from(localDate2.atStartOfDay(ZoneId.systemDefault()).toInstant());
+			hql1 = "Select count(*) FROM LichSuPhi  where (phi.hinhThuc = :hinhthuc and phi.loaiXe = :loaixe) and thoiGianTao <= :date2";
+			query = session.createQuery(hql1);
+			query.setParameter("date2", date2);
+			query.setParameter("loaixe", loaixe);
+			query.setParameter("hinhthuc", hinhthuc);
+		}
+		else
+		{
+			hql1 = "Select count(*) FROM LichSuPhi  where (phi.hinhThuc = :hinhthuc and phi.loaiXe = :loaixe)";
+			query = session.createQuery(hql1);
+			query.setParameter("loaixe", loaixe);
+			query.setParameter("hinhthuc", hinhthuc);
+		}
+		
 		long total = (Long) query.uniqueResult();
 		return total;
 	}
 	
-	public long countDoanhThuTheThang(String hinhthuc, String loaixe, String tungay, String dengay) {
+	public BigDecimal sumDoanhThu(String hinhthuc, String loaixe, String tungay, String denngay) {
 		Session session = factory.getCurrentSession();
-		String hql1 = "Select count(*) FROM LichSuPhi  where phi.hinhThuc = :hinhthuc";
-		Query query = session.createQuery(hql1);
-		query.setParameter("hinhthuc", hinhthuc);
-		long total = (Long) query.uniqueResult();
-		return total;
-	}
+		Query query = null;
+		String hql1 = "";
+		
+		if (tungay.length() !=0 && denngay.length() !=0)
+		{
+			LocalDate localDate1 = LocalDate.parse(tungay, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+			Date date1 = Date.from(localDate1.atStartOfDay(ZoneId.systemDefault()).toInstant());
+			LocalDate localDate2 = LocalDate.parse(denngay, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+			Date date2 = Date.from(localDate2.atStartOfDay(ZoneId.systemDefault()).toInstant());
+			hql1 = "Select sum(phi.hinhThuc.mucPhi) FROM LichSuPhi  where ((phi.hinhThuc = :hinhthuc and phi.loaiXe = :loaixe) and thoiGianTao >= :date1) and thoiGianTao <= :date2";
+			query = session.createQuery(hql1);
+			query.setParameter("hinhthuc", hinhthuc);
+			query.setParameter("date1", date1);
+			query.setParameter("date2", date2);
+			query.setParameter("loaixe", loaixe);
+		}
+		
+		else if (tungay.length() !=0)
+		{
+			LocalDate localDate1 = LocalDate.parse(tungay, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+			Date date1 = Date.from(localDate1.atStartOfDay(ZoneId.systemDefault()).toInstant());
+			hql1 = "Select sum(phi.hinhThuc.mucPhi) FROM LichSuPhi  where (phi.hinhThuc = :hinhthuc and phi.loaiXe = :loaixe) and thoiGianTao >= :date1";
+			query = session.createQuery(hql1);
+			query.setParameter("date1", date1);
+			query.setParameter("hinhthuc", hinhthuc);
+			query.setParameter("loaixe", loaixe);
 
-	public BigDecimal sumDoanhThuTheLuot(String hinhthuc, String loaixe, String tungay, String dengay) {
-		Session session = factory.getCurrentSession();
-		String hql1 = "Select sum(phi.hinhThuc.mucPhi) FROM LichSuPhi  where phi.hinhThuc = :hinhthuc";
-		Query query = session.createQuery(hql1);
-		query.setParameter("hinhthuc", hinhthuc);
-		BigDecimal total = (BigDecimal) query.uniqueResult();
-		return total;
-	}
-	
-	
-	public BigDecimal sumDoanhThuTheThang(String hinhthuc) {
+		}
+		
+		else if (denngay.length() !=0)
+		{
+			LocalDate localDate2 = LocalDate.parse(denngay, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+			Date date2 = Date.from(localDate2.atStartOfDay(ZoneId.systemDefault()).toInstant());
+			hql1 = "Select sum(phi.hinhThuc.mucPhi) FROM LichSuPhi  where (phi.hinhThuc = :hinhthuc and phi.loaiXe = :loaixe) and thoiGianTao <= :date2";
+			query = session.createQuery(hql1);
+			query.setParameter("date2", date2);
+			query.setParameter("hinhthuc", hinhthuc);
+			query.setParameter("loaixe", loaixe);
 
-		Session session = factory.getCurrentSession();
-		String hql1 = "Select sum(phi.hinhThuc.mucPhi) FROM LichSuPhi  where phi.hinhThuc = :hinhthuc";
-		Query query = session.createQuery(hql1);
-		query.setParameter("hinhthuc", hinhthuc);
+		}
+		else
+		{
+			hql1 = "Select sum(phi.hinhThuc.mucPhi) FROM LichSuPhi  where phi.hinhThuc = :hinhthuc and phi.loaiXe = :loaixe";
+			query = session.createQuery(hql1);
+			query.setParameter("loaixe", loaixe);
+			query.setParameter("hinhthuc", hinhthuc);
+		}
 		BigDecimal total = (BigDecimal) query.uniqueResult();
+		if (total == null) total = new BigDecimal(0);
 		return total;
 	}
 }

@@ -115,9 +115,9 @@
 			<div class="col py-3">
 				<h2>Xem doanh thu</h2>
 				<div class="d-flex justify-content-center align-items-center">
-					<form action="/QLNX/quanlilich.htm"
+					<form action="/QLNX/doanhthu.htm"
 						class="d-flex justify-content-center align-items-center">
-						
+
 						<p class="text-nowrap mt-2">Từ ngày:</p>
 						<input class="form-control mx-2" name="tungay"
 							data-provide="datepicker" type="date">
@@ -131,6 +131,56 @@
 						</div>
 					</form>
 				</div>
+				<table class="table table-bordered table-striped mt-5">
+					<thead>
+						<tr>
+							<th scope="col">Hình thức</th>
+							<th scope="col" colspan = "2">Gửi ngày</th>
+							<th scope="col"  colspan = "2">Gửi đêm</th>
+							<th scope="col"  colspan = "2">Gửi tháng</th>
+							<th scope="col"  colspan = "2">Tổng</th>
+							<th scope="col">Tổng</th>
+						</tr>
+						<tr>
+							<th scope="col">Loại xe</th>
+							<th scope="col">Xe máy số</th>
+							<th scope="col">Xe tay ga</th>
+							<th scope="col">Xe máy số</th>
+							<th scope="col">Xe tay ga</th>
+							<th scope="col">Xe máy số</th>
+							<th scope="col">Xe tay ga</th>
+							<th scope="col">Xe máy số</th>
+							<th scope="col">Xe tay ga</th>
+			
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<th scope="row">Số lượng</th>
+							<td>${c_ga_ngay}</td>
+							<td>${c_ga_ngay}</td>
+							<td>${c_so_dem}</td>
+							<td>${c_ga_dem}</td>
+							<td>${c_so_thang}</td>
+							<td>${c_ga_thang}</td>
+							<td>${c_so_ngay + c_so_dem + c_so_thang}</td>
+							<td>${c_ga_ngay + c_ga_dem + c_ga_thang}</td>
+							<td>${c_so_ngay + c_so_dem + c_so_thang + c_ga_ngay + c_ga_dem + c_ga_thang}</td>	
+						</tr>
+						<tr>
+							<th scope="row">Thành tiền</th>
+							<td>${s_ga_ngay}</td>
+							<td>${s_ga_ngay}</td>
+							<td>${s_so_dem}</td>
+							<td>${s_ga_dem}</td>
+							<td>${s_so_thang}</td>
+							<td>${s_ga_thang}</td>
+							<td>${s_so_ngay + s_so_dem + s_so_thang}</td>
+							<td>${s_ga_ngay + s_ga_dem + s_ga_thang}</td>
+							<td>${s_so_ngay + s_so_dem + s_so_thang + s_ga_ngay + s_ga_dem + s_ga_thang}</td>
+						</tr>
+					</tbody>
+				</table>
 			</div>
 		</div>
 		<script
