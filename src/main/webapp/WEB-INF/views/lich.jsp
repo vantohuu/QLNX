@@ -113,86 +113,19 @@
 				</div>
 			</div>
 			<div class="col py-3">
-				<h2>Quản lí lịch làm việc</h2>
+				<h2>Xem lịch làm việc cá nhân</h2>
 
-				<div class="d-flex" style="height: 80px">
-					<!-- Button trigger modal -->
+				<div class="d-flex">
 
-
-					<button type="button" class="btn btn-primary my-2 mx-3"
-						data-bs-toggle="modal" data-bs-target="#exampleModal">Thêm
-						lịch</button>
-
-					<!-- Modal -->
-					<div class="modal fade" id="exampleModal" tabindex="-1"
-						aria-labelledby="exampleModalLabel" aria-hidden="true">
-						<div class="modal-dialog">
-							<div class="modal-content">
-								<div class="modal-header">
-									<h5 class="modal-title" id="exampleModalLabel">Thêm lịch</h5>
-									<button type="button" class="btn-close" data-bs-dismiss="modal"
-										aria-label="Close"></button>
-								</div>
-								<div class="modal-body">
-
-									<form action="/QLNX/quanlilich.htm" method="post">
-										<p>Chọn nhân viên</p>
-										<select class="form-select" name="chonnhanvien"
-											required="required">
-											<c:forEach var="nv" items="${listNhanVien}" varStatus="stt">
-												<option value="${nv.maNv}">${nv.ho}${nv.ten} -
-													${nv.CTChucVu.chucVu.ten} - ${nv.CTChucVu.loaiNhanVien}</option>
-											</c:forEach>
-										</select>
-										<p>Chọn ngày</p>
-										<input class="form-control" name="chonngay"
-											data-provide="datepicker" type="date" required="required">
-
-										<p>Chọn ca</p>
-										<select class="form-select" name="chonca"
-											aria-label="Default select example" required="required">
-											<c:forEach var="ca" items="${listCa}" varStatus="stt">
-												<option value="${ca.maCa}">${ca.tenCa}</option>
-											</c:forEach>
-										</select>
-
-
-										<div class="form-group row mt-3 ">
-											<div class="col-sm-10">
-												<button type="submit" class="btn btn-primary">Xác
-													nhận</button>
-											</div>
-										</div>
-									</form>
-								</div>
-							</div>
-						</div>
-					</div>
-
-					<div class="d-flex justify-content-center align-items-center">
-						<form action="/QLNX/quanlilich.htm"
+					<div class="d-flex">
+						<form action="/QLNX/lich.htm"
 							class="d-flex justify-content-center align-items-center">
-							<p class="text-nowrap mt-2">Lọc nhân viên:</p>
-							<select class="form-select mx-2" name="locnhanvien">
-								<c:forEach var="nv" items="${listNhanVien}" >
-									<option value="${nv.maNv}">${nv.ho}${nv.ten} -
-										${nv.CTChucVu.chucVu.ten} - ${nv.CTChucVu.loaiNhanVien}</option>
-								</c:forEach>
-							</select>
-							<p class="text-nowrap mt-2">Lọc ngày:</p>
+							<p  style = "width : 120px">Lọc ngày:</p>
 							<input class="form-control mx-2" name="locngay"
 								data-provide="datepicker" type="date">
-							<div class="form-group row  ">
+							<div class="form-group row">
 								<div class="col-sm-10">
 									<button type="submit" class="btn btn-primary">Lọc</button>
-								</div>
-							</div>
-						</form>
-
-						<form action="/QLNX/quanlilich.htm">
-							<div class="form-group row  ">
-								<div class="col-sm-10 mx-5">
-									<button type="submit" class="btn btn-success text-nowrap">Xóa lọc</button>
 								</div>
 							</div>
 						</form>
@@ -201,7 +134,6 @@
 				</div>
 				<p class="text-success">${successlich}</p>
 				<p class="text-danger">${errlich}</p>
-
 				<table class="table table-hover">
 					<tr>
 						<th>Ngày</th>
@@ -210,7 +142,6 @@
 						<th>Tên</th>
 						<th>Chức vụ</th>
 						<th>Loại</th>
-						<th>Xóa</th>
 					</tr>
 					<c:forEach var="lich" items="${listLich}" varStatus="stt">
 						<tr>
@@ -220,8 +151,6 @@
 							<td>${lich.nhanVien.ten}</td>
 							<td>${lich.nhanVien.CTChucVu.chucVu.ten}</td>
 							<td>${lich.nhanVien.CTChucVu.loaiNhanVien}</td>
-							<td><a href="/QLNX/quanlilich/${lich.idLichLamViec}.htm"><button
-										type="button" class="btn btn-danger">Xóa</button></a></td>
 						</tr>
 					</c:forEach>
 				</table>
@@ -229,17 +158,17 @@
 					style="position: absolute; bottom: 0; right: 0; width: 400px;">
 					<li class="page-item ${currentPage == 0 ? 'disabled' : ''}"><a
 						class="page-link"
-						href="/QLNX/quanlilich.htm?page=${currentPage - 1}">Trước</a></li>
+						href="/QLNX/lich.htm?page=${currentPage - 1}">Trước</a></li>
 					<c:forEach begin="0" end="${totalPages > 0 ? totalPages - 1 : 0}"
 						var="i">
 						<li class="page-item ${currentPage == i ? 'active' : ''}"><a
-							class="page-link" href="/QLNX/quanlilich.htm?page=${i}">${i + 1}</a>
+							class="page-link" href="/QLNX/lich.htm?page=${i}">${i + 1}</a>
 						</li>
 					</c:forEach>
 					<li
 						class="page-item ${currentPage == totalPages - 1 ? 'disabled' : ''}">
 						<a class="page-link"
-						href="/QLNX/quanlilich.htm?page=${currentPage + 1}">Sau</a>
+						href="/QLNX/lich.htm?page=${currentPage + 1}">Sau</a>
 					</li>
 				</ul>
 			</div>

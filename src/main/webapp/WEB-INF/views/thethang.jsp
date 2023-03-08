@@ -172,7 +172,13 @@
 
 				<p class="text-success">${successthethang}</p>
 				<p class="text-danger">${errthethang}</p>
-
+				
+				<form class = "d-flex my-2" action = "/QLNX/quanlithethang.htm">
+						<label class = "mx-1 mt-2">Tra cứu biển số xe:</label>
+						 <input 
+							type="text" class="form-control w-25 mx-2 " name = "timkiem" placeholder="BSX">
+					<button type="submit" class="btn btn-primary">Tra</button>
+				</form>
 				<table class="table table-hover">
 					<tr>
 						<th>STT</th>
@@ -185,18 +191,35 @@
 					</tr>
 					<c:forEach var="the" items="${listTheThang}" varStatus="stt">
 						<tr>
-							<td><f:formatNumber value="${stt.index}" type="number" /></td>
-							<td>"${the.xe.bienSoXe}"</td>
-							<td>"${the.xe.loaiXe}"</td>
-							<td>"${the.ngayTao}"</td>
-							<td>"${the.ngayHetHan}"</td>
-							<td>"${the.nhanVien.maNv}"</td>
+							<td><f:formatNumber value="${stt.index + 1}" type="number" /></td>
+							<td>${the.xe.bienSoXe}</td>
+							<td>${the.xe.loaiXe}</td>
+							<td>${the.ngayTao}</td>
+							<td>${the.ngayHetHan}</td>
+							<td>${the.nhanVien.maNv}</td>
 							<td>
 								<a href="/QLNX/quanlithethang-update/${the.id}.htm"><button type="button" class="btn btn-primary" >Sửa</button></a>
 							</td>
 						</tr>
 					</c:forEach>
 				</table>
+				<ul class="pagination"
+					style="position: absolute; bottom: 0; right: 0; width: 400px;">
+					<li class="page-item ${currentPage == 0 ? 'disabled' : ''}"><a
+						class="page-link"
+						href="/QLNX/quanthethang.htm?page=${currentPage - 1}">Trước</a></li>
+					<c:forEach begin="0" end="${totalPages > 0 ? totalPages - 1 : 0}"
+						var="i">
+						<li class="page-item ${currentPage == i ? 'active' : ''}"><a
+							class="page-link" href="/QLNX/quanlithethang.htm?page=${i}">${i + 1}</a>
+						</li>
+					</c:forEach>
+					<li
+						class="page-item ${currentPage == totalPages - 1 ? 'disabled' : ''}">
+						<a class="page-link"
+						href="/QLNX/quanlithethang.htm?page=${currentPage + 1}">Sau</a>
+					</li>
+				</ul>
 			</div>
 		</div>
 	</div>

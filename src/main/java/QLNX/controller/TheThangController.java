@@ -25,6 +25,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import QLNX.entity.TheLuot;
 import QLNX.entity.TheThang;
@@ -41,13 +42,28 @@ public class TheThangController {
     @Autowired
     SessionFactory factory;
     
+//	@RequestMapping("quanlithethang")
+//	public String theThang(ModelMap model) {
+//		System.out.println("quanlithethang");
+//		Session session2 = factory.getCurrentSession();
+//		String hql ="FROM TheThang";
+//		Query query = session2.createQuery(hql);
+//		List<NhanVien> list = query.list();
+//		model.addAttribute("listTheThang", list);
+//		return "thethang";
+//	}
+//	
 	@RequestMapping("quanlithethang")
-	public String theThang(ModelMap model) {
+	public String theThang(ModelMap model, @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "") String timkiem) {
 		System.out.println("quanlithethang");
-		Session session2 = factory.getCurrentSession();
-		String hql ="FROM TheThang";
-		Query query = session2.createQuery(hql);
-		List<NhanVien> list = query.list();
+		Session session = factory.getCurrentSession();
+		int pageSize = 18;
+		List<TheThang> list = getTheThang(page, pageSize, timkiem);
+		int size = getSize(timkiem);
+	    int totalPages = (int) Math.ceil((double) size / pageSize);
+	    model.addAttribute("totalPages", totalPages);
+	    model.addAttribute("currentPage", page);
+		model.addAttribute("listTheThang", list);
 		model.addAttribute("listTheThang", list);
 		return "thethang";
 	}
@@ -242,6 +258,47 @@ public class TheThangController {
 		List<TheThang> list = query.list();
 		return list;
 	}
-
+	public List<TheThang> getTheThang(int page, int pageSize, String bsx) {
+		Session session = factory.getCurrentSession();
+		String hql;
+		Query query;
+		List<TheThang> list;
+		if (bsx.length() == 0 )
+		{
+			hql ="FROM TheThang t ORDER BY t.id DESC";
+			query = session.createQuery(hql);
+			int offset = page * pageSize;
+			list = query.setFirstResult(offset).setMaxResults(pageSize).list();
+		} else
+		{
+			hql ="FROM TheThang t where t.xe.bienSoXe = :bsx ORDER BY t.id DESC";
+			query = session.createQuery(hql);
+			int offset = page * pageSize;
+			query.setParameter("bsx", bsx);
+			list = query.setFirstResult(offset).setMaxResults(pageSize).list();
+		}
+		return list;
+	}
+	
+	
+	public int  getSize(String bsx) {
+		Session session = factory.getCurrentSession();
+		String hql;
+		Query query;
+		List<TheThang> list;
+		if (bsx.length() == 0)
+		{
+			hql = "FROM TheThang";
+			query = session.createQuery(hql);
+			list = query.list();
+		} else
+		{
+			hql = "FROM TheThang t where t.xe.bienSoXe = :bsx";
+			query = session.createQuery(hql);
+			query.setParameter("bsx", bsx);
+			list = query.list();
+		}
+		return list.size();
+	}
 	
 }

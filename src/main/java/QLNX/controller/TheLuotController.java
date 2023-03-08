@@ -23,9 +23,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import QLNX.entity.TheLuot;
 import QLNX.entity.Xe;
+import QLNX.entity.Ca;
+import QLNX.entity.LichLamViec;
 import QLNX.entity.LichSuPhi;
 import QLNX.entity.NhanVien;
 import QLNX.entity.PhiGuiXe;
@@ -235,12 +238,15 @@ public class TheLuotController {
 	
 	
 	@RequestMapping("lichsugui")
-	public String lichSuGui(ModelMap model) {
+	public String lichSuGui(ModelMap model, @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "") String timkiem) {
 		System.out.println("lichsugui");
 		Session session = factory.getCurrentSession();
-		String hql ="FROM TheLuot";
-		Query query = session.createQuery(hql);
-		List<NhanVien> list = query.list();
+		int pageSize = 18;
+		List<TheLuot> list = getTheLuot(page, pageSize, timkiem);
+		int size = getSize(timkiem);
+	    int totalPages = (int) Math.ceil((double) size / pageSize);
+	    model.addAttribute("totalPages", totalPages);
+	    model.addAttribute("currentPage", page);
 		model.addAttribute("listTheLuot", list);
 		return "lichsugui";
 	}
@@ -301,7 +307,50 @@ public class TheLuotController {
 		List<PhiGuiXe> list = query.list();
 		return list;
 	}
+	public List<TheLuot> getTheLuot(int page, int pageSize, String bsx) {
+		Session session = factory.getCurrentSession();
+		
+		String hql;
+		Query query;
+		List<TheLuot> list;
+		if (bsx.length() == 0 )
+		{
+			hql ="FROM TheLuot t ORDER BY t.idTheLuot DESC";
+			query = session.createQuery(hql);
+			int offset = page * pageSize;
+			list = query.setFirstResult(offset).setMaxResults(pageSize).list();
+		} else
+		{
+			hql ="FROM TheLuot t where t.xe.bienSoXe = :bsx ORDER BY t.idTheLuot DESC";
+			query = session.createQuery(hql);
+			int offset = page * pageSize;
+			query.setParameter("bsx", bsx);
+			list = query.setFirstResult(offset).setMaxResults(pageSize).list();
+		}
+		return list;
+	}
 	
+	
+	public int  getSize(String bsx) {
+		Session session = factory.getCurrentSession();
+		String hql;
+		Query query;
+		List<TheLuot> list;
+		if (bsx.length() == 0)
+		{
+			hql = "FROM TheLuot";
+			query = session.createQuery(hql);
+			list = query.list();
+		} else
+		{
+			hql = "FROM TheLuot t where t.xe.bienSoXe = :bsx";
+			query = session.createQuery(hql);
+			query.setParameter("bsx", bsx);
+			list = query.list();
+		}
+		
+		return list.size();
+	}
 }
 //abstract class AgeComparator implements Comparator<TheLuot> {
 //    public int compare(TheLuot a, TheLuot b) {
